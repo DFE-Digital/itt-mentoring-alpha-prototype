@@ -1,0 +1,173 @@
+
+{% extends "layout.html" %}
+
+{% set serviceName = false %}
+{% set pageHeading = "Claim initial teacher training mentorship grants" %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+    items: [
+      { text: "Home",
+        href: "#"
+      },
+      { text: "Education, training and skills",
+        href: "#"
+      },
+      { text: "Teaching and leadership",
+        href: "#"
+      },
+      { text: "Teacher training and professional development",
+        href: "#"
+      },
+      {
+        text: "Initial Teacher Training (ITT)",
+        href: "#"
+      }
+    ]
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-xl">Guidance</span>
+        {{ pageHeading }}
+      </h1>
+
+      <p class="govuk-body-lead">
+        Get top-up payments for lesson cover while your teachers take part in initial teacher training (ITT) mentor training.
+      </p>
+
+    </div>
+  </div>
+
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <p class="govuk-body-s govuk-!-margin-bottom-1">
+        From: <a href="#">Department for Education</a>
+      </p>
+      <p class="govuk-body-s">
+        Published 1 September 2023
+      </p>
+
+      <a class="app-govuk-notification-button" href="#">Get emails about this page</a>
+
+      <div class="app-govuk-devolved-nations">
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">
+          Applies to England
+        </p>
+      </div>
+
+    </div>
+  </div>
+
+  {% set sections = [
+      {
+        title: 'Overview',
+        id: '',
+        contentHtml: '
+          <p class="govuk-body">
+            For the 2024 to 2025 academic year all teachers who mentor a trainee
+            during their ITT placement must have completed 20 hours of mentor
+            training with an ITT provider.
+          </p>
+          <p class="govuk-body">
+            Read more about <a href="#">ITT mentor training</a>.
+          </p>
+          <p class="govuk-body">
+            Schools who need lesson cover while teachers complete the 20 hours
+            of mentor training can claim a top-up payment from the DfE.
+          </p>
+        '
+      },
+      {
+        title: 'What you can claim',
+        id: '',
+        contentHtml: '
+          <p class="govuk-body">
+            Schools can claim up to £644 per mentor for lesson cover while
+            teachers train to be a mentor. This is for any training, not only
+            time spent in the classroom with an ITT provider.
+          </p>
+          <p class="govuk-body">
+            This is available to all schools that host mentors, including independent schools.
+          </p>
+        '
+      },
+      {
+        title: 'What you cannot claim for',
+        id: '',
+        contentHtml: '
+          <ul class="govuk-list govuk-list--bullet">
+            <li>time covered that is already paid for by the ITT provider</li>
+            <li>training time when the school did not need cover</li>
+            <li>teachers that trained to be a mentor but did not mentor a trainee</li>
+            <li>lead mentor training time</li>
+          </ul>
+        '
+      },
+
+      {
+        title: 'How to claim',
+        id: '',
+        contentHtml: '
+          <p class="govuk-body govuk-!-margin-bottom-1">
+            After all your mentors have completed their training, email <a href="#">ITTReform.Funding@education.gov.uk</a> with:
+          </p>
+          <ul class="govuk-list govuk-list--bullet">
+            <li>the school’s name and URN</li>
+            <li>the hours of cover so your teachers could train, that is not already paid for by the ITT provider</li>
+            <li>the number of teachers who took part in mentor training</li>
+            <li>confirmation that each teacher you’re claiming for mentored at least one different trainee each</li>
+          </ul>
+          <p class="govuk-body">
+            All claims must be made by 31 October 2025.
+          </p>
+        '
+      },
+      {
+        title: 'What happens next',
+        id: '',
+        contentHtml: '
+          <p class="govuk-body">
+            Claims will be paid within 1 month of the claim being made.
+          </p>
+          <p class="govuk-body">
+            We will collect actual cost of class room cover as part of 
+            the end of financial year assurance processes in March 2026.
+          </p>
+        '
+      }
+    ]
+  %}
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h2 class="govuk-body-s govuk-!-margin-bottom-1">
+        Contents
+      </h2>
+      <ul class="govuk-list govuk-list--bullet govuk-body-s govuk-!-margin-bottom-6">
+        {% for section in sections %}
+          <li><a href="#{{ section.id }}">{{ section.title }}</a></li>
+        {% endfor %}
+      </ul>
+      <a class="app-govuk-notification-button" href="#">Print this page</a>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% for section in sections %}
+        <h2 class="govuk-heading-m" id="{{ section.id }}">{{ section.title }}</h2>
+        {{ section.contentHtml | safe }}
+      {% endfor %}
+    </div>
+  </div>
+
+{% endblock %}
