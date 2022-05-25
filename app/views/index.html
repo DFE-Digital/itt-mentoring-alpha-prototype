@@ -1,26 +1,43 @@
 
+{% set pageTitle = "Initial teacher training mentoring" %}
+
 {% extends "layout.html" %}
 
-{% block pageTitle %}
-  Home – GOV.UK Prototype Kit
-{% endblock %}
+{% set pageGroups = [
+  {
+    title: 'Guidance',
+    pages: [
+      {
+        text: "Claim ITT mentoring grants",
+        url:  "/guidance/claim-itt-mentoring-grants"
+      }
+    ]
+  }
+] %}
 
 {% block content %}
 
   <div class="govuk-grid-row">
-    <div class="govuk-grid-column-two-thirds">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-xl">
         <span class="govuk-caption-xl">Prototype</span>
-        Initial teacher training mentoring
+        {{ pageTitle }}
       </h1>
       <h2 class="govuk-heading-l">
         Pages
       </h2>
+      {% for pageGroup in pageGroups %}
+       <h3 class="govuk-heading-m">
+          {{ pageGroup.title }}
+        </h3>
       <ul class="govuk-list govuk-list--bullet">
+      {% for page in pageGroup.pages %}
         <li>
-          <a href="/guidance/claim-itt-mentoring-grants">Claim ITT mentoring grants</a>
+          <a href="{{ page.url }}" class="govuk-link">{{ page.text }}</a>
         </li>
+      {% endfor %}
       </ul>
+      {% endfor %}
     </div>
   </div>
 
