@@ -5,38 +5,33 @@ module.exports = function (env) {
    * gov.uk core filters by creating filter methods of the same name.
    * @type {Object}
    */
+  const string = require('string')
   var filters = {}
 
-  /* ------------------------------------------------------------------
-    add your methods to the filters obj below this comment block:
-    @example:
+  /*----------------------------------------------------------------
+    Strings
+  ================================================================= */
 
-    filters.sayHi = function(name) {
-        return 'Hi ' + name + '!'
-    }
+  // Create url / slugs from text
+  // This is a heading => this-is-a-heading
+  filters.slugify = (input) => {
+    if (!input) throw "Error in slugify: no input", input;
+    else return string(input).slugify().toString();
+  }
 
-    Which in your templates would be used as:
+  /*----------------------------------------------------------------
+    Arrays
+  ================================================================= */
 
-    {{ 'Paul' | sayHi }} => 'Hi Paul'
+  // push an item in to an array. Returns the array
+  // Usage: {% set array = ['a','b','c'] | push('d') %}
 
-    Notice the first argument of your filters method is whatever
-    gets 'piped' via '|' to the filter.
+  filters.push = (array, item) => {
+    let newArray = [...array]
+    newArray.push(item)
+    return newArray
+  }
 
-    Filters can take additional arguments, for example:
-
-    filters.sayHi = function(name,tone) {
-      return (tone == 'formal' ? 'Greetings' : 'Hi') + ' ' + name + '!'
-    }
-
-    Which would be used like this:
-
-    {{ 'Joel' | sayHi('formal') }} => 'Greetings Joel!'
-    {{ 'Gemma' | sayHi }} => 'Hi Gemma!'
-
-    For more on filters and how to write them see the Nunjucks
-    documentation.
-
-  ------------------------------------------------------------------ */
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app
