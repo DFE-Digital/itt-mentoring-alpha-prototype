@@ -20,6 +20,18 @@ $govuk-assets-path: '/govuk/assets/';
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
+// Typograhpy
+.app-list--em-dash {
+  li {
+    margin-bottom: govuk-spacing(2);
+    a { text-decoration: none; }
+    &:before { content: '—'; margin-right: 10px; }
+  }
+}
+
+.app-no-wrap {
+  white-space: nowrap;
+}
 
 // GOV UK styles
 .app-govuk-notification-button {
@@ -41,4 +53,9 @@ $govuk-assets-path: '/govuk/assets/';
   padding: govuk-spacing(4) govuk-spacing(6);
   background-color: govuk-colour("light-grey");
   display: block;
+}
+
+.app-govuk-blue-divider {
+  border-top: 2px solid $govuk-brand-colour;
+  margin-bottom: govuk-spacing(2);
 }

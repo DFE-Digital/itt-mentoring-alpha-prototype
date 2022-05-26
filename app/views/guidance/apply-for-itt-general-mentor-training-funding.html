@@ -1,0 +1,213 @@
+
+{% set pageTitle = "Apply for ITT general mentor training funding" %}
+{% set serviceName = false %}
+
+{% extends "layout.html" %}
+
+{% set publishedDateHtml %}
+  <p class="govuk-body-s">
+    Published 1 September 2023
+  </p>
+{% endset %}
+
+{% set getEmailsAboutThisPageHtml %}
+  <a class="app-govuk-notification-button" href="#">
+    Get emails about this page
+  </a>
+{% endset %}
+
+{% block beforeContent %}
+  {{ govukBreadcrumbs({
+      items: [
+        { text: "Home",
+          href: "#"
+        },
+        { text: "Education, training and skills",
+          href: "#"
+        },
+        { text: "Teaching and leadership",
+          href: "#"
+        },
+        { text: "Teacher training and professional development",
+          href: "#"
+        },
+        {
+          text: "Initial Teacher Training (ITT)",
+          href: "#"
+        }
+      ]
+    }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        <span class="govuk-caption-xl">Guidance</span>
+        {{ pageTitle }}
+      </h1>
+      <p class="govuk-body-lead">
+        Funding for all placement schools to cover the 
+        costs associated with training a general mentor for the 
+        new minimum time requirements.
+      </p>
+    </div>
+  </div>
+  <hr class="govuk-section-break govuk-section-break--m govuk-section-break--visible">
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <p class="govuk-body-s govuk-!-margin-bottom-1">
+        From: <a href="#">Department for Education</a>
+      </p>
+      {{ publishedDateHtml | safe }}
+      {{ getEmailsAboutThisPageHtml | safe }}
+      <div class="app-govuk-devolved-nations">
+        <p class="govuk-body govuk-!-font-weight-bold govuk-!-margin-bottom-0">
+          Applies to England
+        </p>
+      </div>
+    </div>
+  </div>
+
+  {% set sectionTitles = [
+    'Overview',
+    'Conditions of funding',
+    'How to apply for funding',
+    'What happens next'
+  ] %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h2 class="govuk-body-s govuk-!-margin-bottom-2" id="contents">
+        Contents
+      </h2>
+      <ul class="govuk-list app-list--em-dash govuk-body-s govuk-!-margin-bottom-6">
+        {% for title in sectionTitles %}
+        <li><a href="#{{ title | slugify }}">{{ title }}</a></li>
+        {% endfor %}
+      </ul>
+      <a class="app-govuk-notification-button" href="#">
+        Print this page
+      </a>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h2>
+      <p class="govuk-body">
+        For the 2024 to 2025 academic year all teachers who mentor a
+        trainee during their ITT placement must have completed 
+        <span class="app-no-wrap">20 hours</span> of mentor training with an ITT provider.
+      </p>
+      <p class="govuk-body">
+        Read more about <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1077177/Initial_Teacher_Training__ITT__Reform_Funding_Guidance_160522.pdf">
+        ITT mentor training</a>.
+      </p>
+      <p class="govuk-body">
+        Schools who need lesson cover while teachers complete the 
+        20 hours of general mentor training can apply for a top-up payment.
+      </p>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h2>
+      <p class="govuk-body">
+        Funding is to cover backfill costs for each teacher that
+        trains to be a general mentor. This is for any training, not
+        only time spent face-to-face with <span class="app-no-wrap">ITT providers</span>.
+      </p>
+      <p class="govuk-bdoy">
+        Funding is adjusted by region. For each mentor schools can claim:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>Inner London — up to £1,072</li>
+        <li>Outer London — up to £965</li>
+        <li>Fringe — up to £902</li>
+        <li>Rest of England — up to £876</li>
+      </ul>
+      <p class="govuk-body">
+        This is available to all schools that host mentors, including
+        independent schools.
+      </p>
+      <p class="govuk-body">
+        What is not covered by the funding:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          time covered that is already paid for by the ITT provider
+        </li>
+        <li>
+          training time when the school did not need cover</li>
+        <li>
+          teachers that trained to be a mentor but did not mentor a
+          trainee
+        </li>
+        <li>
+          cover for travel time
+        </li>
+        <li>
+          lead mentor training time
+        </li>
+      </ul>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h2>
+      <p class="govuk-body govuk-!-margin-bottom-1">
+        After all your general mentors have completed their training
+        and hosted at least one trainee, email <a href="mailto:ITTReform.Funding@education.gov.uk">ITTReform.Funding@education.gov.uk</a>
+        with:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        {# to identify the school, and the region for funding level #}
+        <li>
+          the school’s name, address and URN
+        </li> 
+        {# so we know how much to pay the school #}
+        <li>
+          the hours of cover so your teachers could train, that is
+          not already paid for by the ITT provider
+        </li> 
+        {# ? #}
+        <li>
+          the number of teachers who took part in mentor training
+        </li>
+        {# so we know they're eligible #}
+        <li>
+          confirmation that each teacher you’re claiming for
+          mentored at least one different trainee each
+        </li>
+      </ul>
+      <p class="govuk-body">
+        Applications for ITT general mentor funding must be made by 
+        <span class="app-no-wrap">31 October 2025</span>.
+      </p>
+      <p class="govuk-body">
+        If your school is not an academy or does not belong to a local
+        authority, you will need to provide payment information.
+        <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">
+          How to provide information about your banking and payments
+        </a>.
+      </p>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h2>
+      <p class="govuk-body">
+        Claims will be paid between December 2025 and January 2026
+      </p>
+      <p class="govuk-body">
+        Timetables and invoicing for cover will be reviewed as part of the 
+        end of financial year assurance processes in <span class="app-no-wrap">March 2026</span>.
+      </p>
+      {{ publishedDateHtml | safe }}
+      {{ getEmailsAboutThisPageHtml | safe }}
+      <p class="govuk-body-s">
+        <a href="#contents" class="govuk-link govuk-link--no-visited-state">↑ Contents</a>
+      </p>
+      <a class="app-govuk-notification-button" href="#">
+        Print this page
+      </a>
+      <hr class="app-govuk-blue-divider">
+      <h2 class="govuk-heading-s">
+        Explore this topic
+      </h2>
+      <p class="govuk-body-s">
+        <a href="#" class="govuk-link govuk-!-font-weight-bold">
+          Initial Teacher Training (ITT)
+        </a>
+      </p>
+    </div>
+  </div>
+{% endblock %}
