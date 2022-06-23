@@ -31,13 +31,40 @@
 {% from "govuk/components/textarea/macro.njk"            import govukTextarea %}
 {% from "govuk/components/warning-text/macro.njk"        import govukWarningText %}
 
+{# Custom components #}
+{# From Register #}
+{% from "_components/school-autocomplete/macro.njk"      import appSchoolAutocomplete with context %}
+
+
+{# Bespoke to ITT mentoring #}
+{% from "_components/default-email/macro.njk"            import appDefaultEmail %}
+
 {% block head %}
   {% include "includes/head.html" %}
+  {{ data | makeDataAvailable("sessionData") }}
+  {{ data | log }}
 {% endblock %}
 
 {% block pageTitle %}
-  {{ pageTitle }}
+  {{ pageHeading }} -{% if serviceName %} {{ serviceName }} -{% endif %} GOV.UK
 {% endblock %}
+
+{% block beforeContent %}
+
+{{ govukPhaseBanner({
+  tag: {
+    text: "prototype"
+  },
+  classes: 'govuk-!-margin-top-1',
+  html: 'This is a prototype of a new service – your <a href="#" class="govuk-link">feedback</a> will help us improve it'
+}) }}
+
+{% block pageNavigation %}
+{% endblock %}
+{% block pageBanner %}
+{% endblock %}
+{% endblock %}
+
 
 {% block header %}
   {# Set serviceName in config.js. #}

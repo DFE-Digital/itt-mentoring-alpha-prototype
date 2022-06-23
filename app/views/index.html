@@ -1,5 +1,5 @@
 
-{% set pageTitle = "Initial teacher training mentoring" %}
+{% set pageHeading = "Initial teacher training mentoring" %}
 
 {% extends "layout.html" %}
 
@@ -12,6 +12,15 @@
         url:  "/guidance/apply-for-itt-general-mentor-training-funding"
       }
     ]
+  },
+  {
+    title: 'Claim form',
+    pages: [
+      {
+        text: "Apply for ITT general mentor training funding",
+        url:  "/claim-general-mentor-funding/which-school"
+      }
+    ]
   }
 ] %}
 
@@ -21,7 +30,7 @@
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-xl">
         <span class="govuk-caption-xl">Prototype</span>
-        {{ pageTitle }}
+        {{ pageHeading }}
       </h1>
       <h2 class="govuk-heading-l">
         Pages

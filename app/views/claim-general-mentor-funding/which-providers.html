@@ -1,0 +1,47 @@
+
+{% set formAction  = "./which-providers-answer" %}
+{% set pageHeading = "List the ITT providers you hosted trainees from in the 2024 to 2025 school year" %}
+{% set label       = "Search for a school by its unique reference number (URN), name or postcode" %}
+
+{% extends "_templates/_form.html" %}
+
+
+{% block formContent %}
+
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {% for i in range(data.maxProviders) %}
+    <div id="{{ data.ordinals[i] }}Provider" class="govuk-!-margin-bottom-7 {% if loop.index > 1 %}app-hidden{% endif %}">
+      {{ govukInput({
+        label: {
+          text: data.ordinals[i] + " provider name",
+          classes: "govuk-label--m"
+        },
+        classes: "govuk-!-width-three-quarters",
+        id: "Provider" + i,
+        name: data.ordinals[i] + "ProviderName",
+        value: data[ordinals[i] + "ProviderName"]
+      }) }}
+    </div>
+    {% if loop.index > 1 and loop.index < data.maxProviders + 1 %}
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        <a  href     = "#"
+            type     = "button"
+            class    = "govuk-link govuk-link--no-visited-state app-hidden"
+            id       = "remove{{ data.ordinals[i] }}Provider">
+          Remove {{ data.ordinals[i] | startLowerCase }} provider
+        </a>
+      </p>
+    {% endif %}
+  {% endfor %}
+  {{ govukButton({
+    text:    "Add another provider",
+    classes: "govuk-button--secondary",
+    attributes: {
+      "type": "button",
+      "name": "addProvider",
+      "id":   "addProvider"
+    }
+  }) }}
+{% endblock %}

@@ -1,0 +1,194 @@
+{# Todo: these should probably be added with js #}
+<div class="govuk-form-group">
+  <label class="govuk-label" for="school-picker">{{params.label.text}}</label>
+  <div id="school-picker" class="app-!-autocomplete--max-width-two-thirds"></div>
+</div>
+
+<input name='{{params.name}}' type="hidden" id="school-picker-uuid-input">
+<input name='_autocomplte_result_previous_name' type="hidden" id="school-picker-name">
+
+<script src="/public/javascripts/accessible-autocomplete.min.js"></script>
+<script src="/public/javascripts/lunr-2.3.9.js"></script>
+<script src="/public/javascripts/jquery-1.11.3.js"></script>
+
+<script>
+  var element = document.querySelector('#school-picker')
+  const removePunctuation = input => input.replace(/['’‘.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+
+  // LunrJS Search index
+  var searchIndex = null
+  var documentStore = null
+
+  var statusMessage = null
+  var searchQuery = ''
+  var searchCallback = function () {}
+  var debug = ({{ data.settings.searchDebug or false }}) ? true : false
+
+  // Prefil existing UUID if available
+  // Doing it here rather than rendering ensures this field isn’t populated when js isn’t available
+  {% if params.uuid %}
+    var uuidElement = document.querySelector('#school-picker-uuid-input')
+    uuidElement.value = '{{ params.uuid }}'
+  {% endif %}
+
+  // Results that are rendered by the autocomplete
+  var searchResults = []
+
+  var fetchSearchIndex = (callback) => {
+    statusMessage = 'Loading...'
+    $.ajax({
+      type: 'GET',
+      url: `/public/data/search-index.json`,
+      success: function(response) {
+        searchIndex = lunr.Index.load(response.index)
+        documentStore = response.store
+        callback(response)
+      }
+    });
+  }
+
+  var renderResults = () => {
+    if (!searchIndex || !documentStore) {
+      return searchCallback(searchResults)
+    }
+
+    // Avoid searching when there is no query
+    if (searchQuery.length){
+      var lunrSearchResults = searchIndex.query(function (q) {
+        let tokens = lunr.tokenizer(removePunctuation(searchQuery))
+        let lastToken = tokens.pop()
+        q.term(tokens, {
+          presence: lunr.Query.presence.REQUIRED
+        })
+        // Prefer the last token matching moreso than a wildcard version
+        q.term(lastToken, {
+          boost: 100,
+        })
+        q.term(lastToken, {
+          // boost: 10,
+          wildcard: lunr.Query.wildcard.TRAILING
+        })
+      }).slice(0, 15)
+
+      // Prune low scoring results if we’ve got a few higher scoring ones
+      let highScoringResults = lunrSearchResults.filter(result => result.score > 1).length
+      if (highScoringResults > 5){
+        lunrSearchResults = lunrSearchResults.filter(result => result.score > 1)
+      }
+      else if (highScoringResults > 2) {
+        lunrSearchResults = lunrSearchResults.filter(result => result.score > 0.5)
+      }
+      else if (highScoringResults){
+        lunrSearchResults = lunrSearchResults.filter(result => result.score > 0.2)
+      }
+
+      searchResults = lunrSearchResults.map(function (result) {
+        let item = documentStore[result.ref]
+        item.score = result.score.toFixed(2)
+        return item
+      })
+    }
+
+    if (searchResults.length === 0) {
+      statusMessage = 'No results found'
+    }
+    searchCallback(searchResults)
+  }
+
+  var handleSearchQuery = (query, callback) => {
+    statusMessage = 'Loading...'
+    searchQuery = query
+    searchCallback = callback
+
+    renderResults()
+  }
+
+  var updateInput = (result) => {
+    var element = document.querySelector('#school-picker-uuid-input')
+    var previousSchool = document.querySelector('#school-picker-name')
+    var autocompleteString = document.querySelector('input#school-picker').value
+
+    var autocompleteStringMatchesSelected = (autocompleteString && previousSchool && previousSchool.value.startsWith(autocompleteString))
+
+    // If they've picked something, save the UUID of the selection
+    if (result){
+      element.value = result.uuid
+      previousSchool.value = result.name
+    }
+    // If a user changes their selection / clears it / doesn't pick an answer,
+    // we want to clear the saved uuid. However, the autocomplete component runs onConfirm on blur,
+    // but passes undefined result. So we need to distinguish between an aucotomplete that has 
+    // selected a value and then closed, and one where a value has not been selected. 
+    // To hack around this, we store the name of the school selected, then compare if the current 
+    // value of the autocomplete input matches that name.
+    else if (!autocompleteStringMatchesSelected){
+      element.value = ""
+    }
+  }
+
+  var inputValueSchools = (result) => {
+    if (result) {
+      if (typeof result == 'object'){
+        return result.name
+      }
+      else return result
+    }
+  }
+
+  var suggestionSchools = (result) => {
+    if (result) {
+      // Autocomplete has a bug where defaultValue will get passed to this suggestion template as a 
+      // result without sending it through the source filter. In that case it will be just a string
+      if (typeof result == 'string') {
+        return result
+      }
+      var name
+      if (debug){
+        name = `${result.score}: ${result.name}`
+      }
+      else {
+        name = result.name
+      }
+      var hint = `URN ${result.urn}, ${result.town}, ${result.postcode}`
+      return `${name}<span class="autocomplete__option-hint">${hint}</span>`
+    }
+  }
+
+  accessibleAutocomplete({
+    element: element,
+    id: 'school-picker',
+    source: handleSearchQuery,
+    onConfirm: updateInput,
+    showAllValues: false,
+    autoselect: false,
+    minLength: 2,
+    // defaultValue: `{{params.value}}`, // disabled due to bug in autocomplete - see below
+    name: '_autocomplete_raw_value_school_picker',
+    templates: {
+      inputValue: inputValueSchools,
+      suggestion: suggestionSchools
+    },
+    tNoResults: function () { return statusMessage }
+  })
+
+  let autocompleteContainer = document.getElementById("school-picker")
+
+  // If there should be a default value, set this manually after the autocomplete input is 
+  // created. This avoids the issue documented at https://github.com/alphagov/accessible-autocomplete/issues/424
+  let defaultValue = `{{params.value}}`
+  let autocompleteInput = autocompleteContainer.querySelector(".autocomplete__input")
+  autocompleteInput.value =  defaultValue
+
+  fetchSearchIndex(function () { renderResults() })
+
+  // Try to catch people who press return prematurely and submit an incomplete form
+  $('#school-picker').keydown(function (e) {
+    if (e.keyCode == 13) {
+      e.preventDefault();
+      console.log("preventing defaults")
+      return false;
+    }
+  });
+
+
+</script>

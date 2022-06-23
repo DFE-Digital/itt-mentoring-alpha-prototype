@@ -1,0 +1,28 @@
+
+{% set formAction  = "./which-school-answer" %}
+{% set pageHeading = "Which school are you claiming general mentor funding for?" %}
+{% set label       = "Search for a school by its unique reference number (URN), name or postcode" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {{ appSchoolAutocomplete({
+    name: "_autocomplete_result_uuid",
+    value: data.school.schoolName,
+    uuid: data.school.uuid,
+    spellcheck: false,
+    label: {
+      text: label
+    }
+  }) }}
+  {# {% set detailsHtml %}
+    {% include "includes/manual-school-details.html" %}
+  {% endset %}
+  {{ govukDetails({
+    summaryText: "Placement school is not listed",
+    html: detailsHtml
+  }) }} #}
+{% endblock %}

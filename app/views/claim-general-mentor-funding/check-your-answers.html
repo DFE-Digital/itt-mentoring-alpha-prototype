@@ -1,0 +1,318 @@
+  
+{% set formAction  = "./check-your-answers-answer" %}
+{% set pageHeading = "Check your answers before sending your application" %}
+{% set buttonText = "Accept and send" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+
+  <h2 class="govuk-heading-m">
+    Your school
+  </h2>
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: [
+      {
+        key: {
+          text: "School name"
+        },
+        value: {
+          text: data.school.schoolName
+        },
+        actions: {
+          items: [
+            {
+              href: "./which-school",
+              text: "Change",
+              visuallyHiddenText: "school name"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "URN"
+        },
+        value: {
+          text: data.school.urn
+        },
+        actions: {
+          items: [
+            {
+              href: "./which-school",
+              text: "Change",
+              visuallyHiddenText: "name"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m">
+    First provider
+  </h2>
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: [
+      {
+        key: {
+          text: 'Provider name'
+        },
+        value: {
+          text: data.FirstProviderName
+        },
+        actions: {
+          items: [
+            {
+              href: "./which-providers",
+              text: "Change",
+              visuallyHiddenText: "provider"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: 'First teacher’s TRN'
+        },
+        value: {
+          text: data.FirstTRN
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "teacher’s TRN"
+            }
+          ]
+        }
+      } if data.FirstTRN,
+      {
+        key: {
+          text: 'Cover needed for general mentor training'
+        },
+        value: {
+          text: data.FirstCoverNeeded + (' hour' if data.FirstCoverNeeded == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.FirstTRN,
+      {
+        key: {
+          text: 'Cover paid for by ' + data.FirstProviderName
+        },
+        value: {
+          text: data.FirstHoursPaid + (' hour' if data.FirstHoursPaid == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.FirstTRN,
+      {
+        key: {
+          text: 'Second teacher’s TRN'
+        },
+        value: {
+          text: data.SecondTRN
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "teacher’s TRN"
+            }
+          ]
+        }
+      } if data.SecondTRN,
+      {
+        key: {
+          text: 'Cover needed for general mentor training'
+        },
+        value: {
+          text: data.SecondCoverNeeded + (' hour' if data.SecondCoverNeeded == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.SecondTRN,
+      {
+        key: {
+          text: 'Cover paid for by ' + data.FirstProviderName
+        },
+        value: {
+          text: data.SecondHoursPaid + (' hour' if data.SecondHoursPaid == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.SecondTRN,
+      {
+        key: {
+          text: 'Third Teacher’s TRN'
+        },
+        value: {
+          text: data.ThirdTRN
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "teacher’s TRN"
+            }
+          ]
+        }
+      } if data.ThirdTRN,
+      {
+        key: {
+          text: 'Cover needed for general mentor training'
+        },
+        value: {
+          text: data.ThirdCoverNeeded + (' hour' if data.ThirdCoverNeeded == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.ThirdTRN,
+      {
+        key: {
+          text: 'Cover paid for by ' + data.FirstProviderName
+        },
+        value: {
+          text: data.ThirdHoursPaid + (' hour' if data.ThirdHoursPaid == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.ThirdTRN,
+      {
+        key: {
+          text: 'Fourth Teacher’s TRN'
+        },
+        value: {
+          text: data.FourthTRN
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "teacher’s TRN"
+            }
+          ]
+        }
+      } if data.FourthTRN,
+      {
+        key: {
+          text: 'Cover needed for general mentor training'
+        },
+        value: {
+          text: data.FourthCoverNeeded + (' hour' if data.FourthCoverNeeded == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.FourthTRN,
+      {
+        key: {
+          text: 'Cover paid for by ' + data.FirstProviderName
+        },
+        value: {
+          text: data.FourthHoursPaid + (' hour' if data.FourthHoursPaid == 1 else ' hours')
+        },
+        actions: {
+          items: [
+            {
+              href: "./how-many-teachers",
+              text: "Change",
+              visuallyHiddenText: "TO DO"
+            }
+          ]
+        }
+      } if data.FourthTRN
+    ]
+  }) }}
+
+
+  <h2 class="govuk-heading-m">
+    Contact details
+  </h2>
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: [
+      {
+        key: {
+          text: 'Email address'
+        },
+        value: {
+          text: data['email']
+        },
+        actions: {
+          items: [
+            {
+              href: "./email-address",
+              text: "Change",
+              visuallyHiddenText: "email address"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  {# To do - show calculation of amount #}
+  <h2 class="govuk-heading-m">Now send your application</h2>
+  <p class="govuk-body">
+    By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+  </p>
+{% endblock %}

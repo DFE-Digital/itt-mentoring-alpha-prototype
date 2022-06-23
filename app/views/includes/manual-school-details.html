@@ -1,0 +1,43 @@
+
+{{ govukInput({
+  label: {
+    text: "School name",
+    classes: "govuk-label--s"
+  },
+  id: "school-name",
+  name: "school-name",
+  classes: "govuk-!-width-two-thirds"
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "School URN (unique reference number)",
+    classes: "govuk-label--s"
+  },
+  hint: {
+    text: "Optional"
+  },
+  id: "school-urn",
+  name: "school-urn",
+  classes: "govuk-input--width-10"
+}) }}
+
+{{ govukTextarea({
+  name: "school-address",
+  id: "school-address",
+  classes: "govuk-!-width-two-thirds",
+  label: {
+    text: "School address",
+    classes: "govuk-label--s"
+  }
+}) }}
+
+{{ govukInput({
+  label: {
+    text: "Postcode",
+    classes: "govuk-label--s"
+  },
+  id: "postcode",
+  name: "postcode",
+  classes: "govuk-input--width-10"
+}) }}

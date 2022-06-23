@@ -1,0 +1,25 @@
+
+{% set formAction  = "./email-address-answer" %}
+{% set pageHeading = "Email address" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  {{ govukInput({
+    label: {
+      text: pageHeading,
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    hint: {
+      text: "We’ll only use this to communincate with you about your application"
+    },
+    id: "email",
+    name: "email",
+    type: "email",
+    autocomplete: "email",
+    spellcheck: false,
+    classes: "govuk-!-width-three-quarters",
+    value: data["email"]
+  }) }}
+{% endblock %}
