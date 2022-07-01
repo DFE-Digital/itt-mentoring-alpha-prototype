@@ -7,79 +7,46 @@ if (window.console && window.console.info) {
 
 $(document).ready(function () {
   
+  // /* add/remove providers */
+  // let providerCount = 1
 
+  const addRemoveItems = function(itemName, maxItems){
 
-  /* add/remove providers */
-  let providerCount = 1
+    /* Page always start with 1 item visible */
+    let itemCount = 1
+    let itemPrefix = sessionData.ordinals
 
-  let addRemoveItems = function(itemName, maxItems){
-    $('#add-' + itemName ).click(function(event){
+    /* Add items */
+    $('#add' + itemName ).click(function(event){
       event.preventDefault(); // cancel default behavior
-      
-    }
-  }
-
-  addRemoveItems(provider, 5)
-  addRemoveItems(teacher, 5)
-
-  $('#addProviderButton').click(function(event)
-    {
-      event.preventDefault(); // cancel default behavior
-      $('#provider-' + providerCount).removeClass('app-hidden')
-      $('#removeProviderLink-' + (providerCount - 1)).addClass('app-hidden')
-      $('#removeProviderLink-' + (providerCount)).removeClass('app-hidden')
-      providerCount = providerCount + 1
-      console.log(providerCount)
-      if (providerCount == 5) {
-        $('#addProviderButton').addClass('app-hidden')
+      $('#' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
+      $('#remove' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
+      $('#remove' + sessionData.ordinals[itemCount - 1] + itemName ).toggleClass('app-hidden')
+      $('#' + itemName + itemCount).focus()
+      itemCount = itemCount + 1
+      /* Hide add button once at max items */
+      if (itemCount == maxItems) {
+        $('#add' + itemName ).toggleClass('app-hidden')
       }
-    });
+    })
 
-  for (let step = 0; step < 5; step++) {
-    $('#removeProviderLink-' + step).click(function(event)
-      {
-        event.preventDefault(); // cancel default behavior
-
-        $('#provider-' + (providerCount - 1)).addClass('app-hidden')
-        $('#removeProviderLink-' + (providerCount - 1)).addClass('app-hidden')
-        $('#removeProviderLink-' + (providerCount - 2)).removeClass('app-hidden')
-        providerCount = providerCount - 1
-        console.log(providerCount)
-        if (providerCount == 4) {
-          $('#addProviderButton').removeClass('app-hidden')
+    /* Remove items */
+    for (let step = 0; step < maxItems + 1; step++) {
+      $('#remove' + sessionData.ordinals[step] + itemName ).click(function(event){
+        itemCount = itemCount - 1
+        $('#' + itemName + itemCount).focus()
+        $('#' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
+        $('#remove' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
+        $('#remove' + sessionData.ordinals[itemCount - 1] + itemName ).toggleClass('app-hidden')
+        if (itemCount == maxItems - 1){
+          $('#add' + itemName ).toggleClass('app-hidden')
         }
-    });
-  }
-
-
-  /* add/remove teachers */
-  
-  for (let step = 0; step < 5; step++) {
-    if (step > 0) {
-      $('#teacher-' + step).addClass('app-hidden')
+      })
     }
   }
 
-  let teacherCount  = 0
-  $('#addTeacherButton').click(function(event) {
-    event.preventDefault(); // cancel default behavior
-    teacherCount = teacherCount + 1
-    $('#teacher-' + teacherCount).removeClass('app-hidden')
-    $('#removeTeacherLink-' + teacherCount).removeClass('app-hidden')
-    $('#removeTeacherLink-' + (teacherCount -1 )).addClass('app-hidden')
-    if (teacherCount > 3) {
-      $('#addTeacherButton').addClass('app-hidden')
-    }
-    console.log(teacherCount)
-  });
-
-  $('#removeTeacherLink-' + (teacherCount + 1 )).click(function(event) {
-    event.preventDefault(); // cancel default behavior
-    console.log(teacherCount)
-    $('#removeTeacherLink-' +  (teacherCount + 1 )).addClass('app-hidden')
-    $('#teacher-' + (teacherCount)).addClass('app-hidden')
-    teacherCount = teacherCount - 1
-  });
+  addRemoveItems('Provider', sessionData.maxProviders)
+  addRemoveItems('Teacher', sessionData.maxTeachers)
 
   window.GOVUKFrontend.initAll()
 })
