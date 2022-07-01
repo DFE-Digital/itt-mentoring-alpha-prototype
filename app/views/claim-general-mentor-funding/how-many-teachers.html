@@ -1,0 +1,76 @@
+
+{% set formAction   = "./how-many-teachers-answer" %}
+{% set providerName = (data['FirstProviderName']) if (data['FirstProviderName']) else "Example provider" %}
+{% set pageHeading  = "Teachers who trained with " + providerName %}
+{% set label        = "Search for a school by its unique reference number (URN), name or postcode" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+
+  {% for i in range(data.maxTeachers) %}
+    <div id="{{ data.ordinals[i] }}Teacher" class="govuk-!-margin-bottom-7 {% if loop.index > 1 %}app-hidden{% endif %}">
+      <h2 class="govuk-heading-m">
+        {{ data.ordinals[i] }} teacher
+      </h2>
+      {{ govukInput({
+        label: {
+          text: "TRN",
+          classes: "govuk-label--s"
+        },
+        classes: "govuk-input--width-10",
+        id: "Teacher" + i,
+        name: data.ordinals[i] + "TRN",
+        value: data[data.ordinals[i] + "TRN"]
+      }) }}
+      {{ govukInput({
+        label: {
+          text: "Classroom cover needed",
+          classes: "govuk-label--s"
+        },
+        suffix: {
+          text: "hours"
+        },
+        classes: "govuk-input--width-2",
+        id: data.ordinals[i] + "CoverNeeded",
+        name: data.ordinals[i] + "CoverNeeded",
+        value: data[data.ordinals[i] + "CoverNeeded"]
+      }) }}
+      {{ govukInput({
+        label: {
+          text: "Classroom cover paid for by " + data.FirstProviderName,
+          classes: "govuk-label--s"
+        },
+        suffix: {
+          text: "hours"
+        },
+        classes: "govuk-input--width-2",
+        id: data.ordinals[i] + "HoursPaid",
+        name: data.ordinals[i] + "HoursPaid",
+        value: data[data.ordinals[i] + "HoursPaid"]
+      }) }}
+    </div>
+    {% if loop.index > 1 and loop.index < data.maxTeachers + 1 %}
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        <a  href     = "#"
+            type     = "button"
+            class    = "govuk-link govuk-link--no-visited-state app-hidden"
+            id       = "remove{{ data.ordinals[i] }}Teacher">
+          Remove {{ ordinals[i] | startLowerCase }} teacher
+        </a>
+      </p>
+    {% endif %}
+  {% endfor %}
+    {{ govukButton({
+      text:    "Add another teacher",
+      classes: "govuk-button--secondary",
+      attributes: {
+        "type": "button",
+        "name": "addTeacher",
+        "id":   "addTeacher"
+      }
+    }) }}
+{% endblock %}

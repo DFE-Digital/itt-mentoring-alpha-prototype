@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% if not backLink %}
+  {% set backLink      = 'javascript:history.back();' %}
+{% endif %}
+{% if not backText %}
+  {% set backText      = 'Back'  %}
+{% endif %}
+
+{% if backLink == 'false' %}
+  {% set backLink = false %}
+{% endif %}
+
+{% if backText == 'false' %}
+  {% set backText = '' %}
+{% endif %}
+
+
+{% block pageNavigation %}
+  {% if backLink %}
+    {{ govukBackLink({
+      text: backText,
+      href: backLink
+    }) }}
+  {% endif %}
+{% endblock %}
+
+{% block content %}
+  {# {% include "_includes/app-flash-message.html" %} #}
+
+  {% block beforePageTitle %}{% endblock %}
+  <form{% if formAction %} action="{{ formAction }}"{% endif %} method="post" novalidate>
+    <div class="govuk-grid-row">
+      <div class="{{ gridColumn or 'govuk-grid-column-two-thirds-from-desktop'}}">
+        {% block formContent %}
+        {% endblock %}
+      </div>
+    </div>
+    <div class="govuk-grid-row">
+      <div class="{{ gridColumn or 'govuk-grid-column-two-thirds-from-desktop'}}">
+        {{ govukButton({
+          text: buttonText if buttonText else "Continue"
+        }) }}
+      </div>
+    </div>
+  </form>
+{% endblock %}

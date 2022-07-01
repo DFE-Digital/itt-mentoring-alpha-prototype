@@ -18,22 +18,17 @@ $govuk-assets-path: '/govuk/assets/';
 @import "patterns/step-by-step-related";
 @import "patterns/task-list";
 
+// Components
+@import "components/autocomplete";
+
+
+// General
+@import "typography";
+
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
-// Typograhpy
-.app-list--em-dash {
-  li {
-    margin-bottom: govuk-spacing(2);
-    a { text-decoration: none; }
-    &:before { content: '—'; margin-right: 10px; }
-  }
-}
 
-.app-no-wrap {
-  white-space: nowrap;
-}
-
-// GOV UK styles
+// GOV.UK guidance
 .app-govuk-notification-button {
   margin-bottom: govuk-spacing(6);
   border: 1px solid $govuk-border-colour;
@@ -58,4 +53,8 @@ $govuk-assets-path: '/govuk/assets/';
 .app-govuk-blue-divider {
   border-top: 2px solid $govuk-brand-colour;
   margin-bottom: govuk-spacing(2);
+}
+
+.app-hidden {
+  display: none;
 }

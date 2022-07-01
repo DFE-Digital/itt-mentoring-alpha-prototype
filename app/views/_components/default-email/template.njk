@@ -1,0 +1,18 @@
+{% set defaultEmailAddress = "ittreform.funding@education.gov.uk" %}
+
+{% set linkText %}
+  {% if params.linkText %}
+    {{ params.linkText }}
+  {% elseif params.emailAddress %}
+    {{ params.emailAddress }}
+  {% else %}
+    {{ defaultEmailAddress }}
+  {% endif %}
+{% endset %}
+
+<a  href="mailto:{{ params.emailAddress if params.emailAddress 
+    else defaultEmailAddress }}{{ "?subject=" + params.subject if params.subject }}"
+    class="govuk-link"
+    >
+  {{ linkText }}
+</a>
