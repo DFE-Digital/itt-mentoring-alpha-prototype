@@ -10,278 +10,132 @@
     {{ pageHeading }}
   </h1>
 
+  {% set totalTime = 0 %}
+  {% for provider in data.providers %}
+    {% for teacher in provider.teachers %}
+      {% set totalTime = totalTime + teacher.trainingHours | stringToNumber %}
+    {% endfor %}
+  {% endfor %}
+
+  {% set amount = 876 %}
+
+  <p class="govuk-body">
+    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * amount) | currency }}</span>, for {{ totalTime }} hours of training at {{ amount | currency }}.
+  </p>
+  <p class="govuk-body">
+  </p>
+
   <h2 class="govuk-heading-m">
     Your school
   </h2>
   {{ govukSummaryList({
-    classes: 'govuk-!-margin-bottom-9',
-    rows: [
-      {
-        key: {
-          text: "School name"
-        },
-        value: {
-          text: data.school.schoolName
-        },
-        actions: {
-          items: [
-            {
-              href: "./which-school",
-              text: "Change",
-              visuallyHiddenText: "school name"
+        classes: 'govuk-!-margin-bottom-9',
+        rows: [
+          {
+            key: {
+              text: "School name"
+            },
+            value: {
+              text: data.school.schoolName
+            },
+            actions: {
+              items: [
+                {
+                  href: "./school",
+                  text: "Change",
+                  visuallyHiddenText: "school name"
+                }
+              ]
             }
-          ]
-        }
-      },
-      {
-        key: {
-          text: "URN"
-        },
-        value: {
-          text: data.school.urn
-        },
-        actions: {
-          items: [
-            {
-              href: "./which-school",
-              text: "Change",
-              visuallyHiddenText: "name"
+          },
+          {
+            key: {
+              text: "Unique reference number (URN)"
+            },
+            value: {
+              text: data.school.urn
+            },
+            actions: {
+              items: [
+                {
+                  href: "./school",
+                  text: "Change",
+                  visuallyHiddenText: "school urn"
+                }
+              ]
             }
-          ]
-        }
-      }
-    ]
+          }
+        ]
   }) }}
 
   <h2 class="govuk-heading-m">
-    First provider
+    ITT providers
   </h2>
-  {{ govukSummaryList({
-    classes: 'govuk-!-margin-bottom-9',
-    rows: [
-      {
-        key: {
-          text: 'Provider name'
-        },
-        value: {
-          text: data.FirstProviderName
-        },
-        actions: {
-          items: [
-            {
-              href: "./which-providers",
-              text: "Change",
-              visuallyHiddenText: "provider"
-            }
-          ]
-        }
-      },
-      {
-        key: {
-          text: 'First teacher’s TRN'
-        },
-        value: {
-          text: data.FirstTRN
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "teacher’s TRN"
-            }
-          ]
-        }
-      } if data.FirstTRN,
-      {
-        key: {
-          text: 'Cover needed for general mentor training'
-        },
-        value: {
-          text: data.FirstCoverNeeded + (' hour' if data.FirstCoverNeeded == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.FirstTRN,
-      {
-        key: {
-          text: 'Cover paid for by ' + data.FirstProviderName
-        },
-        value: {
-          text: data.FirstHoursPaid + (' hour' if data.FirstHoursPaid == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.FirstTRN,
-      {
-        key: {
-          text: 'Second teacher’s TRN'
-        },
-        value: {
-          text: data.SecondTRN
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "teacher’s TRN"
-            }
-          ]
-        }
-      } if data.SecondTRN,
-      {
-        key: {
-          text: 'Cover needed for general mentor training'
-        },
-        value: {
-          text: data.SecondCoverNeeded + (' hour' if data.SecondCoverNeeded == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.SecondTRN,
-      {
-        key: {
-          text: 'Cover paid for by ' + data.FirstProviderName
-        },
-        value: {
-          text: data.SecondHoursPaid + (' hour' if data.SecondHoursPaid == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.SecondTRN,
-      {
-        key: {
-          text: 'Third Teacher’s TRN'
-        },
-        value: {
-          text: data.ThirdTRN
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "teacher’s TRN"
-            }
-          ]
-        }
-      } if data.ThirdTRN,
-      {
-        key: {
-          text: 'Cover needed for general mentor training'
-        },
-        value: {
-          text: data.ThirdCoverNeeded + (' hour' if data.ThirdCoverNeeded == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.ThirdTRN,
-      {
-        key: {
-          text: 'Cover paid for by ' + data.FirstProviderName
-        },
-        value: {
-          text: data.ThirdHoursPaid + (' hour' if data.ThirdHoursPaid == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.ThirdTRN,
-      {
-        key: {
-          text: 'Fourth Teacher’s TRN'
-        },
-        value: {
-          text: data.FourthTRN
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "teacher’s TRN"
-            }
-          ]
-        }
-      } if data.FourthTRN,
-      {
-        key: {
-          text: 'Cover needed for general mentor training'
-        },
-        value: {
-          text: data.FourthCoverNeeded + (' hour' if data.FourthCoverNeeded == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.FourthTRN,
-      {
-        key: {
-          text: 'Cover paid for by ' + data.FirstProviderName
-        },
-        value: {
-          text: data.FourthHoursPaid + (' hour' if data.FourthHoursPaid == 1 else ' hours')
-        },
-        actions: {
-          items: [
-            {
-              href: "./how-many-teachers",
-              text: "Change",
-              visuallyHiddenText: "TO DO"
-            }
-          ]
-        }
-      } if data.FourthTRN
-    ]
-  }) }}
+  <dl class="govuk-summary-list govuk-!-margin-bottom-9">
+  {% for provider in data.providers %}
+    <div class="govuk-summary-list__row">
+      <dt class="govuk-summary-list__key">
+        Provider name
+      </dt>
+      <dd class="govuk-summary-list__value">
+        {{ provider.name }}
+      </dd>
+      <dd class="govuk-summary-list__actions">
+        <a class="govuk-link" href="./which-providers">
+          Change<span class="govuk-visually-hidden"> provider</span>
+        </a>
+      </dd>
+    </div>
+  {% endfor %}
+  </dl>
+
+  <h2 class="govuk-heading-m">
+    General mentors
+  </h2>
+  {% for provider in data.providers %}
+    {% set providerIndex = loop.index0 %}
+    <h3 class="govuk-heading-s">
+      Trained with {{ provider.name }}
+    </h3>
+    {% for teacher in provider.teachers %}
+      {% if loop.index == provider.teachers.length and providerIndex + 1 == data.providers.length %}
+        {% set taskListMargin = 9 %}
+      {% elseif loop.index == provider.teachers.length %}
+        {% set taskListMargin = 6 %}
+      {% else %}
+        {% set taskListMargin = 3 %}
+      {% endif %}
+      <dl class="
+        govuk-summary-list govuk-!-margin-bottom-{{ taskListMargin }}">
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Teacher reference number (TRN)
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ teacher.trn }}
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="./{{ providerIndex }}/how-many-teachers">
+                Change<span class="govuk-visually-hidden"> TRN</span>
+              </a>
+            </dd>
+          </div>
+          <div class="govuk-summary-list__row">
+            <dt class="govuk-summary-list__key">
+              Training time
+            </dt>
+            <dd class="govuk-summary-list__value">
+              {{ teacher.trainingHours }} hours
+            </dd>
+            <dd class="govuk-summary-list__actions">
+              <a class="govuk-link" href="./{{ providerIndex }}/how-many-teachers">
+                Change<span class="govuk-visually-hidden"> TRN</span>
+              </a>
+            </dd>
+          </div>
+      </dl>
+    {% endfor %}
+  {% endfor %}
 
 
   <h2 class="govuk-heading-m">
@@ -295,7 +149,7 @@
           text: 'Email address'
         },
         value: {
-          text: data['email']
+          text: data.email
         },
         actions: {
           items: [

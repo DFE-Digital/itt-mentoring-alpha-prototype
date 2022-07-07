@@ -117,6 +117,60 @@ module.exports = function (env) {
     }
     else return input
   }
+  
+  // Get ordinal name
+  filters.getOrdinalName = integer => {
+    let ordinals = [
+      'zeroth', // shouldn't be possible
+      'first',
+      'second',
+      'third',
+      'fourth',
+      'fifth',
+      'sixth',
+      'seventh',
+      'eighth',
+      'ninth',
+      'tenth'
+    ]
+    
+    if (!_.isNumber(integer) || integer < 1 || integer > 10){
+      console.log("Error in getOrdinalName: input out of bounds")
+      return ""
+    }
+    else {
+      return ordinals[integer]
+    }
+  }
+
+  // Sentence case - uppercase first letter
+  filters.sentenceCase = (input) => {
+    if (!input) return '' // avoid printing false to client
+    if (_.isString(input)){
+      return input.charAt(0).toUpperCase() + input.slice(1);
+    }
+    else return input
+  }
+
+  /*------------------------------------------------------------------
+    Numbers
+  ==================================================================*/
+  filters.stringToNumber = input => {
+    return parseInt(input, 10)
+  }
+
+  filters.currency = input => {
+    let inputAsInt = parseInt(input, 10)
+    function numberWithCommas(x) {
+      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+    if ( inputAsInt > 0 ) { return `£${numberWithCommas(inputAsInt)}` }
+
+    // makes negative number positive and puts minus sign in front of £
+    else if ( inputAsInt < 0 ) { return `–£${numberWithCommas(inputAsInt * -1 )}` }
+    else return '0'
+  }
+
 
   /*----------------------------------------------------------------
     Arrays

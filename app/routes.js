@@ -9,9 +9,9 @@ const getSchools = () => {
   function getNextPage(currentPage) {
     const pageOrder = 
     [
-      'which-school',
+      'school',
       'which-providers',
-      'how-many-teachers',
+      '0/how-many-teachers',
       'email-address',
       'check-your-answers',
       'confirmation'
@@ -20,7 +20,7 @@ const getSchools = () => {
     return `/claim-general-mentor-funding/${ pageOrder[nextPage] }`
   }
 
-  router.post('/claim-general-mentor-funding/which-school-answer', function(req, res){
+  router.post('/claim-general-mentor-funding/school-answer', function(req, res){
     const data = req.session.data
     console.log({ data })
 
@@ -69,7 +69,7 @@ const getSchools = () => {
     */
     // No answer given and no search term
     /*else*/ if (!schoolUuid){
-      res.redirect(`/claim-general-mentor-funding/which-school`)
+      res.redirect(`/claim-general-mentor-funding/school`)
     }
     else {
       let selectedSchool = schools.find(school => school.uuid == schoolUuid)
@@ -83,7 +83,39 @@ const getSchools = () => {
         // Using _.set as lead school might not exist yet
         _.set(data, 'school', selectedSchool)
       }
-      res.redirect(getNextPage("which-school"))
+      res.redirect(getNextPage("school"))
+    }
+  })
+
+  /* remove empty providers */
+  router.post('/claim-general-mentor-funding/which-providers-answer', function(req, res){
+    const data = req.session.data
+    data.providers = data.providers.filter(provider => provider.name != '')
+    res.redirect(getNextPage("which-providers"))
+  })
+
+  router.get('/claim-general-mentor-funding/:providerIndex/how-many-teachers', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+    res.render('claim-general-mentor-funding/how-many-teachers', {
+      providerIndex
+    })
+  })
+
+  router.post('/claim-general-mentor-funding/:providerIndex/how-many-teachers-answer', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let providerCount = data.providers.length
+    
+    /* remove empty teachers */
+    data.teachers = data.teachers.filter(teacher => teacher.trn != '')
+
+    /* add teacher to provider 2*/
+    data.providers[providerIndex].teachers = data.teachers
+
+    if (providerIndex < providerCount - 1){
+      res.redirect(`/claim-general-mentor-funding/${ providerIndex + 1 }/how-many-teachers`)
+    } else {
+      res.redirect(getNextPage("0/how-many-teachers"))
     }
   })
 

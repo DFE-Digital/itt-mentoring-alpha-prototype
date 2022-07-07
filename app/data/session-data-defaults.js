@@ -20,18 +20,6 @@ Example usage:
 module.exports = {
 
   // Insert values here
-  ordinals: [
-    'First',
-    'Second',
-    'Third',
-    'Fourth',
-    'Fifth',
-    'Sixth',
-    'Eight',
-    'Ninth',
-    'Tenth'
-  ],
   maxProviders: 5,
   maxTeachers: 5
-
 }

@@ -12,41 +12,58 @@ $(document).ready(function () {
 
   const addRemoveItems = function(itemName, maxItems){
 
+    /* To do  - get this from filters */
+    const ordinals = [
+      'zeroth',
+      'first',
+      'second',
+      'third',
+      'fourth',
+      'fifth',
+      'sixth',
+      'seventh',
+      'eighth',
+      'ninth',
+      'tenth'
+      ]
+
     /* Page always start with 1 item visible */
     let itemCount = 1
-    let itemPrefix = sessionData.ordinals
 
     /* Add items */
-    $('#add' + itemName ).click(function(event){
+    $('#add-' + itemName ).click(function(event){
       event.preventDefault(); // cancel default behavior
-      $('#' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
-      $('#remove' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
-      $('#remove' + sessionData.ordinals[itemCount - 1] + itemName ).toggleClass('app-hidden')
-      $('#' + itemName + itemCount).focus()
       itemCount = itemCount + 1
-      /* Hide add button once at max items */
+      /* add the next input group*/
+      $('#' + ordinals[itemCount] + "-" + itemName + "-input-group" ).toggleClass('app-display-hidden')
+      $('#remove-' + ordinals[itemCount] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
+      $('#remove-' + ordinals[itemCount - 1] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
+      $('#' + itemName + "-" + itemCount).focus()
+      /* Hide add button at max items */
       if (itemCount == maxItems) {
-        $('#add' + itemName ).toggleClass('app-hidden')
+        $('#add-' + itemName ).toggleClass('app-display-hidden')
       }
     })
 
     /* Remove items */
     for (let step = 0; step < maxItems + 1; step++) {
-      $('#remove' + sessionData.ordinals[step] + itemName ).click(function(event){
+      $('#remove-' + ordinals[step] + "-" + itemName ).click(function(event){
+        event.preventDefault(); // cancel default behavior
+        console.log(itemCount)
+        $('#' + itemName + "-" + itemCount).focus()
+        $('#' + ordinals[itemCount] + "-" + itemName + "-input-group" ).toggleClass('app-display-hidden')
+        $('#remove-' + ordinals[itemCount] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
+        $('#remove-' + ordinals[itemCount - 1] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
         itemCount = itemCount - 1
-        $('#' + itemName + itemCount).focus()
-        $('#' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
-        $('#remove' + sessionData.ordinals[itemCount] + itemName ).toggleClass('app-hidden')
-        $('#remove' + sessionData.ordinals[itemCount - 1] + itemName ).toggleClass('app-hidden')
         if (itemCount == maxItems - 1){
-          $('#add' + itemName ).toggleClass('app-hidden')
+          $('#add-' + itemName ).toggleClass('app-display-hidden')
         }
       })
     }
   }
 
-  addRemoveItems('Provider', sessionData.maxProviders)
-  addRemoveItems('Teacher', sessionData.maxTeachers)
+  addRemoveItems('provider', sessionData.maxProviders)
+  addRemoveItems('teacher', sessionData.maxTeachers)
 
   window.GOVUKFrontend.initAll()
 })
