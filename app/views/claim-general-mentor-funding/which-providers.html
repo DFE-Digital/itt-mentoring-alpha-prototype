@@ -1,8 +1,6 @@
 
 {% set formAction  = "./which-providers-answer" %}
 {% set pageHeading = "List the ITT providers you hosted trainees from in the 2024 to 2025 school year" %}
-{% set label       = "Search for a school by its unique reference number (URN), name or postcode" %}
-
 {% extends "_templates/_form.html" %}
 
 
@@ -11,28 +9,36 @@
   <h1 class="govuk-heading-l">
     {{ pageHeading }}
   </h1>
-  {% for i in range(data.maxProviders) %}
-    <div id="{{ data.ordinals[i] }}Provider" class="govuk-!-margin-bottom-7 {% if loop.index > 1 %}app-hidden{% endif %}">
-      {{ govukInput({
-        label: {
-          text: data.ordinals[i] + " provider name",
-          classes: "govuk-label--m"
-        },
-        classes: "govuk-!-width-three-quarters",
-        id: "Provider" + i,
-        name: data.ordinals[i] + "ProviderName",
-        value: data[ordinals[i] + "ProviderName"]
-      }) }}
+
+  {% for providerIndex in range(1, data.maxProviders + 1) %}
+    <div
+      id="{{ providerIndex | getOrdinalName }}-provider-input-group"
+      class="{{ 'app-display-hidden' if loop.index > 1 }}">
+        {{ govukInput({
+          label: {
+            text: providerIndex | getOrdinalName | sentenceCase + " provider",
+            classes: "govuk-label--m"
+          },
+          classes: "govuk-!-width-three-quarters",
+          id: "provider-" + providerIndex,
+          name: 'providers[' + (providerIndex) + '][name]',
+          value: data.providers[providerIndex]["name"]
+        }) }}
     </div>
-    {% if loop.index > 1 and loop.index < data.maxProviders + 1 %}
-      <p class="govuk-body govuk-!-margin-bottom-7">
-        <a  href     = "#"
-            type     = "button"
-            class    = "govuk-link govuk-link--no-visited-state app-hidden"
-            id       = "remove{{ data.ordinals[i] }}Provider">
-          Remove {{ data.ordinals[i] | startLowerCase }} provider
+    {% if loop.index > 1 %}
+        <a 
+          id=   "remove-{{ providerIndex | getOrdinalName }}-provider"
+          href= "#"
+          type= "button"
+          class="
+            govuk-link 
+            govuk-link--no-visited-state 
+            govuk-body 
+            app-display-hidden
+            govuk-!-margin-bottom-7"
+          >
+          Remove {{ providerIndex | getOrdinalName }} provider
         </a>
-      </p>
     {% endif %}
   {% endfor %}
   {{ govukButton({
@@ -40,8 +46,8 @@
     classes: "govuk-button--secondary",
     attributes: {
       "type": "button",
-      "name": "addProvider",
-      "id":   "addProvider"
+      "name": "add-provider",
+      "id":   "add-provider"
     }
   }) }}
 {% endblock %}

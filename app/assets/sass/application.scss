@@ -27,7 +27,6 @@ $govuk-assets-path: '/govuk/assets/';
 
 // Add extra styles here, or re-organise the Sass files in whichever way makes most sense to you
 
-
 // GOV.UK guidance
 .app-govuk-notification-button {
   margin-bottom: govuk-spacing(6);
@@ -55,6 +54,10 @@ $govuk-assets-path: '/govuk/assets/';
   margin-bottom: govuk-spacing(2);
 }
 
-.app-hidden {
+.app-display-hidden {
   display: none;
+}
+
+.app-display-table {
+  display: table;
 }

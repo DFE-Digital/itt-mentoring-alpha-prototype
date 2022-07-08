@@ -1,0 +1,15 @@
+
+{% set formAction   = "./first-provider-answer" %}
+{% set providerName = (data['FirstProviderName']) if (data['FirstProviderName']) else "Example provider" %}
+{% set pageHeading  = "Teachers who trained with " + providerName %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  <p class="govuk-body">
+    First provider
+  </p>
+{% endblock %}
