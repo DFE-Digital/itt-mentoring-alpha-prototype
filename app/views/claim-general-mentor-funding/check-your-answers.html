@@ -20,7 +20,7 @@
   {% set amount = 876 %}
 
   <p class="govuk-body">
-    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * amount) | currency }}</span> for {{ totalTime }} hours of training at {{ amount | currency }}.
+    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * (amount / 20)) | currency }}</span> for {{ totalTime }} hours of training.
   </p>
   <p class="govuk-body">
   </p>
