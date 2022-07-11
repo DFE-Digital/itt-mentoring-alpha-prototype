@@ -2,9 +2,9 @@
 {% set formAction   = "./teachers-answer" %}
 {% set providerName = data.providers[ providerIndex ].name if data.providers[ providerIndex ].name else "Example provider" %}
 
-{% set pageHeadingHtml %}
+{% set pageHeadingHtml -%}
   Teachers who trained with <span class="app-nowrap">{{ providerName }}</span>
-{% endset %}
+{%- endset %}
 {% set pageHeading = pageHeadingHtml | stripHtml %}
 
 {% extends "_templates/_form.html" %}

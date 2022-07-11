@@ -91,6 +91,10 @@ const getSchools = () => {
   router.post('/claim-general-mentor-funding/providers-answer', function(req, res){
     const data = req.session.data
     data.providers = data.providers.filter(provider => provider.name != '')
+    /* Set a random provider for demoing */
+    if (data.providers.length == 0) {
+      data.providers[0] = _.sample([{"name": "Webury Hill SCITT"}, {"name": "King’s Oak University"}])
+    }
     res.redirect(getNextPage("providers"))
   })
 
@@ -109,7 +113,7 @@ const getSchools = () => {
     /* remove empty teachers */
     data.teachers = data.teachers.filter(teacher => teacher.trn != '')
 
-    /* add teacher to provider 2*/
+    /* add teacher to provider */
     data.providers[providerIndex].teachers = data.teachers
 
     if (providerIndex < providerCount - 1){
@@ -117,6 +121,20 @@ const getSchools = () => {
     } else {
       res.redirect(getNextPage("0/teachers"))
     }
+  })
+
+  /* mop-up empty fields for demoing */
+  router.post('/claim-general-mentor-funding/email-address-answer', function(req, res){
+    /* Set an example email address */
+    const data = req.session.data
+    if (data.email == "") {
+      data.email = "example@example.com"
+    }
+    /* Set an example teacher */
+    if (data.providers[0].teachers.length == 0) {
+      data.providers[0].teachers = [{"trn": "0000000", "trainingHours": 20}]
+    }
+    res.redirect(getNextPage("email-address"))
   })
 
   router.post('/claim-general-mentor-funding/:lastPage', function(req, res, next){

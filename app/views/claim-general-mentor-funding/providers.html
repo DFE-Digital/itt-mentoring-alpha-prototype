@@ -1,8 +1,9 @@
 
 {% set formAction  = "./providers-answer" %}
-{% set pageHeadingHtml %}
-  ITT providers who your teachers trained with in the <span class="app-nowrap">2024 to 2025 school year</span>
-{% endset %}
+{% set pageHeadingHtml -%}
+  ITT providers who your teachers trained with in the 
+  <span class="app-nowrap">2024 to 2025 school year</span>
+{%- endset %}
 {% set pageHeading = pageHeadingHtml | stripHtml %}
 
 {% extends "_templates/_form.html" %}
@@ -20,7 +21,7 @@
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
         {{ govukInput({
           label: {
-            text: providerIndex | getOrdinalName | sentenceCase + " provider",
+            text: providerIndex | getOrdinalName | sentenceCase + " provider name",
             classes: "govuk-label--m"
           },
           classes: "govuk-!-width-three-quarters",
