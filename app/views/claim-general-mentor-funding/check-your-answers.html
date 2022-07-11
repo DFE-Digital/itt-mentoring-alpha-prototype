@@ -20,7 +20,7 @@
   {% set amount = 876 %}
 
   <p class="govuk-body">
-    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * amount) | currency }}</span>, for {{ totalTime }} hours of training at {{ amount | currency }}.
+    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * amount) | currency }}</span> for {{ totalTime }} hours of training at {{ amount | currency }}.
   </p>
   <p class="govuk-body">
   </p>
@@ -81,7 +81,7 @@
         {{ provider.name }}
       </dd>
       <dd class="govuk-summary-list__actions">
-        <a class="govuk-link" href="./which-providers">
+        <a class="govuk-link" href="./providers">
           Change<span class="govuk-visually-hidden"> provider</span>
         </a>
       </dd>
@@ -90,12 +90,13 @@
   </dl>
 
   <h2 class="govuk-heading-m">
-    General mentors
+    General mentor training time
   </h2>
   {% for provider in data.providers %}
+    {% if provider.teachers.length > 0 %}
     {% set providerIndex = loop.index0 %}
     <h3 class="govuk-heading-s">
-      Trained with {{ provider.name }}
+      Teachers who trained with {{ provider.name }}
     </h3>
     {% for teacher in provider.teachers %}
       {% if loop.index == provider.teachers.length and providerIndex + 1 == data.providers.length %}
@@ -115,7 +116,7 @@
               {{ teacher.trn }}
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="./{{ providerIndex }}/how-many-teachers">
+              <a class="govuk-link" href="./{{ providerIndex }}/teachers">
                 Change<span class="govuk-visually-hidden"> TRN</span>
               </a>
             </dd>
@@ -128,13 +129,14 @@
               {{ teacher.trainingHours }} hours
             </dd>
             <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="./{{ providerIndex }}/how-many-teachers">
+              <a class="govuk-link" href="./{{ providerIndex }}/teachers">
                 Change<span class="govuk-visually-hidden"> TRN</span>
               </a>
             </dd>
           </div>
-      </dl>
-    {% endfor %}
+        </dl>
+      {% endfor %}
+    {% endif %}
   {% endfor %}
 
 

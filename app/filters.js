@@ -152,6 +152,11 @@ module.exports = function (env) {
     else return input
   }
 
+  // Strip html
+  filters.stripHtml = (input) => {
+    return input.replace(/<[^>]*>?/gm, '');
+  }
+
   /*------------------------------------------------------------------
     Numbers
   ==================================================================*/

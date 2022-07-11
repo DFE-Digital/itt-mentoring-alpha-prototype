@@ -1,13 +1,17 @@
 
-{% set formAction   = "./how-many-teachers-answer" %}
+{% set formAction   = "./teachers-answer" %}
 {% set providerName = data.providers[ providerIndex ].name if data.providers[ providerIndex ].name else "Example provider" %}
-{% set pageHeading  = "List the teachers who trained with " + providerName %}
+
+{% set pageHeadingHtml %}
+  Teachers who trained with <span class="app-nowrap">{{ providerName }}</span>
+{% endset %}
+{% set pageHeading = pageHeadingHtml | stripHtml %}
 
 {% extends "_templates/_form.html" %}
 
 {% block formContent %}
   <h1 class="govuk-heading-l">
-    {{ pageHeading }}
+    {{ pageHeadingHtml | safe }}
   </h1>
   {% for teacherIndex in range(1, data.maxTeachers + 1) %}
     <div
