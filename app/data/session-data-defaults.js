@@ -19,7 +19,8 @@ Example usage:
 
 module.exports = {
 
-  // Insert values here
+  // Global variables
   maxProviders: 5,
   maxTeachers: 5
+
 }
