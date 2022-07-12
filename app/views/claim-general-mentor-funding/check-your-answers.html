@@ -13,7 +13,7 @@
   {% set totalTime = 0 %}
   {% for provider in data.providers %}
     {% for teacher in provider.teachers %}
-      {% set totalTime = totalTime + teacher.trainingHours | stringToNumber %}
+      {% set totalTime = totalTime + teacher.trainingTime | stringToNumber %}
     {% endfor %}
   {% endfor %}
 
@@ -90,14 +90,16 @@
   </dl>
 
   <h2 class="govuk-heading-m">
-    General mentor training time
+    General mentors
   </h2>
   {% for provider in data.providers %}
     {% if provider.teachers.length > 0 %}
     {% set providerIndex = loop.index0 %}
-    <h3 class="govuk-heading-s">
-      Teachers who trained with {{ provider.name }}
-    </h3>
+    {% if data.providers.length > 1 %}
+      <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
+        Trained with {{ provider.name }}
+      </h3>
+    {% endif %}
     {% for teacher in provider.teachers %}
       {% if loop.index == provider.teachers.length and providerIndex + 1 == data.providers.length %}
         {% set taskListMargin = 9 %}
@@ -107,33 +109,23 @@
         {% set taskListMargin = 3 %}
       {% endif %}
       <dl class="
-        govuk-summary-list govuk-!-margin-bottom-{{ taskListMargin }}">
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Teacher reference number (TRN)
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ teacher.trn }}
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="./{{ providerIndex }}/teachers">
-                Change<span class="govuk-visually-hidden"> TRN</span>
-              </a>
-            </dd>
-          </div>
-          <div class="govuk-summary-list__row">
-            <dt class="govuk-summary-list__key">
-              Training time
-            </dt>
-            <dd class="govuk-summary-list__value">
-              {{ teacher.trainingHours }} hours
-            </dd>
-            <dd class="govuk-summary-list__actions">
-              <a class="govuk-link" href="./{{ providerIndex }}/teachers">
-                Change<span class="govuk-visually-hidden"> TRN</span>
-              </a>
-            </dd>
-          </div>
+        govuk-summary-list
+        govuk-!-margin-bottom-{{ taskListMargin }}">
+        {% for key, value in teacher %}
+            <div class="govuk-summary-list__row">
+              <dt class="govuk-summary-list__key">
+                {{ "Teacher reference number (TRN)" if key == "trn" else key | camelToSentence }}
+              </dt>
+              <dd class="govuk-summary-list__value">
+                {{ value + " hours" if key == "trainingTime" else value }}
+              </dd>
+              <dd class="govuk-summary-list__actions">
+                <a class="govuk-link" href="./{{ providerIndex }}/teachers">
+                  Change<span class="govuk-visually-hidden"> {{ key | camelToSentence }}</span>
+                </a>
+              </dd>
+            </div>
+          {% endfor %}
         </dl>
       {% endfor %}
     {% endif %}

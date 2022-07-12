@@ -132,7 +132,7 @@ const getSchools = () => {
     }
     /* Set an example teacher */
     if (data.providers[0].teachers.length == 0) {
-      data.providers[0].teachers = [{"trn": "0000000", "trainingHours": 20}]
+      data.providers[0].teachers = [{"Teacher reference number (TRN)": "0000000", "Training Time": 20}]
     }
     res.redirect(getNextPage("email-address"))
   })

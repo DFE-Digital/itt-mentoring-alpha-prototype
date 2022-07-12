@@ -144,17 +144,23 @@ module.exports = function (env) {
   }
 
   // Sentence case - uppercase first letter
-  filters.sentenceCase = (input) => {
-    if (!input) return '' // avoid printing false to client
-    if (_.isString(input)){
-      return input.charAt(0).toUpperCase() + input.slice(1);
+  filters.sentenceCase = (string) => {
+    if (!string) return '' // avoid printing false to client
+    if (_.isString(string)){
+      return string.charAt(0).toUpperCase() + string.slice(1);
     }
-    else return input
+    else return string
   }
 
   // Strip html
-  filters.stripHtml = (input) => {
-    return input.replace(/<[^>]*>?/gm, '');
+  filters.stripHtml = (string) => {
+    return string.replace(/<[^>]*>?/gm, '');
+  }
+
+  // camelCase to Sentence case
+  filters.camelToSentence = (string) => {
+    let result = string.replace(/([A-Z])/g, " $1").toLowerCase()
+    return result.charAt(0).toUpperCase() + result.slice(1);
   }
 
   /*------------------------------------------------------------------
