@@ -21,6 +21,14 @@ module.exports = {
 
   // Global variables
   maxProviders: 5,
-  maxGeneralMentors: 5
+  maxGeneralMentors: 5,
+
+  /*
+    Inner London    - 1072
+    Outer London    -  965
+    Fringe          -  902
+    Rest of England -  876
+  */
+  amountForSession: 876
 
 }

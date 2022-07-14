@@ -17,10 +17,8 @@
     {% endfor %}
   {% endfor %}
 
-  {% set amount = 876 %}
-
   <p class="govuk-body">
-    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * (amount / 20)) | currency }}</span> for {{ totalTime }} hours of training.
+    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * (data.amountForSession / 20)) | currency }}</span> for {{ totalTime }} hours of training.
   </p>
   <p class="govuk-body">
   </p>
