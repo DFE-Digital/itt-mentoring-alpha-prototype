@@ -21,6 +21,6 @@ module.exports = {
 
   // Global variables
   maxProviders: 5,
-  maxTeachers: 5
+  maxGeneralMentors: 5
 
 }

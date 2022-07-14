@@ -3,7 +3,7 @@
 {% set providerName = data.providers[ providerIndex ].name if data.providers[ providerIndex ].name else "Example provider" %}
 
 {% set pageHeadingHtml -%}
-  Teachers who trained with <span class="app-nowrap">{{ providerName }}</span>
+  General mentors who trained with <span class="app-nowrap">{{ providerName }}</span>
 {%- endset %}
 {% set pageHeading = pageHeadingHtml | stripHtml %}
 
@@ -13,12 +13,12 @@
   <h1 class="govuk-heading-l">
     {{ pageHeadingHtml | safe }}
   </h1>
-  {% for teacherIndex in range(1, data.maxTeachers + 1) %}
+  {% for teacherIndex in range(1, data.maxGeneralMentors + 1) %}
     <div
       id="{{ teacherIndex | getOrdinalName }}-teacher-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
         <h2 class="govuk-heading-m">
-          {{ teacherIndex | getOrdinalName | sentenceCase }} teacher
+          {{ teacherIndex | getOrdinalName | sentenceCase }} general mentor
         </h2>
         {{ govukInput({
           label: {
