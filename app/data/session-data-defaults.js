@@ -29,6 +29,6 @@ module.exports = {
     Fringe          -  902
     Rest of England -  876
   */
-  amountForSession: 876
+  amountForSession: 902
 
 }
