@@ -42,7 +42,10 @@
       <ul class="govuk-list govuk-list--bullet">
       {% for page in pageGroup.pages %}
         <li>
-          <a href="{{ page.url }}" class="govuk-link">{{ page.text }}</a>
+          <a href="{{ page.url }}" 
+            class="govuk-link govuk-link--no-visited-state">
+            {{ page.text }}
+          </a>
         </li>
       {% endfor %}
       </ul>

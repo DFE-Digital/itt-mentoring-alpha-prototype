@@ -111,7 +111,13 @@ const getSchools = () => {
     let providerCount = data.providers.length
     
     /* remove empty teachers */
-    data.teachers = data.teachers.filter(teacher => teacher.trn != '')
+    data.teachers = data.teachers.filter(teacher => teacher.name != '' || teacher.trn != '')
+
+    /* hacky way of removing empty teaching hours */
+    /* to do: clean this up in the view */
+    data.teachers.forEach(teacher => {
+      teacher.trainingTime = teacher.trainingTime.filter(value => value != "")
+    })
 
     /* add teacher to provider */
     data.providers[providerIndex].teachers = data.teachers
