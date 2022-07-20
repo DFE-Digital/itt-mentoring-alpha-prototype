@@ -115,7 +115,13 @@
                 {{ "Teacher reference number (TRN)" if key == "trn" else key | camelToSentence }}
               </dt>
               <dd class="govuk-summary-list__value">
-                {{ value + " hours" if key == "trainingTime" else value }}
+                {% if key == 'dateOfBirth' %}
+                  {{ value | govukDate }}
+                {% elseif key == "trainingTime" %}
+                  {{ value }} hours
+                {% else %}
+                  {{ value }}
+                {% endif %}
               </dd>
               <dd class="govuk-summary-list__actions">
                 <a class="govuk-link" href="./{{ providerIndex }}/teachers">
