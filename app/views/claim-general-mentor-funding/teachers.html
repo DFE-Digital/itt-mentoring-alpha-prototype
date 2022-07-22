@@ -9,11 +9,26 @@
 
 {% extends "_templates/_form.html" %}
 
+
+
 {% block formContent %}
   <h1 class="govuk-heading-l">
     {{ pageHeadingHtml | safe }}
   </h1>
   {% for teacherIndex in range(1, data.maxGeneralMentors + 1) %}
+    {% set otherAmountHtml %}
+      {{ govukInput({
+        id: "teacher-" + teacherIndex + "-trainingTime",
+        name: "teachers[" + ( teacherIndex ) + "][trainingTime]",
+        suffix: {
+          text: "hours"
+        },
+        classes: "govuk-input--width-2",
+        label: {
+          text: "Training time"
+        }
+      }) }}
+    {% endset -%}
     <div
       id="{{ teacherIndex | getOrdinalName }}-teacher-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
@@ -36,7 +51,7 @@
             classes: "govuk-label--s"
           },
           classes: "govuk-input--width-10",
-          id: "teacher-TRN-" + teacherIndex,
+          id: "teacher-" + teacherIndex + "-TRN",
           name: "teachers[" + ( teacherIndex ) + "][trn]",
           value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trn"]
         }) }}
@@ -53,20 +68,34 @@
             text: "For example, 27 3 2007"
           }
         }) }}
-        {{ govukInput({
-          label: {
-            text: "General mentor training time",
-            classes: "govuk-label--s"
-          },
-          suffix: {
-            text: "hours"
-          },
-          classes: "govuk-input--width-2",
-          id: "teacher-" + teacherIndex,
+        {{ govukRadios({
+          idPrefix: "teacher-" + teacherIndex + "-trainingTime",
           name: "teachers[" + ( teacherIndex ) + "][trainingTime]",
-          value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trainingTime"]
+          fieldset: {
+            legend: {
+              text: "Mentor training time",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: 20,
+              text: "20 hours"
+            },
+            {
+              value: 6,
+              text: "6 hours"
+            },
+            {
+              value: "",
+              text:  "Other amount",
+              conditional: {
+                html: otherAmountHtml
+              }
+            }
+          ]
         }) }}
-    </div>
+      </div>
     {% if loop.index > 1 %}
         <a 
           id=   "remove-{{ teacherIndex | getOrdinalName }}-teacher"
