@@ -36,9 +36,22 @@
             classes: "govuk-label--s"
           },
           classes: "govuk-input--width-10",
-          id: "teacher-" + teacherIndex,
+          id: "teacher-TRN-" + teacherIndex,
           name: "teachers[" + ( teacherIndex ) + "][trn]",
           value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trn"]
+        }) }}
+        {{ govukDateInput({
+          id: "teacher-DOB-" + teacherIndex,
+          namePrefix: "teachers[" + ( teacherIndex ) + "][dateOfBirth]",
+          fieldset: {
+            legend: {
+              text: "Date of birth",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "For example, 27 3 2007"
+          }
         }) }}
         {{ govukInput({
           label: {
