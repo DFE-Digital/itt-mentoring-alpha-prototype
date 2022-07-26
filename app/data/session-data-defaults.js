@@ -23,6 +23,18 @@ module.exports = {
   maxProviders: 5,
   maxGeneralMentors: 5,
 
+
+  /* Prototype routes on whether a school is state school or not
+     https://www.gov.uk/types-of-school */
+  stateSchools: [
+    "Academy converter",
+    "Academy sponsor led",
+    "Community school",
+    "Community special school",
+    "Pupil referral unit",
+    "Voluntary aided school"
+  ],
+
   /*
     Inner London    - 1072
     Outer London    -  965

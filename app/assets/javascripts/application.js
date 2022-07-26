@@ -25,7 +25,7 @@ $(document).ready(function () {
       'eighth',
       'ninth',
       'tenth'
-      ]
+    ]
 
     /* Page always start with 1 item visible */
     let itemCount = 1
