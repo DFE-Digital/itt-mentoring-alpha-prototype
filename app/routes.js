@@ -86,16 +86,12 @@ const getSchools = () => {
       // If school is not in TPS (this list is a proxy), we need to do
       // something else
       if (!data.stateSchools.includes(data.school.type)) {
-        res.redirect("/claim-general-mentor-funding/school-not-in-tps")
+        data.mainstreamSchool = false
+        res.redirect(getNextPage("school"))
       } else {
         res.redirect(getNextPage("school"))
       }
     }
-  })
-
-  /* Redirect user back to main route */
-  router.post("/claim-general-mentor-funding/school-not-in-tps", function(req, res){
-    res.redirect(getNextPage("school"))
   })
 
   /* remove empty providers */

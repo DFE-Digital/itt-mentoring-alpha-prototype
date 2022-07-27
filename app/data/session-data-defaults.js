@@ -22,7 +22,7 @@ module.exports = {
   // Global variables
   maxProviders: 5,
   maxGeneralMentors: 5,
-
+  mainstreamSchool: true,
 
   /* Prototype routes on whether a school is state school or not
      https://www.gov.uk/types-of-school */

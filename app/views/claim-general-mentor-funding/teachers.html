@@ -50,6 +50,9 @@
             text: "Teacher reference number (TRN)",
             classes: "govuk-label--s"
           },
+          hint: {
+            text: "Optional"
+          } if data.mainstreamSchool == false,
           classes: "govuk-input--width-10",
           id: "teacher-" + teacherIndex + "-TRN",
           name: "teachers[" + ( teacherIndex ) + "][trn]",

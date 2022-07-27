@@ -27,6 +27,14 @@
           subject: "Help with general mentor funding application"
         }) }}
       </p>
+      {% if data.mainstreamSchool == false %}
+        <h3 class="govuk-heading-s">
+          Provide your banking information to the DfE
+        </h3>
+        <p class="govuk-body">
+          If you have not claimed funding from the DfE before, you need <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">give your school’s payment information</a>.
+        </p>
+      {% endif %}
     </div>
   </div>
 {% endblock %}
