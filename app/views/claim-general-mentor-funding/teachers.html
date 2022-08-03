@@ -16,6 +16,33 @@
     {{ pageHeadingHtml | safe }}
   </h1>
   {% for teacherIndex in range(1, data.maxGeneralMentors + 1) %}
+    {% set trnHtml %}
+      {{ govukInput({
+        label: {
+          text: "Teacher reference number (TRN)",
+          classes: "govuk-label--s"
+        },
+        classes: "govuk-input--width-10",
+        id: "teacher-" + teacherIndex + "-dob-or-nino",
+        name: "teachers[" + ( teacherIndex ) + "][trn]",
+        value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trn"]
+      }) }}
+    {% endset %}
+    {% set ninoHtml %}
+      {{ govukInput({
+        label: {
+          text: "National insurance number",
+          classes: "govuk-label--s"
+        },
+        hint: {
+          text: "For example, QQ 12 34 56 A"
+        },
+        classes: "govuk-input--width-10",
+        id: "teacher-" + teacherIndex + "-dob-or-nino",
+        name: "teachers[" + ( teacherIndex ) + "][nationalInsuranceNumber]",
+        value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["nationalInsuranceNumber"]
+      }) }}
+    {% endset %}
     {% set otherAmountHtml %}
       {{ govukInput({
         id: "teacher-" + teacherIndex + "-trainingTime",
@@ -28,7 +55,7 @@
           text: "Training time"
         }
       }) }}
-    {% endset -%}
+    {% endset %}
     <div
       id="{{ teacherIndex | getOrdinalName }}-teacher-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
@@ -45,19 +72,39 @@
           name: "teachers[" + ( teacherIndex ) + "][name]",
           value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["name"]
         }) }}
-        {{ govukInput({
-          label: {
-            text: "Teacher reference number (TRN)",
-            classes: "govuk-label--s"
-          },
-          hint: {
-            text: "Optional"
-          } if data.mainstreamSchool == false,
-          classes: "govuk-input--width-10",
-          id: "teacher-" + teacherIndex + "-TRN",
-          name: "teachers[" + ( teacherIndex ) + "][trn]",
-          value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trn"]
-        }) }}
+        {% if data.mainstreamSchool == true %}
+          {{ trnHtml | safe }}
+        {% else %}
+          {{ govukRadios({
+            idPrefix: "teacher-" + teacherIndex + "-dob-or-nino",
+            name: "qualified",
+            fieldset: {
+              legend: {
+                text: "Is the mentor a qualified teacher?",
+                classes: "govuk-fieldset__legend--s"
+              }
+            },
+            hint: {
+              text: "Select one option."
+            },
+            items: [
+              {
+                value: "yes",
+                text: "Yes, they have qualified teacher status (QTS)",
+                conditional: {
+                  html: trnHtml
+                }
+              },
+              {
+                value: "no",
+                text: "No",
+                conditional: {
+                  html: ninoHtml
+                }
+              }
+            ]
+          }) }}
+        {% endif %}
         {{ govukDateInput({
           id: "teacher-DOB-" + teacherIndex,
           namePrefix: "teachers[" + ( teacherIndex ) + "][dateOfBirth]",
@@ -116,7 +163,7 @@
     {% endif %}
   {% endfor %}
   {{ govukButton({
-    text:    "Add another teacher",
+    text:    "Add another general mentor",
     classes: "govuk-button--secondary",
     attributes: {
       "type": "button",

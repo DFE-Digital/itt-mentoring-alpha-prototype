@@ -110,6 +110,7 @@
         govuk-summary-list
         govuk-!-margin-bottom-{{ taskListMargin }}">
         {% for key, value in teacher %}
+          {% if value != "" %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
                 {{ "Teacher reference number (TRN)" if key == "trn" else key | camelToSentence }}
@@ -129,6 +130,7 @@
                 </a>
               </dd>
             </div>
+            {% endif %}
           {% endfor %}
         </dl>
       {% endfor %}
