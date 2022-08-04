@@ -56,6 +56,8 @@ module.exports = {
     ========================================================================
   */
 
+  leadMentorMaxAmount: 9514,
+
   // Using this for routing through shared pages
   // Lead mentor - leadMentor
   // Intensive Training and Practice Grant - intensiveTrainingAndPracticeGrant

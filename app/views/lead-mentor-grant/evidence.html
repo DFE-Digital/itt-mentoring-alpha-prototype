@@ -1,0 +1,24 @@
+
+{% set formAction  = "./evidence-answer" %}
+{% set pageHeading = "Evidence of lead mentor activity" %}
+
+{% if data.leadMentors %}
+  {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
+{% else %}
+  {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
+{% endif %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {{ govukFileUpload({
+    id: "file-upload-1",
+    name: "file-upload-1",
+    label: {
+      text: "Upload a file"
+    }
+  }) }}
+{% endblock %}

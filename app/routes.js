@@ -11,9 +11,9 @@ const getSchools = () => {
     ========================================================================
   */
 
-  function getNextPage(currentPage, pageOrder, folder) {
-    let nextPage = pageOrder.indexOf(currentPage) + 1
-    return folder + `${ pageOrder[nextPage] }`
+  function getNextPage(currentPage, routing) {
+    let nextPage = routing.pageOrder.indexOf(currentPage) + 1
+    return routing.folder + `${ routing.pageOrder[nextPage] }`
   }
 
 
@@ -23,18 +23,16 @@ const getSchools = () => {
     ========================================================================
   */
 
-  function getNextPageGeneralMentor(currentPage) {
-    const generalMentorPageOrder = 
-    [
+  const generalMentorRouting = {
+    pageOrder: [
       'school',
       'providers',
       '0/teachers',
       'email-address',
       'check-your-answers',
       'confirmation'
-    ]
-    const generalMentorFolder = "/claim-general-mentor-funding/"
-    getNextPage(currentPage, generalMentorPageOrder, generalMentorFolder)
+    ],
+    folder: "/claim-general-mentor-funding/"
   }
 
 
@@ -105,10 +103,10 @@ const getSchools = () => {
       // something else
       if (!data.stateSchools.includes(data.school.type)) {
         data.mainstreamSchool = false
-        res.redirect(getNextPageGeneralMentor("school"))
+        res.redirect(getNextPage("school", generalMentorRouting))
       } else {
         data.mainstreamSchool = true
-        res.redirect(getNextPageGeneralMentor("school"))
+        res.redirect(getNextPage("school", generalMentorRouting))
       }
     }
   })
@@ -121,7 +119,7 @@ const getSchools = () => {
     if (data.providers.length == 0) {
       data.providers[0] = _.sample([{"name": "Webury Hill SCITT"}, {"name": "King’s Oak University"}])
     }
-    res.redirect(getNextPageGeneralMentor("providers"))
+    res.redirect(getNextPage("providers", generalMentorRouting))
   })
 
   router.get('/claim-general-mentor-funding/:providerIndex/teachers', function(req, res){
@@ -151,7 +149,7 @@ const getSchools = () => {
     if (providerIndex < providerCount - 1){
       res.redirect(`/claim-general-mentor-funding/${ providerIndex + 1 }/teachers`)
     } else {
-      res.redirect(getNextPageGeneralMentor("0/teachers"))
+      res.redirect(getNextPage("0/teachers", generalMentorRouting))
     }
   })
 
@@ -166,14 +164,14 @@ const getSchools = () => {
     if (data.providers[0].teachers.length == 0) {
       data.providers[0].teachers = [{"name": "Firstname Lastname", "trn": "0000000", "dateOfBirth": [1,1,1990], "trainingTime": 20}]
     }
-    res.redirect(getNextPageGeneralMentor("email-address"))
+    res.redirect(getNextPage("email-address", generalMentorRouting))
   })
 
   router.post('/claim-general-mentor-funding/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
     if (lastPage.endsWith("-answer")) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
-      res.redirect(getNextPage(currentPage, generalMentorPageOrder, generalMentorFolder))
+      res.redirect(getNextPage(currentPage, generalMentorRouting))
     } else {
       next()
     }
@@ -189,23 +187,32 @@ const getSchools = () => {
     Lead mentor
   */
 
-
-
   router.get('/lead-mentor-grant/answer', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = "leadMentor"
     res.redirect('/sign-in')
   })
 
-  const leadMentorPageOrder = 
-    [
-      'how-many-lead-mentors',
-      'evidence',
-      'check-your-answers',
-      'confirmation'
-    ]
+  const leadMentorRouting = {
+    pageOrder: [
+        'lead-mentors',
+        'claim-value',
+        'evidence',
+        'check-your-answers',
+        'confirmation'
+      ],
+    folder: "/lead-mentor-grant/"
+  }
 
-  const leadMentorFolder = "/lead-mentor-grant/"
+  router.post('/lead-mentor-grant/:lastPage', function(req, res, next){
+    let lastPage = req.params.lastPage
+    if (lastPage.endsWith("-answer")) {
+      currentPage = lastPage.substr(0, lastPage.length - 7)
+      res.redirect(getNextPage(currentPage, leadMentorRouting))
+    } else {
+      next()
+    }
+  })
 
 
 module.exports = router
