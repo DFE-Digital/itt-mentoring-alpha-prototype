@@ -1,0 +1,21 @@
+
+{% set formAction  = "./how-many-lead-mentors-answer" %}
+{% set pageHeading = "How many lead mentors do you want to claim funding for?" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  {{ govukInput({
+    label: {
+      text: pageHeading,
+      classes: "govuk-label--l",
+      isPageHeading: true
+    },
+    classes: "govuk-input--width-2",
+    id: "account-number",
+    name: "account-number",
+    inputmode: "numeric",
+    pattern: "[0-9]*",
+    spellcheck: false
+  }) }}
+{% endblock %}

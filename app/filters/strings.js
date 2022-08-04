@@ -15,7 +15,7 @@ else return string(input).slugify().toString();
 // camelToSentence
 // camelCase to Sentence case
 // input:  'thisIsAString'
-// output: 'this is a string'
+// output: 'This is a string'
 filters.camelToSentence = (string) => {
 let result = string.replace(/([A-Z])/g, " $1").toLowerCase()
 return result.charAt(0).toUpperCase() + result.slice(1);
