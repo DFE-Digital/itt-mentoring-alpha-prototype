@@ -1,0 +1,43 @@
+
+{% set pageHeading = "Application complete" %}
+{% set buttonText = "Accept and send" %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {{ govukPanel({
+        titleText: pageHeading,
+        html:      "Your reference number<br><strong>HDJ2123F</strong>"
+      }) }}
+      <p class="govuk-body">
+        We have sent you a confirmation email.
+      </p>
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+      <p class="govuk-body">
+        Your application will be processed and payment will be made
+        by <span class="app-nowrap">31 October 2025</span>.
+      </p>
+      <p class="govuk-body">
+        For support with your application, contact
+        {{ appDefaultEmail({
+          subject: "Help with general mentor funding application"
+        }) }}
+      </p>
+      {% if data.mainstreamSchool == false %}
+        <h3 class="govuk-heading-s">
+          Provide your banking information to the DfE
+        </h3>
+        <p class="govuk-body">
+          If you have not claimed funding from the DfE before, you need <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">give your school’s payment information</a>.
+        </p>
+      {% endif %}
+      <p class="govuk-body">
+        If you have not applied for the the intensive training and practice grant, <a href="../itp-grant/claim-value" class="govuk-link">apply for the intensive training and practice grant</a>.
+      </p>
+    </div>
+  </div>
+{% endblock %}

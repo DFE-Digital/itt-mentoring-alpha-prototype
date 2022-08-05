@@ -3,22 +3,44 @@
 
 {% extends "layout.html" %}
 
-{% set pageGroups = [
+{% set pageList = [
   {
-    title: 'Guidance',
-    pages: [
+    userGroup: 'Schools',
+    fundingTypes: [
       {
-        text: "Apply for ITT general mentor training funding",
-        url:  "/guidance/apply-for-itt-general-mentor-training-funding"
+        fundingName: 'General mentor training grant',
+        pages: [
+          {
+            text: 'Guidance',
+            url:  '/guidance/apply-for-itt-general-mentor-training-funding'
+          },
+          {
+            text: 'Claim form',
+            url:  '/claim-general-mentor-funding/school'
+          }
+        ]
       }
     ]
   },
   {
-    title: 'Claim form',
-    pages: [
+    userGroup: 'Providers',
+    fundingTypes: [
       {
-        text: "Simple — no evidence required",
-        url:  "/claim-general-mentor-funding/school"
+        fundingName: 'Lead mentor grant',
+        pages: [
+          {
+            text: 'Claim form',
+            url:  '/lead-mentor-grant/answer'
+          }
+        ]
+      },
+      {
+        fundingName: 'Intensive training and practice grant',
+        pages: [
+          {
+            text: 'Claim form'
+          }
+        ]
       }
     ]
   }
@@ -32,23 +54,31 @@
         <span class="govuk-caption-xl">Prototype</span>
         {{ pageHeading }}
       </h1>
-      <h2 class="govuk-heading-l">
-        Pages
-      </h2>
-      {% for pageGroup in pageGroups %}
-       <h3 class="govuk-heading-m">
-          {{ pageGroup.title }}
-        </h3>
-      <ul class="govuk-list govuk-list--bullet">
-      {% for page in pageGroup.pages %}
-        <li>
-          <a href="{{ page.url }}" 
-            class="govuk-link govuk-link--no-visited-state">
-            {{ page.text }}
-          </a>
-        </li>
-      {% endfor %}
-      </ul>
+      {% for group in pageList %}
+        <h2 class="govuk-heading-l">
+          {{ group.userGroup }}
+        </h2>
+        {% for fundingType in group.fundingTypes %}
+          <h3 class="govuk-heading-m">
+            {{ fundingType.fundingName }}
+          </h3>
+          <ul class="govuk-list govuk-list--spaced">
+            {% for page in fundingType.pages %}
+              <li>
+                {% if page.url %}
+                  <a href="{{ page.url }}" 
+                    class="govuk-link govuk-link--no-visited-state">
+                    {{ page.text }}
+                  </a>
+                {% else %}
+                  <p class="govuk-body govuk-hint">
+                    {{ page.text }} (coming soon)
+                  </p>
+                {% endif %}
+              </li>
+            {% endfor %}
+          </ul>
+        {% endfor %}
       {% endfor %}
     </div>
   </div>

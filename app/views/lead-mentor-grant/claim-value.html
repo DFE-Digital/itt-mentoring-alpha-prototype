@@ -1,0 +1,58 @@
+
+{% set formAction  = "./claim-value-answer" %}
+{% set pageHeading = "How much do you want to claim?" %}
+
+{% if data.leadMentors %}
+  {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
+{% else %}
+  {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
+{% endif %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  {% set lessThanMaximumHtml %}
+    {{ govukInput({
+      label: {
+        text: "Claim amount",
+        classes: "govuk-label--s"
+      },
+      prefix: {
+        text: "£"
+      },
+      classes: "govuk-input--width-4",
+      id: "leadMentorClaimValueOther",
+      name: "leadMentorClaimValueOther",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% endset %}
+  {{ govukRadios({
+  idPrefix: "leadMentorClaimValue",
+  name: "leadMentorClaimValue",
+  fieldset: {
+    legend: {
+      text: "How much do you want to claim?",
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "Select one option."
+  },
+  items: [
+    {
+      value: maxClaimValue,
+      text: maxClaimValue | currency
+    },
+    {
+      value: "otherClaimAmount",
+      text: "Less than " + maxClaimValue | currency,
+      conditional: {
+        html: lessThanMaximumHtml
+      }
+    }
+  ]
+}) }}
+{% endblock %}

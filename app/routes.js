@@ -5,20 +5,36 @@ const getSchools = () => {
   return require('./data/gis-schools.js')
 }
 
+  /*
+    ========================================================================
+    Shared
+    ========================================================================
+  */
 
-  function getNextPage(currentPage) {
-    const pageOrder = 
-    [
+  function getNextPage(currentPage, routing) {
+    let nextPage = routing.pageOrder.indexOf(currentPage) + 1
+    return routing.folder + `${ routing.pageOrder[nextPage] }`
+  }
+
+
+  /*
+    ========================================================================
+    Schools
+    ========================================================================
+  */
+
+  const generalMentorRouting = {
+    pageOrder: [
       'school',
       'providers',
       '0/teachers',
       'email-address',
       'check-your-answers',
       'confirmation'
-    ]
-    let nextPage = pageOrder.indexOf(currentPage) + 1
-    return `/claim-general-mentor-funding/${ pageOrder[nextPage] }`
+    ],
+    folder: "/claim-general-mentor-funding/"
   }
+
 
   router.post('/claim-general-mentor-funding/school-answer', function(req, res){
     const data = req.session.data
@@ -83,14 +99,14 @@ const getSchools = () => {
         // Using _.set as lead school might not exist yet
         _.set(data, 'school', selectedSchool)
       }
-      // If school is not in TPS (this list is a proxy), we need to do
+      // If school is not in Teacger Pension Service (this list is a proxy), we need to do
       // something else
       if (!data.stateSchools.includes(data.school.type)) {
         data.mainstreamSchool = false
-        res.redirect(getNextPage("school"))
+        res.redirect(getNextPage("school", generalMentorRouting))
       } else {
         data.mainstreamSchool = true
-        res.redirect(getNextPage("school"))
+        res.redirect(getNextPage("school", generalMentorRouting))
       }
     }
   })
@@ -103,7 +119,7 @@ const getSchools = () => {
     if (data.providers.length == 0) {
       data.providers[0] = _.sample([{"name": "Webury Hill SCITT"}, {"name": "King’s Oak University"}])
     }
-    res.redirect(getNextPage("providers"))
+    res.redirect(getNextPage("providers", generalMentorRouting))
   })
 
   router.get('/claim-general-mentor-funding/:providerIndex/teachers', function(req, res){
@@ -133,7 +149,7 @@ const getSchools = () => {
     if (providerIndex < providerCount - 1){
       res.redirect(`/claim-general-mentor-funding/${ providerIndex + 1 }/teachers`)
     } else {
-      res.redirect(getNextPage("0/teachers"))
+      res.redirect(getNextPage("0/teachers", generalMentorRouting))
     }
   })
 
@@ -148,17 +164,55 @@ const getSchools = () => {
     if (data.providers[0].teachers.length == 0) {
       data.providers[0].teachers = [{"name": "Firstname Lastname", "trn": "0000000", "dateOfBirth": [1,1,1990], "trainingTime": 20}]
     }
-    res.redirect(getNextPage("email-address"))
+    res.redirect(getNextPage("email-address", generalMentorRouting))
   })
 
   router.post('/claim-general-mentor-funding/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
     if (lastPage.endsWith("-answer")) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
-      res.redirect(getNextPage(currentPage))
+      res.redirect(getNextPage(currentPage, generalMentorRouting))
     } else {
       next()
     }
   })
+
+  /*
+    ========================================================================
+    Providers
+    ========================================================================
+  */
+
+  /*
+    Lead mentor
+  */
+
+  router.get('/lead-mentor-grant/answer', function(req, res){
+    const data = req.session.data
+    data.grantBeingAppliedFor = "leadMentor"
+    res.redirect('/sign-in')
+  })
+
+  const leadMentorRouting = {
+    pageOrder: [
+        'lead-mentors',
+        'claim-value',
+        'evidence',
+        'check-your-answers',
+        'confirmation'
+      ],
+    folder: "/lead-mentor-grant/"
+  }
+
+  router.post('/lead-mentor-grant/:lastPage', function(req, res, next){
+    let lastPage = req.params.lastPage
+    if (lastPage.endsWith("-answer")) {
+      currentPage = lastPage.substr(0, lastPage.length - 7)
+      res.redirect(getNextPage(currentPage, leadMentorRouting))
+    } else {
+      next()
+    }
+  })
+
 
 module.exports = router

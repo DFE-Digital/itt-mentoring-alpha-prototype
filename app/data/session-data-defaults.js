@@ -19,6 +19,12 @@ Example usage:
 
 module.exports = {
 
+  /*
+    ========================================================================
+    Schools
+    ========================================================================
+  */
+
   // Global variables
   maxProviders: 5,
   maxGeneralMentors: 5,
@@ -41,6 +47,21 @@ module.exports = {
     Fringe          -  902
     Rest of England -  876
   */
-  amountForSession: 902
+  amountForSession: 902,
+
+
+  /*
+    ========================================================================
+    Providers
+    ========================================================================
+  */
+
+  leadMentorMaxAmount: 9514,
+
+  // Using this for routing through shared pages
+  // Lead mentor - leadMentor
+  // Intensive Training and Practice Grant - intensiveTrainingAndPracticeGrant
+  grantBeingAppliedFor: null
+
 
 }

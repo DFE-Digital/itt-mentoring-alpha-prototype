@@ -7,7 +7,7 @@ var filters = {}
     return parseInt(input, 10)
   }
 
-  // stringToNumber
+  // currency
   // input: 1000
   // output: '£10,000'
   filters.currency = input => {
