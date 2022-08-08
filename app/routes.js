@@ -32,11 +32,11 @@ const getSchools = () => {
       'check-your-answers',
       'confirmation'
     ],
-    folder: "/claim-general-mentor-funding/"
+    folder: "/general-mentor-grant/"
   }
 
 
-  router.post('/claim-general-mentor-funding/school-answer', function(req, res){
+  router.post('/general-mentor-grant/school-answer', function(req, res){
     const data = req.session.data
     console.log({ data })
 
@@ -85,7 +85,7 @@ const getSchools = () => {
     */
     // No answer given and no search term
     /*else*/ if (!schoolUuid){
-      res.redirect(`/claim-general-mentor-funding/school`)
+      res.redirect(`/general-mentor-grant/school`)
     }
     else {
       let selectedSchool = schools.find(school => school.uuid == schoolUuid)
@@ -112,7 +112,7 @@ const getSchools = () => {
   })
 
   /* remove empty providers */
-  router.post('/claim-general-mentor-funding/providers-answer', function(req, res){
+  router.post('/general-mentor-grant/providers-answer', function(req, res){
     const data = req.session.data
     data.providers = data.providers.filter(provider => provider.name != '')
     /* Set a random provider for demoing */
@@ -122,14 +122,14 @@ const getSchools = () => {
     res.redirect(getNextPage("providers", generalMentorRouting))
   })
 
-  router.get('/claim-general-mentor-funding/:providerIndex/teachers', function(req, res){
+  router.get('/general-mentor-grant/:providerIndex/teachers', function(req, res){
     let providerIndex = parseInt(req.params.providerIndex)
-    res.render('claim-general-mentor-funding/teachers', {
+    res.render('general-mentor-grant/teachers', {
       providerIndex
     })
   })
 
-  router.post('/claim-general-mentor-funding/:providerIndex/teachers-answer', function(req, res){
+  router.post('/general-mentor-grant/:providerIndex/teachers-answer', function(req, res){
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
     let providerCount = data.providers.length
@@ -147,14 +147,14 @@ const getSchools = () => {
     data.providers[providerIndex].teachers = data.teachers
 
     if (providerIndex < providerCount - 1){
-      res.redirect(`/claim-general-mentor-funding/${ providerIndex + 1 }/teachers`)
+      res.redirect(`/general-mentor-grant/${ providerIndex + 1 }/teachers`)
     } else {
       res.redirect(getNextPage("0/teachers", generalMentorRouting))
     }
   })
 
   /* mop-up empty fields for demoing */
-  router.post('/claim-general-mentor-funding/email-address-answer', function(req, res){
+  router.post('/general-mentor-grant/email-address-answer', function(req, res){
     /* Set an example email address */
     const data = req.session.data
     if (data.email == "") {
@@ -167,7 +167,7 @@ const getSchools = () => {
     res.redirect(getNextPage("email-address", generalMentorRouting))
   })
 
-  router.post('/claim-general-mentor-funding/:lastPage', function(req, res, next){
+  router.post('/general-mentor-grant/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
     if (lastPage.endsWith("-answer")) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
