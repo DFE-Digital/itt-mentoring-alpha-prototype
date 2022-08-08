@@ -1,12 +1,11 @@
 
 {% set formAction  = "./claim-value-answer" %}
-{% set pageHeading = "How much do you want to claim?" %}
+{% set pageHeading = "How much do you want to claim!?" %}
 
-{% if data.leadMentors %}
-  {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
-{% else %}
-  {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
-{% endif %}
+{% set maxClaimValue = 
+  (data.postgradTraineeWeeks | stringToNumber * data.postgradWeekValue) +
+  (data.undergradTraineeWeeks | stringToNumber * data.undergradWeekValue)
+%}
 
 {% extends "_templates/_form.html" %}
 
@@ -21,19 +20,19 @@
         text: "£"
       },
       classes: "govuk-input--width-4",
-      id: "leadMentorClaimValueOther",
-      name: "leadMentorClaimValueOther",
+      id: "itpClaimValueOther",
+      name: "itpClaimValueOther",
       inputmode: "numeric",
       pattern: "[0-9]*",
       spellcheck: false
     }) }}
   {% endset %}
   {{ govukRadios({
-  idPrefix: "leadMentorClaimValue",
-  name: "leadMentorClaimValue",
+  idPrefix: "itpClaimValue",
+  name: "itpClaimValue",
   fieldset: {
     legend: {
-      text: pageHeading,
+      text: "How much do you want to claim?",
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }

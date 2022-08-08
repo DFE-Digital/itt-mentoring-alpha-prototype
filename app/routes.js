@@ -214,5 +214,36 @@ const getSchools = () => {
     }
   })
 
+  /*
+    Intensive training and practice grant
+  */
+
+  router.get('/itp-grant/answer', function(req, res){
+    const data = req.session.data
+    data.grantBeingAppliedFor = "intensiveTrainingAndPracticeGrant"
+    res.redirect('/sign-in')
+  })
+
+
+  const itpRouting = {
+    pageOrder: [
+        'weeks',
+        'claim-value',
+        'evidence',
+        'check-your-answers',
+        'confirmation'
+      ],
+    folder: "/itp-grant/"
+  }
+
+  router.post('/itp-grant/:lastPage', function(req, res, next){
+    let lastPage = req.params.lastPage
+    if (lastPage.endsWith("-answer")) {
+      currentPage = lastPage.substr(0, lastPage.length - 7)
+      res.redirect(getNextPage(currentPage, itpRouting))
+    } else {
+      next()
+    }
+  })
 
 module.exports = router

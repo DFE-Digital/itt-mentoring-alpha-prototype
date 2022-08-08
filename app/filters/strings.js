@@ -61,7 +61,7 @@ filters.getOrdinalName = integer => {
     'eighth',
     'ninth',
     'tenth'
-]
+  ]
 
   if (!_.isNumber(integer) || integer < 1 || integer > 10){
     console.log("Error in getOrdinalName: input out of bounds")

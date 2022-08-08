@@ -49,7 +49,6 @@ module.exports = {
   */
   amountForSession: 902,
 
-
   /*
     ========================================================================
     Providers
@@ -57,11 +56,16 @@ module.exports = {
   */
 
   leadMentorMaxAmount: 9514,
+  postgradWeekValue: 51,
+  undergradWeekValue: 49.67,
 
   // Using this for routing through shared pages
   // Lead mentor - leadMentor
   // Intensive Training and Practice Grant - intensiveTrainingAndPracticeGrant
-  grantBeingAppliedFor: null
-
+  grantBeingAppliedFor: null,
+  
+  // For ITP, if we know the provider is a SCITT, we don't need to show undergrad
+  // in production this should be calculated on whether the provider has any undergrad trainees
+  providerType: "hei"
 
 }

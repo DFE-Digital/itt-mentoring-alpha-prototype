@@ -1,0 +1,92 @@
+
+{% set formAction  = "./check-your-answers-answer" %}
+{% set pageHeading = "Check your answers before sending your application" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+
+  {{ govukSummaryList({
+    classes: 'govuk-!-margin-bottom-9',
+    rows: [
+      {
+        key: {
+          text: "Postgradute intensive training and practice" if data.providerType == "hei" else
+                "Intensive training and practice"
+        },
+        value: {
+          text: data.postgradTraineeWeeks + " weeks"
+        },
+        actions: {
+          items: [
+            {
+              href: "./lead-mentors",
+              text: "Change",
+              visuallyHiddenText: "number of lead mentors"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Undergraduate intensive training and practice"
+        },
+        value: {
+          text: data.undergradateTraineeWeeks + " weeks" | pluralise(data.undergradateTraineeWeeks)
+        },
+        actions: {
+          items: [
+            {
+              href: "./lead-mentors",
+              text: "Change",
+              visuallyHiddenText: "number of lead mentors"
+            }
+          ]
+        }
+      } if data.providerType == "hei",
+      {
+        key: {
+          text: "Claim value"
+        },
+        value: {
+          text: (data.leadMentorClaimValueOther if data.leadMentorClaimValueOther else data.leadMentorClaimValue) | currency
+        },
+        actions: {
+          items: [
+            {
+              href: "./claim-value",
+              text: "Change",
+              visuallyHiddenText: "claim value"
+            }
+          ]
+        }
+      },
+      {
+        key: {
+          text: "Evidence"
+        },
+        value: {
+          html: "File name"
+        },
+        actions: {
+          items: [
+            {
+              href: "./evidence",
+              text: "Change",
+              visuallyHiddenText: "address"
+            }
+          ]
+        }
+      }
+    ]
+  }) }}
+
+  <h2 class="govuk-heading-m">Now send your application</h2>
+
+  <p class="govuk-body">
+    By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+  </p>
+{% endblock %}
