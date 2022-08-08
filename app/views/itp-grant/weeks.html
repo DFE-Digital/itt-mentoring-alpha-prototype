@@ -1,0 +1,65 @@
+
+{% set formAction  = "./weeks-answer" %}
+{% set pageHeading = "How many weeks of intensive training and practice do you want to claim?" %}
+
+{% if data.leadMentors %}
+  {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
+{% else %}
+  {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
+{% endif %}
+
+{% extends "_templates/_form.html" %}
+{% block formContent %}
+  {% if data.providerType == "scitt" %}
+    {{ govukInput({
+      label: {
+        text: pageHeading,
+        classes: "govuk-label--l",
+        isPageHeading: true
+      },
+      suffix: {
+        text: "weeks"
+      },
+      classes: "govuk-input--width-2",
+      id: "postgradTraineeWeeks",
+      name: "postgradTraineeWeeks",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% else %}
+    <h1 class="govuk-heading-l">{{ pageHeading }}</h1>
+    {{ govukInput({
+      label: {
+        text: "Postgraduate trainees",
+        classes: "govuk-label--m",
+        isPageHeading: true
+      },
+      suffix: {
+        text: "weeks"
+      },
+      classes: "govuk-input--width-2",
+      id: "postgradTraineeWeeks",
+      name: "postgradTraineeWeeks",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+    {{ govukInput({
+      label: {
+        text: "Undergraduate trainees",
+        classes: "govuk-label--m",
+        isPageHeading: true
+      },
+      suffix: {
+        text: "weeks"
+      },
+      classes: "govuk-input--width-2",
+      id: "undergradTraineeWeeks",
+      name: "undergradTraineeWeeks",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% endif %}
+{% endblock %}
