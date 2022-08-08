@@ -1,0 +1,101 @@
+
+{% set formAction = "./training-hours-answer" %}
+
+{% set providerName = data.providers[ providerIndex ].name %}
+
+{% set mentorName -%}
+  {% if data.mentor %}
+    {{ data.mentor.firstNames }} {{ data.mentor.lastNames }}
+  {% elseif data.providers[ providerIndex ].mentors[ mentorIndex ]["Full name"] %}
+    {{ data.providers[ providerIndex ].mentors[ mentorIndex ]["Full name"] }}
+  {% else %}
+    unkown mentor
+  {% endif %}
+{%- endset %}
+
+{% set pageHeadingHtml -%}
+  We cannot find details for <span class="app-nowrap">{{ mentorName }}</span>
+{%- endset %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <span class="govuk-caption-l">
+        {{ data.providers[ providerIndex ].name }}
+      </span>
+      <h1 class="govuk-heading-l">
+        {{ pageHeadingHtml | safe }}
+      </h1>
+      <p class="govuk-body">
+        We cannot match the details you have given.
+      </p>
+      <p class="govuk-body govuk-!-margin-bottom-1">
+        This could be because:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          you abbreviated the first name, for example ‘Rob’ instead of 
+         ‘Robert’
+        </li>
+        <li>
+          the surname is different to the name held on the Teacher
+          Regulation Agency records
+        </li>
+        <li>
+          you mistyped or entered some incorrect information
+        </li>
+      </ul>
+      <h2 class="govuk-heading-m">
+        Check the details and try again
+      </h2>
+      {% set summaryListRows = [] %}
+      {% for key, value in data.providers[ providerIndex ].mentors[ mentorIndex ] %}
+        {% set value = value | govukDate if key == "Date of birth" else value %}
+        {% set summaryListRow =
+            {
+              key: {
+                text: key
+              },
+              value: {
+                text: value
+              }
+            }
+          %}
+        {% if key == "Full name" %}
+          {% set summaryListRows = summaryListRows | unshift(summaryListRow) %}
+        {% elseif value != '' and key != "firstNames" and key != "lastNames" %}
+          {% set summaryListRows = summaryListRows | push(summaryListRow) %}
+        {% endif %}
+      {% endfor %}
+      {{ govukSummaryList({
+        rows: summaryListRows
+      }) }}
+      <p class="govuk-body">
+        Try entering {{ mentorName | possessive }} details again.
+      </p>
+      <form action="./identity" method="get" novalidate>
+        {{ govukButton({
+          text: "Try again"
+        }) }}
+      </form>
+      <h2 class="govuk-heading-m">
+        Still cannot match details?
+      </h2>
+      <p class="govuk-body">
+        You can continue with your application. A support team member 
+        will manually match the details of the mentor.
+      </p>
+      <p class="govuk-body">
+        You will be contacted if we cannot match {{ mentorName }}.
+      </p>
+      <form action="./training-hours" method="get" novalidate>
+        {{ govukButton({
+          classes: "govuk-button--secondary",
+          text: "Continue application"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

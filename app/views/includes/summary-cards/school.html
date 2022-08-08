@@ -1,0 +1,40 @@
+{% set schoolInfoHtml %}
+  <p class="govuk-body">
+    {{ data.school.schoolName }}
+  </p>
+  <p class="govuk-body govuk-hint">
+    URN: {{ data.school.urn }}
+  </p>
+  <p class="govuk-body govuk-hint">
+    {{ data.school.addressLine1 }}<br>
+    {% if data.school.addressLine2 %}{{ data.school.addressLine2 }}<br>{% endif %}
+    {{ data.school.town }}<br>
+    {{ data.school.postcode }}
+  </p>
+{% endset %}
+{% set schoolDetailsHtml %}
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "School"
+        },
+        value: {
+          text: schoolInfoHtml | safe
+        },
+        actions: {
+          items: [{
+            href: "/general-mentor-grant/school",
+            text: "Change",
+            visuallyHiddenText: "ITT school"
+          }]
+        }
+      }
+    ]
+  }) }}
+{% endset %}
+{{ appSummaryCard({
+  classes: "govuk-!-margin-bottom-6",
+  titleText: 'School details',
+  html: schoolDetailsHtml | safe
+}) }}

@@ -1,0 +1,34 @@
+{% for provider in data.providers %}
+  {% set providerDetailsHtml %}
+    {{ govukSummaryList({
+      rows: [
+        {
+          key: {
+            text: "ITT provider name"
+          },
+          value: {
+            text: provider.name
+          },
+          actions: {
+            items: [{
+              href: "/general-mentor-grant/v2/provider/" + loop.index0 + "/add",
+              text: "Change",
+              visuallyHiddenText: "ITT provider"
+            }]
+          }
+        }
+      ]
+    }) }}
+  {% endset %}
+  {{ appSummaryCard({
+    classes: "govuk-!-margin-bottom-6",
+    titleText: loop.index | getOrdinalName | sentenceCase + ' provider',
+    actions: {
+      items: [{
+        href: "/general-mentor-grant/v2/provider/" + loop.index0 + "/remove",
+        text: "Remove provider"
+      }]
+    },
+    html: providerDetailsHtml
+  }) }}
+{% endfor %}

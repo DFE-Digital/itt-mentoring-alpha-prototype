@@ -1,0 +1,64 @@
+
+{% set pageHeadingHtml -%}
+  <span class="app-nowrap">ITT providers</span> your <span class="app-nowrap">general mentors</span> trained with in <span class="app-nowrap">2024 to 2025</span>
+{%- endset %}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Application overview',
+    href: '/general-mentor-grant/v2/overview'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% include "includes/school-name-caption.html" %}
+      <h1 class="govuk-heading-l">
+        {{ pageHeadingHtml | safe }}
+      </h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% include "includes/summary-cards/providers.html" %}
+
+      <form 
+        action="/general-mentor-grant/v2/provider/{{ data.providers.length }}/add"
+        method="get"
+        novalidate
+        >
+        {{ govukButton({
+          text: "Add an ITT provider",
+          classes: "govuk-button--secondary"
+        }) }}
+      </form>
+
+      {% if data.providers.length > 0 %}
+        <form 
+          action="/general-mentor-grant/v2/provider-answer"
+          method="post"
+          novalidate
+          >
+          {{ govukCheckboxes({
+            idPrefix: "providerSectionComplete",
+            name: "tempProvidersStatus",
+            items: [
+              {
+                checked: checked if data.generalMentorTaskList.providers.status == "Completed",
+                value: "Completed",
+                text: "I have completed this section"
+              }
+            ]
+            }) }}
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+

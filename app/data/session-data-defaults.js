@@ -29,6 +29,24 @@ module.exports = {
   maxProviders: 5,
   maxGeneralMentors: 5,
   mainstreamSchool: true,
+  providersFromRegister: [
+    "King’s Oak University",
+    "Webury Hill SCITT"
+  ],
+
+  generalMentorTaskList: {
+    school:
+      {
+        "href":   "/general-mentor-grant/v2/school-answer",
+        "status": "Not started",
+      },
+    providers:
+      {
+        "status": "Cannot start yet",
+      }
+    },
+
+  providers: [],
 
   /* Prototype routes on whether a school is state school or not
      https://www.gov.uk/types-of-school */
@@ -56,8 +74,8 @@ module.exports = {
   */
 
   leadMentorMaxAmount: 9514,
-  postgradWeekValue: 51,
-  undergradWeekValue: 49.67,
+  postgradWeekValue:     51,
+  undergradWeekValue:    49.67,
 
   // Using this for routing through shared pages
   // Lead mentor - leadMentor

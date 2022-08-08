@@ -28,7 +28,7 @@ $(document).ready(function () {
     ]
 
     /* Page always start with 1 item visible */
-    let itemCount = 1
+    let itemCount = 0
 
     /* Add items */
     $('#add-' + itemName ).click(function(event){
@@ -36,11 +36,11 @@ $(document).ready(function () {
       itemCount = itemCount + 1
       /* add the next input group*/
       $('#' + ordinals[itemCount] + "-" + itemName + "-input-group" ).toggleClass('app-display-hidden')
+      $('#remove-' + ordinals[itemCount + 1] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
       $('#remove-' + ordinals[itemCount] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
-      $('#remove-' + ordinals[itemCount - 1] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
       $('#' + itemName + "-" + itemCount).focus()
       /* Hide add button at max items */
-      if (itemCount == maxItems) {
+      if (itemCount == maxItems - 1) {
         $('#add-' + itemName ).toggleClass('app-display-hidden')
       }
     })
@@ -52,8 +52,8 @@ $(document).ready(function () {
         console.log(itemCount)
         $('#' + itemName + "-" + itemCount).focus()
         $('#' + ordinals[itemCount] + "-" + itemName + "-input-group" ).toggleClass('app-display-hidden')
+        $('#remove-' + ordinals[itemCount + 1 ] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
         $('#remove-' + ordinals[itemCount] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
-        $('#remove-' + ordinals[itemCount - 1] + "-" + itemName ).toggleClass('app-display-hidden app-display-table')
         itemCount = itemCount - 1
         if (itemCount == maxItems - 1){
           $('#add-' + itemName ).toggleClass('app-display-hidden')

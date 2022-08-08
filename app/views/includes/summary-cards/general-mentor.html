@@ -1,0 +1,71 @@
+{% set href = "/general-mentor-grant/v2/provider/" + providerIndex + "/general-mentor/" + mentorIndex %}
+  {% set summaryListRows = [] %}
+  {% for key, value in mentor %}
+    {% if key == "Full name" %}
+      {% set summaryListRow = {
+          key: {
+            text: "Full name"
+          },
+          value: {
+            text: value
+          },
+          actions: {
+            items: [{
+              href: href + "/identity",
+              text: "Change",
+              visuallyHiddenText: "General mentor details"
+            }]
+          }
+        } %}
+    {% else %}
+      {% if key == "Date of birth" %}
+        {% set value = value | govukDate %}
+      {% elseif key == "Training time" %}
+        {% set value = value + " hour" | pluralise(value | stringToNumber) %}
+      {% endif %}
+      {% set summaryListRow = {
+          key: {
+            text: key
+          },
+          value: {
+            text: value | govukDate if key == "Date of birth" else value
+          },
+          actions: {
+            items: [
+              {
+                href: href + "/identity",
+                text: "Change",
+                visuallyHiddenText: "general mentor details"
+              } if key != "Training time" else
+              {
+                href: href + "/training-hours",
+                text: "Change",
+                visuallyHiddenText: "general mentor training time"
+              }
+            ]
+          }
+        } %}
+    {% endif %}
+    {% if key == "Full name" %}
+      {% set summaryListRows = summaryListRows | unshift(summaryListRow) %}
+    {% elseif value != '' and key != "firstNames" and key != "lastNames" %}
+      {% set summaryListRows = summaryListRows | push(summaryListRow) %}
+    {% endif %}
+  {% endfor %}
+  {% set mentorDetailsHtml %}
+    {{ govukSummaryList({
+      rows: summaryListRows
+    }) }}
+  {% endset %}
+  {{ appSummaryCard({
+    classes: "govuk-!-margin-bottom-6",
+    titleText: loop.index | getOrdinalName | sentenceCase + ' general mentor',
+    actions: {
+      items: [{
+        href: "/general-mentor-grant/v2/provider/" + providerIndex + "/general-mentor/" + loop.index0 + "/remove",
+        text: "Remove mentor"
+      }]
+    },
+    html: mentorDetailsHtml
+  }) }}
+

@@ -5,7 +5,7 @@
 {% set hidePrimaryNav = true %}
 
 {# Pretend we’re a different service #}
-{% set serviceName = "DfE Sign-in" %}
+{% set serviceNameOverride = "DfE Sign-in" %}
 
 {% set pageHeading = 'Department for Education Sign-in' %}
 
@@ -40,9 +40,11 @@
     <p class="govuk-body"><a href="#" class="govuk-link">Forgotten your password?</a></p>
 
     {% set destionationHref %}
-      {%- if data.grantBeingAppliedFor == 'leadMentor' -%}
+      {%- if data.grantBeingAppliedFor == 'generalMentorTraining' -%}
+        /general-mentor-grant/v2/overview
+      {%- elseif data.grantBeingAppliedFor == 'leadMentor' -%}
         /lead-mentor-grant/lead-mentors
-      {%- elseif data.grantBeingAppliedFor == 'intensiveTrainingAndPracticeGrant' -%}
+      {%- elseif data.grantBeingAppliedFor == 'intensiveTrainingAndPractice' -%}
         /itp-grant/weeks
       {%- else -%}
         /

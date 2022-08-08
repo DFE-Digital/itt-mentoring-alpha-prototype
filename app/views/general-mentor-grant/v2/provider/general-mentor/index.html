@@ -1,0 +1,72 @@
+
+{% set providerName = data.providers[ providerIndex ].name %}
+
+{% set pageHeadingHtml -%}
+  General mentors who trained with
+  <span class="app-nowrap">{{ providerName }}</span>
+{%- endset %}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Application overview',
+    href: '/general-mentor-grant/v2/overview'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% include "includes/school-name-caption.html" %}
+      <h1 class="govuk-heading-l">
+        {{ pageHeading }}
+      </h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      {% set mentorIndex = 0 %}
+      {% for mentor in data.providers[ providerIndex ].mentors %}
+        {% include "includes/summary-cards/general-mentor.html" %}
+        {% set mentorIndex = mentorIndex + 1 %}
+      {% endfor %}
+
+      <form 
+        action="./general-mentor/{{ mentorIndex }}/identity"
+        method="get"
+        novalidate
+        >
+        {{ govukButton({
+          text: "Add a general mentor",
+          classes: "govuk-button--secondary"
+        }) }}
+      </form>
+
+      {% if data.providers[ providerIndex ].mentors.length > 0 %}
+        <form 
+          action="./general-mentor/answer"
+          method="post"
+          novalidate
+          >
+          {{ govukCheckboxes({
+            idPrefix: "mentorsForProvider",
+            name: "mentorsForProviderStatus",
+            items: [
+              {
+                checked: checked if data.generalMentorTaskList.generalMentors[ providerIndex ].status == "Completed",
+                value: "Completed",
+                text: "I have completed this section"
+              }
+            ]
+          }) }}
+          {{ govukButton({
+            text: "Continue"
+          }) }}
+        </form>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}
+

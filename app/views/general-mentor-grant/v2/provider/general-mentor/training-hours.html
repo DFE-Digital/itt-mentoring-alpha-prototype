@@ -1,0 +1,68 @@
+
+{% set formAction = "./training-hours-answer" %}
+
+{% set providerName = data.providers[ providerIndex ].name if data.providers[ providerIndex ].name else "unkown provider" %}
+
+
+{% set mentorName -%}
+  {% if data.mentor %}
+    {{ data.mentor.firstNames }} {{ data.mentor.lastNames }}
+  {% elseif data.providers[ providerIndex ].mentors[ mentorIndex ]["Full name"] %}
+    {{ data.providers[ providerIndex ].mentors[ mentorIndex ]["Full name"] }}
+  {% else %}
+    unkown mentor
+  {% endif %}
+{%- endset %}
+
+{% set pageHeadingHtml -%}
+  How many hours did <span class="app-nowrap">{{ mentorName }}</span> train with <span class="app-nowrap">{{ providerName }}</span>?
+{%- endset %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <span class="govuk-caption-l">
+    {{ data.providers[ providerIndex ].name }}
+  </span>
+  {% set otherAmountHtml %}
+    {{ govukInput({
+      id: "mentor-" + mentorIndex + "-trainingTime",
+      name: "mentor[Training time]",
+      suffix: {
+        text: "hours"
+      },
+      classes: "govuk-input--width-2",
+      label: {
+        text: "Training time"
+      }
+    }) }}
+  {% endset %}
+  {{ govukRadios({
+    idPrefix: "mento-" + mentorIndex + "-trainingTime",
+    name: "mentor[Training time]",
+    fieldset: {
+      legend: {
+        text: pageHeadingHtml | safe,
+        classes: "govuk-fieldset__legend--l",
+        isPageHeading: true
+      }
+    },
+    items: [
+      {
+        value: 20,
+        text: "20 hours"
+      },
+      {
+        value: 6,
+        text: "6 hours"
+      },
+      {
+        value: "mentor[Training time]",
+        text:  "Other amount",
+        conditional: {
+          html: otherAmountHtml
+        }
+      }
+    ]
+  }) }}
+{% endblock %}

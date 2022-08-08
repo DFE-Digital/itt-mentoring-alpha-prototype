@@ -1,0 +1,48 @@
+
+{% set pageHeadingHtml -%}
+  School claiming funding
+{%- endset %}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Application overview',
+    href: '/general-mentor-grant/v2/overview'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        {{ pageHeading }}
+      </h1>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {% include "includes/summary-cards/school.html" %}
+      <form 
+        action="/general-mentor-grant/v2/school/answer"
+        method="post"
+        novalidate
+        >
+        {{ govukCheckboxes({
+          idPrefix: "schoolSectionComplete",
+          name: "tempSchoolStatus",
+          items: [
+            {
+              checked: checked if data.generalMentorTaskList.school.status == "Completed",
+              value: "Completed",
+              text: "I have completed this section"
+            }
+          ]
+        }) }}
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
