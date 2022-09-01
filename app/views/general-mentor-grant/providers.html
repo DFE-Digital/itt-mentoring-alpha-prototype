@@ -4,7 +4,6 @@
   ITT providers your mentors trained with in the 
   <span class="app-nowrap">2024 to 2025 school year</span>
 {%- endset %}
-{% set pageHeading = pageHeadingHtml | stripHtml %}
 
 {% extends "_templates/_form.html" %}
 
@@ -15,13 +14,13 @@
     {{ pageHeadingHtml | safe }}
   </h1>
 
-  {% for providerIndex in range(1, data.maxProviders + 1) %}
+  {% for providerIndex in range(0, data.maxProviders) %}
     <div
       id="{{ providerIndex | getOrdinalName }}-provider-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
         {{ govukInput({
           label: {
-            text: providerIndex | getOrdinalName | sentenceCase + " provider name",
+            text: loop.index | getOrdinalName | sentenceCase + " provider name",
             classes: "govuk-label--m"
           },
           classes: "govuk-!-width-three-quarters",
@@ -32,7 +31,7 @@
     </div>
     {% if loop.index > 1 %}
         <a 
-          id=   "remove-{{ providerIndex | getOrdinalName }}-provider"
+          id=   "remove-{{ loop.index | getOrdinalName }}-provider"
           href= "#"
           type= "button"
           class="
@@ -42,7 +41,7 @@
             app-display-hidden
             govuk-!-margin-bottom-7"
           >
-          Remove {{ providerIndex | getOrdinalName }} provider
+          Remove {{ loop.index | getOrdinalName }} provider
         </a>
     {% endif %}
   {% endfor %}

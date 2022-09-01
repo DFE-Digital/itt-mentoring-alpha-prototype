@@ -5,17 +5,14 @@
 {% set pageHeadingHtml -%}
   General mentors who trained with <span class="app-nowrap">{{ providerName }}</span>
 {%- endset %}
-{% set pageHeading = pageHeadingHtml | stripHtml %}
 
 {% extends "_templates/_form.html" %}
-
-
 
 {% block formContent %}
   <h1 class="govuk-heading-l">
     {{ pageHeadingHtml | safe }}
   </h1>
-  {% for teacherIndex in range(1, data.maxGeneralMentors + 1) %}
+  {% for teacherIndex in range(0, data.maxGeneralMentors) %}
     {% set trnHtml %}
       {{ govukInput({
         label: {
@@ -60,7 +57,7 @@
       id="{{ teacherIndex | getOrdinalName }}-teacher-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
         <h2 class="govuk-heading-m">
-          {{ teacherIndex | getOrdinalName | sentenceCase }} general mentor
+          {{ loop.index | getOrdinalName | sentenceCase }} general mentor
         </h2>
         {{ govukInput({
           label: {
@@ -148,7 +145,7 @@
       </div>
     {% if loop.index > 1 %}
         <a 
-          id=   "remove-{{ teacherIndex | getOrdinalName }}-teacher"
+          id=   "remove-{{ loop.index | getOrdinalName }}-teacher"
           href= "#"
           type= "button"
           class="
@@ -158,7 +155,7 @@
             app-display-hidden
             govuk-!-margin-bottom-7"
           >
-          Remove {{ teacherIndex | getOrdinalName }} teacher
+          Remove {{ loop.index | getOrdinalName }} teacher
         </a>
     {% endif %}
   {% endfor %}

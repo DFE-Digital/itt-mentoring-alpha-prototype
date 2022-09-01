@@ -12,6 +12,15 @@ filters.slugify = (input) => {
   else return string(input).slugify().toString();
 }
 
+// camelize
+// input:  "This is a string"
+// output: "thisIsAString"
+filters.camelize = (str) => {
+  return str.replace(/(?:^\w|[A-Z]|\b\w)/g, function(word, index) {
+    return index === 0 ? word.toLowerCase() : word.toUpperCase();
+  }).replace(/\s+/g, '');
+}
+
 // camelToSentence
 // camelCase to Sentence case
 // input:  'thisIsAString'
@@ -78,7 +87,43 @@ filters.getOrdinalName = integer => {
 // input:  <span class="app-nowrap">1 January 1970</span>
 // output: '1 January 1970'
 filters.stripHtml = (string) => {
-return string.replace(/<[^>]*>?/gm, '');
+  return string.replace(/<[^>]*>?/gm, '');
+}
+
+// nowrap
+// add nowrap class to input
+filters.nowrap = (input) => {
+  return `<span class="app-nowrap">${input}</span>`
+}
+
+// Make a string possessive
+// {{ "James Joyce" | possessive }}
+//     James Joyce’s
+// {{ "Joyce James" | possessive }}
+//     Joyce James’
+// {{ "JAMES JOYCE" | possessive }}
+//     JAMES JOYCE’S
+// {{ "Joyce James" | possessive }}
+//     JOYCE JAMES’
+
+filters.possessive = (noun) => {
+  if (typeof noun !== 'string' || noun.length == 0) return ""
+
+  const isAllUpperCase = (input) => {
+    return input == input.toUpperCase()
+  }
+
+  const lastLetterOfNoun = noun.trim().slice(-1)
+
+  if (lastLetterOfNoun == "s" || lastLetterOfNoun == "S") {
+    return noun + "’"
+  } else if (isAllUpperCase(noun)) {
+    return noun + "’S"
+  } else if (! isAllUpperCase(noun)) {
+    return noun + "’s"
+  } else {
+    console.log("Error with possessive filter")
+  }
 }
 
 exports.filters = filters

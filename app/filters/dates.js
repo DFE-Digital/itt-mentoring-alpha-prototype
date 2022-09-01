@@ -1,5 +1,5 @@
 const moment      = require('moment')
-
+var _ = require('lodash');
 var filters = {}
 
 //  arrayToDateObject
@@ -48,6 +48,31 @@ filters.dateToGovukDate = (date, format=false) => {
     }
   }
   return ''
+}
+
+/*
+  ====================================================================
+  toDateArray
+  --------------------------------------------------------------------
+  Convert a date in to an array of three numbers - useful for sending
+  dates to govuk date inputs
+  ====================================================================
+
+  Usage:
+
+    {{ "1 January 2021" | toDateArray }}
+
+  = [1, 1, 2021]
+
+*/
+
+// Output date array - for use in design system macros macros
+filters.toDateArray = (date) => {
+  if (!date) return []
+  if (_.isArray(date)) return date
+  else {
+    return [moment(date).date(), moment(date).month() + 1, moment(date).year()]
+  }
 }
 
 exports.filters = filters

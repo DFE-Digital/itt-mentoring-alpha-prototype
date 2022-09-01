@@ -1,0 +1,39 @@
+
+{% set pageHeadingHtml = 
+  'Do you want to remove <span class="app-nowrap">' + data.providers[ providerIndex ].name + "</span>?" 
+%}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Back',
+    href: 'javascript:history.back();'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <form action="./remove-answer" method="post" novalidate>
+    <div class="govuk-grid-row">
+      <div class="govuk-grid-column-two-thirds-from-desktop">
+        <h1 class="govuk-heading-l">
+          {{ pageHeadingHtml | safe }}
+        </h1>
+        {% if data.providers[ providerIndex ].mentors.length > 0 %}
+          <p class="govuk-body">
+            This will also remove the general mentor details for this provider.
+          </p>
+        {% endif %}
+        {{ govukButton({
+          text: "Remove this provider",
+          classes: "govuk-button--warning"
+        }) }}
+        <p class="govuk-body">
+          <a href="/general-mentor-grant/v2/provider">
+            Cancel and return to provider list
+          </a>
+        </p>
+      </div>
+    </div>
+  </form>
+{% endblock %}

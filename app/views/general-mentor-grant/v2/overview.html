@@ -1,0 +1,96 @@
+
+{% set pageHeading = "Claim general mentor funding" %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+  {% set taskListItems = [] %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% include "includes/school-name-caption.html" %}
+      <h1 class="govuk-heading-l">
+        {{ pageHeading }}
+      </h1>
+
+      <ol class="app-task-list">
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">1. </span>
+            School and ITT providers
+          </h2>
+          {% set schoolAndIttProviderTaskListItems = [
+            {
+              text: "School",
+              href: data.generalMentorTaskList.school.href,
+              tag: {
+                text: data.generalMentorTaskList.school.status,
+                classes: data.generalMentorTaskList.school.status | getStatusClass
+              }
+            },
+            {
+              text: "ITT providers",
+              href: data.generalMentorTaskList.providers.href,
+              tag: {
+                text: data.generalMentorTaskList.providers.status,
+                classes: data.generalMentorTaskList.providers.status | getStatusClass
+              }
+            }
+          ] %}
+          {{ appTaskList({
+            classes: "govuk-!-margin-bottom-8",
+            items: schoolAndIttProviderTaskListItems
+          }) }}
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span>
+            General mentors
+          </h2>
+          {% set generalMentorTaskListItems = [] %}
+          {% if data.providers.length == 0 %}
+            {% set generalMentorTaskListItems = [
+              {
+                text: "General mentors",
+                tag: {
+                  text: "Cannot start yet",
+                  classes: "Cannot start yet" | getStatusClass
+                }
+              }
+            ] %}
+          {% else %}
+            {% for provider in data.providers %}
+              {% set generalMentorTask = {
+                text: provider.name,
+                href: "/general-mentor-grant/v2/provider/" + loop.index0 + "/general-mentor",
+                tag: {
+                  text: provider.status,
+                  classes: provider.status | getStatusClass
+                }
+              } %}
+              {% set generalMentorTaskListItems = generalMentorTaskListItems | push(generalMentorTask) %}
+            {% endfor %}
+          {% endif %}
+          {{ appTaskList({
+            classes: "govuk-!-margin-bottom-8",
+            items: generalMentorTaskListItems
+          }) }}
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">
+              3.
+            </span>
+            Final check
+          </h2>
+          <form action="./check-application" method="get" novalidate>
+            {{ govukButton({
+              text: "Check application"
+            }) }}
+          </form>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}

@@ -20,6 +20,8 @@ $govuk-assets-path: '/govuk/assets/';
 
 // Components
 @import "components/autocomplete";
+@import "components/task-list";
+@import "components/summary-card";
 
 // Helpers
 @import "helpers/field-widths";

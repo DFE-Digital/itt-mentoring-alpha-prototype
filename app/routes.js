@@ -6,9 +6,9 @@ const getSchools = () => {
 }
 
   /*
-    ========================================================================
+    ==================================================================
     Shared
-    ========================================================================
+    ==================================================================
   */
 
   function getNextPage(currentPage, routing) {
@@ -18,9 +18,9 @@ const getSchools = () => {
 
 
   /*
-    ========================================================================
+    ==================================================================
     Schools
-    ========================================================================
+    ==================================================================
   */
 
   const generalMentorRouting = {
@@ -32,7 +32,7 @@ const getSchools = () => {
       'check-your-answers',
       'confirmation'
     ],
-    folder: "/general-mentor-grant/"
+    folder: '/general-mentor-grant/'
   }
 
 
@@ -99,27 +99,68 @@ const getSchools = () => {
         // Using _.set as lead school might not exist yet
         _.set(data, 'school', selectedSchool)
       }
-      // If school is not in Teacger Pension Service (this list is a proxy), we need to do
-      // something else
+      // If school is not in Teacher Pension Service (this list is a proxy)
       if (!data.stateSchools.includes(data.school.type)) {
         data.mainstreamSchool = false
-        res.redirect(getNextPage("school", generalMentorRouting))
       } else {
         data.mainstreamSchool = true
-        res.redirect(getNextPage("school", generalMentorRouting))
+      }
+      if (data.grantBeingAppliedFor == 'generalMentorTraining') {
+        res.redirect('/general-mentor-grant/v2/school')
+      } else {
+        res.redirect(getNextPage('school', generalMentorRouting))
       }
     }
+  })
+
+  router.post('/general-mentor-grant/v2/school/answer', function(req, res){
+
+    const data = req.session.data
+
+    let schoolSection  = data.generalMentorTaskList.school
+
+    if (data.tempSchoolStatus == "Completed"){
+      schoolSection.href   = "/general-mentor-grant/v2/school"
+      schoolSection.status = "Completed"
+      delete data.tempSchoolStatus
+    } else if(data.school && data.tempSchoolStatus != "Completed"){
+      schoolSection.href   = "/general-mentor-grant/v2/school"
+      schoolSection.status = "In progress"
+      delete data.tempSchoolStatus
+    } else {
+      schoolSection.href   = "/general-mentor-grant/v2/school-answer"
+      schoolSection.status = "Not started"
+    }
+
+    if (data.school && data.generalMentorTaskList.providers.status == "Cannot start yet"){
+      data.generalMentorTaskList.providers.status = "Not started"
+      if (data.providersFromRegister.length > 0){
+        data.generalMentorTaskList.providers.href = "/general-mentor-grant/v2/provider/confirm"
+      } else {
+        data.generalMentorTaskList.providers.href = "/general-mentor-grant/v2/provider/0/add"
+      }
+    }
+
+    res.redirect('/general-mentor-grant/v2/overview')
   })
 
   /* remove empty providers */
   router.post('/general-mentor-grant/providers-answer', function(req, res){
     const data = req.session.data
+    
     data.providers = data.providers.filter(provider => provider.name != '')
+
     /* Set a random provider for demoing */
     if (data.providers.length == 0) {
-      data.providers[0] = _.sample([{"name": "Webury Hill SCITT"}, {"name": "King’s Oak University"}])
+      data.providers[0] = _.sample([{'name': 'Webury Hill SCITT'}, {'name': 'King’s Oak University'}])
     }
-    res.redirect(getNextPage("providers", generalMentorRouting))
+
+    if (data.grantBeingAppliedFor == 'generalMentorTraining') {
+      res.redirect('/general-mentor-grant/v2/overview')
+    } else {
+      res.redirect(getNextPage('providers', generalMentorRouting))
+    }
+
   })
 
   router.get('/general-mentor-grant/:providerIndex/teachers', function(req, res){
@@ -140,7 +181,7 @@ const getSchools = () => {
     /* hacky way of removing empty teaching hours */
     /* to do: clean this up in the view */
     data.teachers.forEach(teacher => {
-      teacher.trainingTime = teacher.trainingTime.filter(value => value != "")
+      teacher.trainingTime = teacher.trainingTime.filter(value => value != '')
     })
 
     /* add teacher to provider */
@@ -149,7 +190,7 @@ const getSchools = () => {
     if (providerIndex < providerCount - 1){
       res.redirect(`/general-mentor-grant/${ providerIndex + 1 }/teachers`)
     } else {
-      res.redirect(getNextPage("0/teachers", generalMentorRouting))
+      res.redirect(getNextPage('0/teachers', generalMentorRouting))
     }
   })
 
@@ -157,19 +198,19 @@ const getSchools = () => {
   router.post('/general-mentor-grant/email-address-answer', function(req, res){
     /* Set an example email address */
     const data = req.session.data
-    if (data.email == "") {
-      data.email = "example@example.com"
+    if (data.email == '') {
+      data.email = 'example@example.com'
     }
     /* Set an example teacher */
     if (data.providers[0].teachers.length == 0) {
-      data.providers[0].teachers = [{"name": "Firstname Lastname", "trn": "0000000", "dateOfBirth": [1,1,1990], "trainingTime": 20}]
+      data.providers[0].teachers = [{'name': 'Firstname Lastname', 'trn': '0000000', 'dateOfBirth': [1,1,1990], 'trainingTime': 20}]
     }
-    res.redirect(getNextPage("email-address", generalMentorRouting))
+    res.redirect(getNextPage('email-address', generalMentorRouting))
   })
 
   router.post('/general-mentor-grant/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
-    if (lastPage.endsWith("-answer")) {
+    if (lastPage.endsWith('-answer')) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
       res.redirect(getNextPage(currentPage, generalMentorRouting))
     } else {
@@ -177,10 +218,312 @@ const getSchools = () => {
     }
   })
 
+  router.get('/general-mentor-grant/answer', function(req, res){
+    const data = req.session.data
+    data.grantBeingAppliedFor = null
+    res.redirect('/general-mentor-grant/school')
+  })
+
+
   /*
-    ========================================================================
+    Version 2
+  */
+
+  // set route from sign-in
+  router.get('/general-mentor-grant/v2/start', function(req, res){
+    const data = req.session.data
+    data.grantBeingAppliedFor = 'generalMentorTraining'
+    data.school = null
+    res.redirect('/sign-in')
+  })
+
+  // if data has been reset while on v2 index,
+  // make sure user is still routed back to index
+  router.get('/general-mentor-grant/v2/school-answer', function(req, res){
+    const data = req.session.data
+    data.grantBeingAppliedFor = 'generalMentorTraining'
+    data.school = null
+    res.redirect('/general-mentor-grant/school')
+  })
+
+  router.get('/general-mentor-grant/v2/provider/check-confirmed', function(req, res){
+    const data = req.session.data
+    if (data.providersFromRegister.length == 0) {
+      res.redirect('/general-mentor-grant/v2/provider/0/add')
+    } else if(data.providers.length > 0){
+      res.redirect('/general-mentor-grant/v2/provider/')
+    } else {
+      res.redirect('/general-mentor-grant/v2/provider/confirm')
+    }
+  })
+
+  router.post('/general-mentor-grant/v2/provider/confirm-answer', function(req, res){
+    const data = req.session.data
+
+    if(!data.tempProviderStore) {
+      res.redirect('/general-mentor-grant/v2/provider/confirm')
+    } else {
+      /* Handle none */
+
+      /* if user selects 'none', remove it from the list */
+      data.tempProviderStore = data.tempProviderStore.filter(provider => provider != 'none' && provider != '_unchecked')
+
+      /* deletes previous answers if users selects 'none' after setting provider */
+      if (data.tempProviderStore.length == 0){
+        data.providers = []
+        res.redirect('/general-mentor-grant/v2/provider/0/add')
+      }
+
+      /* store provider’s with key of 'name' */
+
+      /* temp store for providers to store providers by name */
+      data.tempProviderStore.forEach(providerName => {
+        if(!data.providers.some(provider => provider.name == providerName)){
+          data.providers.push({ 'name': providerName, 'status': 'Not started' })
+        }
+      })
+
+      delete data.tempProviderStore
+      res.redirect('/general-mentor-grant/v2/provider')
+    }
+
+  })
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/add', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+    res.render('general-mentor-grant/v2/provider/add', {
+      providerIndex
+    })
+  })
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/add-answer', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+
+    if (data.tempProviderStore !== '') {
+      if(!data.providers[providerIndex]){
+        data.providers[providerIndex] = { 'name': data.tempProviderStore, 'status': 'Not started' }
+      } else {
+        data.providers[providerIndex] = {
+          'name':    data.tempProviderStore,
+          'status':  data.providers[providerIndex].status,
+          'mentors': data.providers[providerIndex].mentors
+        }
+      }
+      delete data.tempProviderStore
+      res.redirect('/general-mentor-grant/v2/provider')
+    } else {
+      res.render('general-mentor-grant/v2/provider/add', {
+        providerIndex
+      })
+    }
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/remove', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+    res.render('general-mentor-grant/v2/provider/remove', {
+      providerIndex
+    })
+  })
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/remove-answer', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+
+    data.providers = data.providers.filter(provider => provider.name !== data.providers[providerIndex].name)
+    
+    if (data.providers.length == 0) {
+      data.generalMentorTaskList.providers.status = "Not started"
+    }
+
+    res.redirect('/general-mentor-grant/v2/provider')
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+
+    res.render('general-mentor-grant/v2/provider/general-mentor/index', {
+      providerIndex
+    })
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/identity', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex   = parseInt(req.params.mentorIndex)
+
+    res.render('general-mentor-grant/v2/provider/general-mentor/identity', {
+      providerIndex, mentorIndex
+    })
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/training-hours', function(req, res){
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex   = parseInt(req.params.mentorIndex)
+    res.render('general-mentor-grant/v2/provider/general-mentor/training-hours', {
+      providerIndex, mentorIndex
+    })
+  })
+
+  router.post(
+    '/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/identity-answer', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+
+    let providerMentors = data.providers[ providerIndex ].mentors
+    let mentor = data?.mentor
+
+    if (mentor) {
+
+      if (!providerMentors) {
+        providerMentors = []
+      }
+
+      if (providerMentors[ mentorIndex ]) {
+        providerMentors[ mentorIndex ] = mentor
+      } else {
+        providerMentors.push(mentor)
+      }
+      data.providers[ providerIndex ].mentors = providerMentors
+    } else {
+      console.log( "Error — mentor not found" )
+    }
+    delete data.mentor
+
+    /* Creates full name */
+    data.providers[ providerIndex ].mentors[ mentorIndex ]["Full name"] = data.providers[ providerIndex ].mentors[ mentorIndex ].firstNames + " " + data.providers[ providerIndex ].mentors[ mentorIndex ].lastNames
+
+
+    /* Routing if trainee is not in TPS */
+    if( data.providers[providerIndex].mentors[ mentorIndex ].firstNames == "Karen" ) {
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor/${ mentorIndex }/not-recognised`)
+    } else {
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor/${ mentorIndex }/training-hours`)
+    }
+  })
+
+
+  /* Render mentor not recognised */
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/not-recognised', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+    res.render('general-mentor-grant/v2/provider/general-mentor/not-recognised', {
+      providerIndex, mentorIndex
+    })
+  })
+
+  /* Render training page */
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/training-hours', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+    res.render('general-mentor-grant/v2/provider/general-mentor/training-hours', {
+      providerIndex, mentorIndex
+    })
+  })
+
+  /* Add training time to current mentor */
+  router.post('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/training-hours-answer', function(req, res) {
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+
+    let providerMentors = data.providers[ providerIndex ].mentors
+    let mentor = data?.mentor
+
+    if (mentor['Training time']) {
+      /* Hacky way of cleaning up input */
+      mentor['Training time'] = mentor['Training time'].filter(time => time != '' && time != 'mentor[Training time]')
+      
+      /* Adds training time to mentor */
+      data.providers[ providerIndex ].mentors[ mentorIndex ]["Training time"] = mentor["Training time"]
+      delete data.mentor
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor`)
+    } else {
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor/${ mentorIndex }/training-hours`)
+    }
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/remove', function(req, res) {
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+    res.render('general-mentor-grant/v2/provider/general-mentor/remove', {
+      providerIndex, mentorIndex
+    })
+  })
+
+  router.post('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/remove-answer', function(req, res){
+    const data = req.session.data
+
+    let providerIndex = parseInt(req.params.providerIndex)
+    let mentorIndex = parseInt(req.params.mentorIndex)
+
+    data.providers[ providerIndex ].mentors = data.providers[ providerIndex ].mentors.filter(mentor => mentor.firstNames !== data.providers[providerIndex].mentors[mentorIndex].firstNames )
+
+    if (data.providers[ providerIndex ].mentors.length == 0) {
+      data.providers[providerIndex].status = "Not started"
+      delete data.mentorsForProviderStatus
+    }
+
+    res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor`)
+  })
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/answer', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+
+
+    if (!data.providers[ providerIndex ].mentors.length == 0 && data.mentorsForProviderStatus == "Completed"){
+      data.providers[ providerIndex ]["status"] = "Completed"
+    } else if (data.providers[ providerIndex ].mentors.length > 0) {
+      data.providers[ providerIndex ]["status"] = "In progress"
+    } else {
+      data.providers[ providerIndex ]["status"] = "Not started"
+    }
+    delete data.mentorsForProviderStatus
+    res.redirect('/general-mentor-grant/v2/overview')
+  })
+
+  router.get('/general-mentor-grant/v2/provider-answer', function(req, res){
+    const data = req.session.data
+
+    let providersSection = data.generalMentorTaskList.providers
+
+    if(data.providers.length > 0) {
+      if (data.tempProvidersStatus == "Completed"){
+        providersSection.href   = "/general-mentor-grant/v2/provider/"
+        providersSection.status = "Completed"
+        delete data.tempProvidersStatus
+      } else if (data.providers.length > 0 && data.tempProvidersStatus != "Completed"){
+        providersSection.href   = "/general-mentor-grant/v2/provider/"
+        providersSection.status = "In progress"
+        delete data.tempProvidersStatus
+      } else {
+        providersSection.status = "Not started"
+        if (data.providersFromRegister){
+          providersSection.href = "/general-mentor-grant/v2/provider/check-confirmed"
+        } else {
+          providersSection.href = "/general-mentor-grant/v2/provider/add"
+        }
+      }
+    } else {
+      providersSection.status = "Not started"
+    }
+
+    res.redirect('/general-mentor-grant/v2/overview')
+  })
+
+  /*
+    ==================================================================
     Providers
-    ========================================================================
+    ==================================================================
   */
 
   /*
@@ -189,7 +532,7 @@ const getSchools = () => {
 
   router.get('/lead-mentor-grant/answer', function(req, res){
     const data = req.session.data
-    data.grantBeingAppliedFor = "leadMentor"
+    data.grantBeingAppliedFor = 'leadMentor'
     res.redirect('/sign-in')
   })
 
@@ -201,12 +544,12 @@ const getSchools = () => {
         'check-your-answers',
         'confirmation'
       ],
-    folder: "/lead-mentor-grant/"
+    folder: '/lead-mentor-grant/'
   }
 
   router.post('/lead-mentor-grant/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
-    if (lastPage.endsWith("-answer")) {
+    if (lastPage.endsWith('-answer')) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
       res.redirect(getNextPage(currentPage, leadMentorRouting))
     } else {
@@ -220,7 +563,7 @@ const getSchools = () => {
 
   router.get('/itp-grant/answer', function(req, res){
     const data = req.session.data
-    data.grantBeingAppliedFor = "intensiveTrainingAndPracticeGrant"
+    data.grantBeingAppliedFor = 'intensiveTrainingAndPractice'
     res.redirect('/sign-in')
   })
 
@@ -233,12 +576,12 @@ const getSchools = () => {
         'check-your-answers',
         'confirmation'
       ],
-    folder: "/itp-grant/"
+    folder: '/itp-grant/'
   }
 
   router.post('/itp-grant/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
-    if (lastPage.endsWith("-answer")) {
+    if (lastPage.endsWith('-answer')) {
       currentPage = lastPage.substr(0, lastPage.length - 7)
       res.redirect(getNextPage(currentPage, itpRouting))
     } else {

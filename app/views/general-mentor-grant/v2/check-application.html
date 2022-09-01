@@ -1,0 +1,119 @@
+
+{% set pageHeadingHtml -%}
+  Check your application
+{%- endset %}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Back',
+    href: 'javascript:history.back();'
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% include "includes/school-name-caption.html" %}
+      <h1 class="govuk-heading-l">
+        {{ pageHeading }}
+      </h1>
+    </div>
+  </div>
+
+  <h2 class="govuk-heading-m">
+    School and ITT providers
+  </h2>
+
+  {% set schoolSection = data.generalMentorTaskList.school %}
+  {% if schoolSection.status == "Completed" %}
+    {% include "includes/summary-cards/school.html" %}
+  {% else %}
+    <div class="govuk-inset-text">
+      <p class="govuk-body govuk-!-margin-bottom-2">
+        School section — {{ schoolSection.status | startLowerCase }}
+      </p>
+      <p class="govuk-body">
+        <a href="{{ schoolSection.href }}" class="govuk-link">
+          {{ "Continue" if schoolSection.status == "In progress" else "Start" }} section
+        </a>
+      </p>
+    </div>
+  {% endif %}
+
+  {% set providersSection = data.generalMentorTaskList.providers %}
+  {% if providersSection.status == "Completed" %}
+    {% include "includes/summary-cards/providers.html" %}
+  {% else %}
+    <div class="govuk-inset-text">
+      <p class="govuk-body {{ 'govuk-!-margin-bottom-2' if data.school }}">
+        Provider section — {{ providersSection.status | startLowerCase }}
+      </p>
+      {% if data.school %}
+        <p class="govuk-body">
+          <a href="{{ providersSection.href }}" class="govuk-link">
+            {{ "Continue" if providersSection.status == "In progress" else "Start" }} section
+          </a>
+        </p>
+      {% endif %}
+    </div>
+  {% endif %}
+
+   <h2 class="govuk-heading-m">
+    General mentors
+  </h2>
+
+  {% set generalMentorsSection = data.generalMentorTaskList.generalMentors %}
+    {% if data.providers.length == 0 %}
+    <div class="govuk-inset-text">
+      <p class="govuk-body">
+        General mentor section — cannot start yet
+      </p>
+    </div>
+    {% endif %}
+    {% for provider in data.providers %}
+      {% if provider.status == "Completed" %}
+        <h3 class="govuk-heading-s">{{ provider.name }}</h3>
+        {% set providerIndex = loop.index0 %}
+        {% for mentor in data.providers[ providerIndex ].mentors %}
+          {% set mentorIndex = loop.index0 %}
+          {% include "includes/summary-cards/general-mentor.html" %}
+        {% endfor %}
+      {% else %}
+        <div class="govuk-inset-text">
+          <p class="govuk-body govuk-!-margin-bottom-2">
+            {{ provider.name }} —
+            {% if provider.mentors %}
+              {{ provider.mentors.length }} general {{ "mentor" | pluralise(provider.mentors.length) }}
+            {% else %}
+              no general mentors
+            {% endif %}
+          </p>
+          <p class="govuk-body">
+            <a href="/general-mentor-grant/v2/provider/{{ loop.index0 }}/general-mentor" class="govuk-link">
+            {{ "Continue" if provider.status == "In progress" else "Start" }} section
+          </a>
+          </p>
+        </div>
+      {% endif %}
+    {% endfor %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h2 class="govuk-heading-m govuk-!-margin-top-6">
+        Submit your claim
+      </h2>
+      <p class="govuk-body">
+        By submitting this claim you are confirming that, to 
+        the best of your knowledge, the details you are providing are
+        correct.
+      </p>
+      <form action="../confirmation" method="get" novalidate>
+        {{ govukButton({
+          text: "Submit claim"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
