@@ -63,7 +63,7 @@ $(document).ready(function () {
   }
 
   addRemoveItems('provider', sessionData.maxProviders)
-  addRemoveItems('teacher', sessionData.maxGeneralMentors)
+  addRemoveItems('mentor', sessionData.maxGeneralMentors)
 
   window.GOVUKFrontend.initAll()
 })

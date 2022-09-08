@@ -1,0 +1,26 @@
+{% set providerDetailsHtml %}
+  {{ govukSummaryList({
+    rows: [
+      {
+        key: {
+          text: "Claim amount"
+        },
+        value: {
+          text: data.actualClaim | currency
+        },
+        actions: {
+          items: [{
+            href: "/general-mentor-grant/v2/claim-amount",
+            text: "Change",
+            visuallyHiddenText: "claim amount"
+          }]
+        }
+      }
+    ]
+  }) }}
+{% endset %}
+{{ appSummaryCard({
+  headingLevel: 3 if pageContext == "check-application",
+  classes: "govuk-!-margin-bottom-6",
+  html: providerDetailsHtml
+}) }}

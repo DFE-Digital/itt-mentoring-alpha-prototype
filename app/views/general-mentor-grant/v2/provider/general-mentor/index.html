@@ -55,7 +55,7 @@
             name: "mentorsForProviderStatus",
             items: [
               {
-                checked: checked if data.generalMentorTaskList.generalMentors[ providerIndex ].status == "Completed",
+                checked: checked if data.providers[ providerIndex ].status == "Completed",
                 value: "Completed",
                 text: "I have completed this section"
               }

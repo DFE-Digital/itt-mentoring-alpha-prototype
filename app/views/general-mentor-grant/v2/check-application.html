@@ -23,8 +23,10 @@
   </div>
 
   <h2 class="govuk-heading-m">
-    School and ITT providers
+    School
   </h2>
+
+  {% set pageContext = "check-application" %}
 
   {% set schoolSection = data.generalMentorTaskList.school %}
   {% if schoolSection.status == "Completed" %}
@@ -32,7 +34,7 @@
   {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body govuk-!-margin-bottom-2">
-        School section — {{ schoolSection.status | startLowerCase }}
+        School section — {{ schoolSection.status | startLowerCase }}.
       </p>
       <p class="govuk-body">
         <a href="{{ schoolSection.href }}" class="govuk-link">
@@ -42,13 +44,17 @@
     </div>
   {% endif %}
 
+  <h2 class="govuk-heading-m">
+    ITT providers
+  </h2>
+
   {% set providersSection = data.generalMentorTaskList.providers %}
   {% if providersSection.status == "Completed" %}
     {% include "includes/summary-cards/providers.html" %}
   {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body {{ 'govuk-!-margin-bottom-2' if data.school }}">
-        Provider section — {{ providersSection.status | startLowerCase }}
+        Provider section — {{ providersSection.status | startLowerCase }}.
       </p>
       {% if data.school %}
         <p class="govuk-body">
@@ -60,48 +66,68 @@
     </div>
   {% endif %}
 
-   <h2 class="govuk-heading-m">
+  <h2 class="govuk-heading-m">
     General mentors
   </h2>
 
   {% set generalMentorsSection = data.generalMentorTaskList.generalMentors %}
-    {% if data.providers.length == 0 %}
+  {% if data.providers.length == 0 %}
+  <div class="govuk-inset-text">
+    <p class="govuk-body">
+      General mentor section — cannot start yet.
+    </p>
+  </div>
+  {% endif %}
+  {% for provider in data.providers %}
+    {% if provider.status == "Completed" %}
+      {% set providerIndex = loop.index0 %}
+      {% for mentor in data.providers[ providerIndex ].mentors %}
+        {% set mentorIndex = loop.index0 %}
+        {% include "includes/summary-cards/general-mentor.html" %}
+      {% endfor %}
+    {% else %}
+      <div class="govuk-inset-text">
+        <p class="govuk-body govuk-!-margin-bottom-2">
+          {{ provider.name }} —
+          {% if provider.mentors %}
+            {{ provider.mentors.length }} general {{ "mentor" | pluralise(provider.mentors.length) }}
+          {% else %}
+            no general mentors
+          {% endif %}
+        </p>
+        <p class="govuk-body">
+          <a href="/general-mentor-grant/v2/provider/{{ loop.index0 }}/general-mentor" class="govuk-link">
+          {{ "Continue" if provider.status == "In progress" else "Start" }} section
+        </a>
+        </p>
+      </div>
+    {% endif %}
+  {% endfor %}
+
+  <h2 class="govuk-heading-m">
+    Claim amount
+  </h2>
+  {% set claimSection = data.generalMentorTaskList.claimAmount %}
+  {% if claimSection.status == "Completed" %}
+    {% include "includes/summary-cards/claim-amount.html" %}
+  {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body">
-        General mentor section — cannot start yet
+        Claim amount section — {{ claimSection.status | startLowerCase }}.
       </p>
-    </div>
-    {% endif %}
-    {% for provider in data.providers %}
-      {% if provider.status == "Completed" %}
-        <h3 class="govuk-heading-s">{{ provider.name }}</h3>
-        {% set providerIndex = loop.index0 %}
-        {% for mentor in data.providers[ providerIndex ].mentors %}
-          {% set mentorIndex = loop.index0 %}
-          {% include "includes/summary-cards/general-mentor.html" %}
-        {% endfor %}
-      {% else %}
-        <div class="govuk-inset-text">
-          <p class="govuk-body govuk-!-margin-bottom-2">
-            {{ provider.name }} —
-            {% if provider.mentors %}
-              {{ provider.mentors.length }} general {{ "mentor" | pluralise(provider.mentors.length) }}
-            {% else %}
-              no general mentors
-            {% endif %}
-          </p>
-          <p class="govuk-body">
-            <a href="/general-mentor-grant/v2/provider/{{ loop.index0 }}/general-mentor" class="govuk-link">
-            {{ "Continue" if provider.status == "In progress" else "Start" }} section
+      {% if claimSection.status != "Cannot start yet" %}
+        <p class="govuk-body">
+          <a href="{{ claimSection.href }}" class="govuk-link">
+            {{ "Continue" if claimSection.status == "In progress" else "Start" }} section
           </a>
-          </p>
-        </div>
+        </p>
       {% endif %}
-    {% endfor %}
+    </div>
+  {% endif %}
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <h2 class="govuk-heading-m govuk-!-margin-top-6">
+      <h2 class="govuk-heading-m">
         Submit your claim
       </h2>
       <p class="govuk-body">

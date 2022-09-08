@@ -59,7 +59,8 @@
   {% endset %}
   {{ appSummaryCard({
     classes: "govuk-!-margin-bottom-6",
-    titleText: loop.index | getOrdinalName | sentenceCase + ' general mentor',
+    headingLevel: 3 if pageContext == "check-application",
+    titleText: data.providers[providerIndex].name + " — " + loop.index | getOrdinalName + ' general mentor',
     actions: {
       items: [{
         href: "/general-mentor-grant/v2/provider/" + providerIndex + "/general-mentor/" + loop.index0 + "/remove",
