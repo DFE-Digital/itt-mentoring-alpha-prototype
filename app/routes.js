@@ -207,11 +207,14 @@ const getSchools = () => {
     }
 
     /* Update total hours */
-    data.totalTrainingHours = data.providers?.map(provider => {
-      return mentorHours = provider.mentors.map(mentor =>{
+    data.totalTrainingHours = data?.providers.map(provider => {
+      return mentorHours = provider?.mentors.map(mentor =>{
         return parseInt(mentor["Training time"]) || 0
       }).reduce((partialSum, a) => partialSum + a, 0) || 0
     }).reduce((partialSum, a) => partialSum + a, 0)
+
+    /* Hourly rate given school location */
+    data.hourlyRate = data.regionalAmounts.find(regionalAmount => regionalAmount.region == data.schoolRegion ).value / 20
 
     /* Update max claim value */
     data.maxClaim = data.hourlyRate * data.totalTrainingHours

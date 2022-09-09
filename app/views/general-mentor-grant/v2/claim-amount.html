@@ -2,12 +2,6 @@
 {% set formAction  = "./claim-amount-answer" %}
 {% set pageHeading = "Claim amount" %}
 
-{% set maxClaimValue = 
-  (data.postgradTraineeWeeks | stringToNumber * data.postgradWeekValue) +
-  (data.undergradTraineeWeeks | stringToNumber * data.undergradWeekValue)
-%}
-
-
 {% extends "_templates/_form.html" %}
 
 {% set backText = "Application overview" %}

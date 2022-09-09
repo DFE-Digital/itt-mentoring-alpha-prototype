@@ -10,15 +10,8 @@
     {{ pageHeading }}
   </h1>
 
-  {% set totalTime = 0 %}
-  {% for provider in data.providers %}
-    {% for teacher in provider.mentors %}
-      {% set totalTime = totalTime + teacher.trainingTime | stringToNumber %}
-    {% endfor %}
-  {% endfor %}
-
   <p class="govuk-body">
-    You are claiming <span class="govuk-!-font-weight-bold">{{ data.maxClaim }}</span> for {{ totalTime }} hours of training.
+    You are claiming <span class="govuk-!-font-weight-bold">{{ data.maxClaim | currency }}</span> for {{ data.totalTrainingHours }} hours of training.
   </p>
   <p class="govuk-body">
   </p>
