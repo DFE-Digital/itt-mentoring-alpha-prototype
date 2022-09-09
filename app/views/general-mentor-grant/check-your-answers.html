@@ -10,15 +10,8 @@
     {{ pageHeading }}
   </h1>
 
-  {% set totalTime = 0 %}
-  {% for provider in data.providers %}
-    {% for teacher in provider.teachers %}
-      {% set totalTime = totalTime + teacher.trainingTime | stringToNumber %}
-    {% endfor %}
-  {% endfor %}
-
   <p class="govuk-body">
-    You are claiming <span class="govuk-!-font-weight-bold">{{ (totalTime * (data.amountForSession / 20)) | currency }}</span> for {{ totalTime }} hours of training.
+    You are claiming <span class="govuk-!-font-weight-bold">{{ data.maxClaim | currency }}</span> for {{ data.totalTrainingHours }} hours of training.
   </p>
   <p class="govuk-body">
   </p>
@@ -91,17 +84,17 @@
     General mentors
   </h2>
   {% for provider in data.providers %}
-    {% if provider.teachers.length > 0 %}
+    {% if provider.mentors.length > 0 %}
     {% set providerIndex = loop.index0 %}
     {% if data.providers.length > 1 %}
       <h3 class="govuk-heading-s govuk-!-margin-bottom-1">
         Trained with {{ provider.name }}
       </h3>
     {% endif %}
-    {% for teacher in provider.teachers %}
-      {% if loop.index == provider.teachers.length and providerIndex + 1 == data.providers.length %}
+    {% for teacher in provider.mentors %}
+      {% if loop.index == provider.mentors.length and providerIndex + 1 == data.providers.length %}
         {% set taskListMargin = 9 %}
-      {% elseif loop.index == provider.teachers.length %}
+      {% elseif loop.index == provider.mentors.length %}
         {% set taskListMargin = 6 %}
       {% else %}
         {% set taskListMargin = 3 %}
@@ -113,19 +106,19 @@
           {% if value != "" %}
             <div class="govuk-summary-list__row">
               <dt class="govuk-summary-list__key">
-                {{ "Teacher reference number (TRN)" if key == "trn" else key | camelToSentence }}
+                {{ "Teacher reference number (TRN)" if key == "trn" else key }}
               </dt>
               <dd class="govuk-summary-list__value">
-                {% if key == 'dateOfBirth' %}
+                {% if key == 'Date of birth' %}
                   {{ value | govukDate }}
-                {% elseif key == "trainingTime" %}
+                {% elseif key == "Training time" %}
                   {{ value }} hours
                 {% else %}
                   {{ value }}
                 {% endif %}
               </dd>
               <dd class="govuk-summary-list__actions">
-                <a class="govuk-link" href="./{{ providerIndex }}/teachers">
+                <a class="govuk-link" href="./{{ providerIndex }}/mentors">
                   Change<span class="govuk-visually-hidden"> {{ key | camelToSentence }}</span>
                 </a>
               </dd>

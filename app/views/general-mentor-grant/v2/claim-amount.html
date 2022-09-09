@@ -1,0 +1,72 @@
+
+{% set formAction  = "./claim-amount-answer" %}
+{% set pageHeading = "Claim amount" %}
+
+{% extends "_templates/_form.html" %}
+
+{% set backText = "Application overview" %}
+{% set backLink = "./overview" %}
+
+
+{% block formContent %}
+
+  
+  {% include "includes/school-name-caption.html" %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  <p class="govuk-body govuk-!-margin-bottom-1">
+    For {{ data.totalTrainingHours }} {{ "hour" | pluralise(data.actualClaim) }} of training, you are can claim {{ data.maxClaim | currency }} unless your school:
+  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      received money from an ITT provider to release mentors from lessons
+    </li>
+    <li>
+      spent less than {{ data.maxClaim | currency }} on lesson cover while your mentors trained
+    </li>
+    <li>
+      gave less than {{ data.hourlyRate | currency }} per hour to a mentor for training in their own time
+    </li>
+  </ul>
+
+  {% set lessThanMaximumHtml %}
+    {{ govukInput({
+      label: {
+        text: "Claim amount",
+        classes: "govuk-label--s"
+      },
+      prefix: {
+        text: "£"
+      },
+      classes: "govuk-input--width-4",
+      id: "actualClaim",
+      name: "actualClaim",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    fieldset: {
+      legend: {
+        text: "How much do you want to claim?",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    items: [
+      {
+        value: data.maxClaim,
+        text: data.maxClaim | currency
+      },
+      {
+        value: "less",
+        text: "Less than " + data.maxClaim | currency,
+        conditional: {
+          html: lessThanMaximumHtml
+        }
+      }
+    ]
+  } | decorateAttributes(data, "data.actualClaim")) }}
+{% endblock %}

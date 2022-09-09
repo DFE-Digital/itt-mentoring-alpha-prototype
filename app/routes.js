@@ -27,7 +27,7 @@ const getSchools = () => {
     pageOrder: [
       'school',
       'providers',
-      '0/teachers',
+      '0/mentors',
       'email-address',
       'check-your-answers',
       'confirmation'
@@ -141,7 +141,7 @@ const getSchools = () => {
       }
     }
 
-    res.redirect('/general-mentor-grant/v2/overview')
+    res.redirect('/update-task-list-count')
   })
 
   /* remove empty providers */
@@ -156,41 +156,41 @@ const getSchools = () => {
     }
 
     if (data.grantBeingAppliedFor == 'generalMentorTraining') {
-      res.redirect('/general-mentor-grant/v2/overview')
+      res.redirect('/update-task-list-count')
     } else {
       res.redirect(getNextPage('providers', generalMentorRouting))
     }
 
   })
 
-  router.get('/general-mentor-grant/:providerIndex/teachers', function(req, res){
+  router.get('/general-mentor-grant/:providerIndex/mentors', function(req, res){
     let providerIndex = parseInt(req.params.providerIndex)
-    res.render('general-mentor-grant/teachers', {
+    res.render('general-mentor-grant/mentors', {
       providerIndex
     })
   })
 
-  router.post('/general-mentor-grant/:providerIndex/teachers-answer', function(req, res){
+  router.post('/general-mentor-grant/:providerIndex/mentors-answer', function(req, res){
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
     let providerCount = data.providers.length
     
-    /* remove empty teachers */
-    data.teachers = data.teachers.filter(teacher => teacher.name != '' || teacher.trn != '')
+    /* remove empty mentors */
+    data.mentors = data.mentors.filter(mentor => mentor["Name"] != '' || mentor.trn != '')
 
     /* hacky way of removing empty teaching hours */
     /* to do: clean this up in the view */
-    data.teachers.forEach(teacher => {
-      teacher.trainingTime = teacher.trainingTime.filter(value => value != '')
+    data.mentors.forEach(mentor => {
+      mentor["Training time"] = mentor["Training time"].filter(value => value != '')
     })
 
-    /* add teacher to provider */
-    data.providers[providerIndex].teachers = data.teachers
+    /* add mentor to provider */
+    data.providers[providerIndex].mentors = data.mentors
 
     if (providerIndex < providerCount - 1){
-      res.redirect(`/general-mentor-grant/${ providerIndex + 1 }/teachers`)
+      res.redirect(`/general-mentor-grant/${ providerIndex + 1 }/mentors`)
     } else {
-      res.redirect(getNextPage('0/teachers', generalMentorRouting))
+      res.redirect(getNextPage('0/mentors', generalMentorRouting))
     }
   })
 
@@ -201,10 +201,24 @@ const getSchools = () => {
     if (data.email == '') {
       data.email = 'example@example.com'
     }
-    /* Set an example teacher */
-    if (data.providers[0].teachers.length == 0) {
-      data.providers[0].teachers = [{'name': 'Firstname Lastname', 'trn': '0000000', 'dateOfBirth': [1,1,1990], 'trainingTime': 20}]
+    /* Set an example mentor */
+    if (data.providers[0].mentors.length == 0) {
+      data.providers[0].mentors = [{'Name': 'Firstname Lastname', 'trn': '0000000', 'Date of birth': [1,1,1990], 'Training time': 20}]
     }
+
+    /* Update total hours */
+    data.totalTrainingHours = data?.providers.map(provider => {
+      return mentorHours = provider?.mentors.map(mentor =>{
+        return parseInt(mentor["Training time"]) || 0
+      }).reduce((partialSum, a) => partialSum + a, 0) || 0
+    }).reduce((partialSum, a) => partialSum + a, 0)
+
+    /* Hourly rate given school location */
+    data.hourlyRate = data.regionalAmounts.find(regionalAmount => regionalAmount.region == data.schoolRegion ).value / 20
+
+    /* Update max claim value */
+    data.maxClaim = data.hourlyRate * data.totalTrainingHours
+
     res.redirect(getNextPage('email-address', generalMentorRouting))
   })
 
@@ -246,6 +260,7 @@ const getSchools = () => {
     res.redirect('/general-mentor-grant/school')
   })
 
+  /* Show user providers from Register */
   router.get('/general-mentor-grant/v2/provider/check-confirmed', function(req, res){
     const data = req.session.data
     if (data.providersFromRegister.length == 0) {
@@ -257,6 +272,7 @@ const getSchools = () => {
     }
   })
 
+  /* Store providers from Register */
   router.post('/general-mentor-grant/v2/provider/confirm-answer', function(req, res){
     const data = req.session.data
 
@@ -289,6 +305,7 @@ const getSchools = () => {
 
   })
 
+  /* Render page to add providers not from Register */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/add', function(req, res){
     let providerIndex = parseInt(req.params.providerIndex)
     res.render('general-mentor-grant/v2/provider/add', {
@@ -296,14 +313,17 @@ const getSchools = () => {
     })
   })
 
+  /* store user generated providers */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/add-answer', function(req, res){
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
 
     if (data.tempProviderStore !== '') {
       if(!data.providers[providerIndex]){
+        /* store new provider */
         data.providers[providerIndex] = { 'name': data.tempProviderStore, 'status': 'Not started' }
       } else {
+        /* only overwrite the name if the user changes the provider name */
         data.providers[providerIndex] = {
           'name':    data.tempProviderStore,
           'status':  data.providers[providerIndex].status,
@@ -311,6 +331,12 @@ const getSchools = () => {
         }
       }
       delete data.tempProviderStore
+
+      /* clear claim amount */
+      if (data.generalMentorTaskList.claimAmount.status != "Cannot start yet") {
+        data.generalMentorTaskList.claimAmount.status = "Not started"
+      }
+
       res.redirect('/general-mentor-grant/v2/provider')
     } else {
       res.render('general-mentor-grant/v2/provider/add', {
@@ -319,7 +345,7 @@ const getSchools = () => {
     }
   })
 
-
+  /* remove provider */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/remove', function(req, res){
     let providerIndex = parseInt(req.params.providerIndex)
     res.render('general-mentor-grant/v2/provider/remove', {
@@ -337,11 +363,28 @@ const getSchools = () => {
       data.generalMentorTaskList.providers.status = "Not started"
     }
 
+    if (data.generalMentorTaskList.claimAmount.status != "Cannot start yet") {
+      data.generalMentorTaskList.claimAmount.status = "Not started"
+    }
+
     res.redirect('/general-mentor-grant/v2/provider')
   })
 
 
-  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/', function(req, res){
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/check-for-mentors', function(req, res){
+    const data = req.session.data
+    let providerIndex = parseInt(req.params.providerIndex)
+
+    if (data.providers[ providerIndex ]?.mentors?.length == 0 || !data.providers[ providerIndex ]?.mentors) {
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor/0/identity`)
+    } else {
+      res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor`)
+    }
+
+  })
+
+
+  router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor', function(req, res){
     let providerIndex = parseInt(req.params.providerIndex)
 
     res.render('general-mentor-grant/v2/provider/general-mentor/index', {
@@ -407,7 +450,7 @@ const getSchools = () => {
   })
 
 
-  /* Render mentor not recognised */
+  /* If trainee not found render mentor not recognised */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/not-recognised', function(req, res){
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
@@ -417,7 +460,7 @@ const getSchools = () => {
     })
   })
 
-  /* Render training page */
+  /* Render training time page */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/training-hours', function(req, res){
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
@@ -447,9 +490,14 @@ const getSchools = () => {
     } else {
       res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor/${ mentorIndex }/training-hours`)
     }
+
+    if (data.generalMentorTaskList.claimAmount.status != "Cannot start yet") {
+      data.generalMentorTaskList.claimAmount.status = "Not started"
+    }
+
   })
 
-
+  /* render remove mentor */
   router.get('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/remove', function(req, res) {
     const data = req.session.data
     let providerIndex = parseInt(req.params.providerIndex)
@@ -459,6 +507,7 @@ const getSchools = () => {
     })
   })
 
+  /* remove mentor */
   router.post('/general-mentor-grant/v2/provider/:providerIndex/general-mentor/:mentorIndex/remove-answer', function(req, res){
     const data = req.session.data
 
@@ -470,6 +519,10 @@ const getSchools = () => {
     if (data.providers[ providerIndex ].mentors.length == 0) {
       data.providers[providerIndex].status = "Not started"
       delete data.mentorsForProviderStatus
+    }
+
+    if (data.generalMentorTaskList.claimAmount.status != "Cannot start yet") {
+      data.generalMentorTaskList.claimAmount.status = "Not started"
     }
 
     res.redirect(`/general-mentor-grant/v2/provider/${ providerIndex }/general-mentor`)
@@ -488,7 +541,7 @@ const getSchools = () => {
       data.providers[ providerIndex ]["status"] = "Not started"
     }
     delete data.mentorsForProviderStatus
-    res.redirect('/general-mentor-grant/v2/overview')
+    res.redirect('/update-task-list-count')
   })
 
   router.get('/general-mentor-grant/v2/provider-answer', function(req, res){
@@ -517,8 +570,74 @@ const getSchools = () => {
       providersSection.status = "Not started"
     }
 
+    res.redirect('/update-task-list-count')
+  })
+
+
+  /* Application count */
+  router.get('/update-task-list-count', function(req, res){
+    const data = req.session.data
+
+    let sectionsCompleteCount = 0
+
+    if (data.generalMentorTaskList.school.status == "Completed") {
+      sectionsCompleteCount += 1
+    }
+
+    if (data.generalMentorTaskList.providers.status == "Completed") {
+      sectionsCompleteCount += 1
+    }
+
+    let allProvidersComplete = false
+
+    if (data.providers.length > 0) {
+      allProvidersComplete = data.providers.every(provider => provider?.status == "Completed")
+    }
+
+    if (allProvidersComplete == true) {
+      sectionsCompleteCount += 1
+    }
+
+    if (allProvidersComplete == true && data.generalMentorTaskList.claimAmount.status == "Cannot start yet") {
+      data.generalMentorTaskList.claimAmount.status = "Not started"
+    }
+
+    data.generalMentorTaskList.sectionsComplete = sectionsCompleteCount
+
+    /* Update total hours */
+    if (allProvidersComplete == true) {
+      data.totalTrainingHours = data?.providers.map(provider => {
+        return mentorHours = provider?.mentors.map(mentor =>{
+          return parseInt(mentor["Training time"]) || 0
+        }).reduce((partialSum, a) => partialSum + a, 0) || 0
+      }).reduce((partialSum, a) => partialSum + a, 0)
+    }
+
+    /* Hourly rate given school location */
+    data.hourlyRate = data.regionalAmounts.find(regionalAmount => regionalAmount.region == data.schoolRegion ).value / 20
+
+    /* Update max claim value */
+    data.maxClaim = data.hourlyRate * data.totalTrainingHours
+
     res.redirect('/general-mentor-grant/v2/overview')
   })
+
+  router.post('/general-mentor-grant/v2/claim-amount-answer', function(req, res){
+    const data = req.session.data
+
+    /* Clean up claim amount */
+    if(Array.isArray(data.actualClaim) == true){
+      data.actualClaim = data.actualClaim.filter(item => item != "less")
+    }
+
+    if (data.actualClaim != 0) {
+      data.generalMentorTaskList.claimAmount.status = "Completed"
+    }
+
+    res.redirect('/general-mentor-grant/v2/overview')
+  })
+
+
 
   /*
     ==================================================================

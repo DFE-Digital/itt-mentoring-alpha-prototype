@@ -17,7 +17,7 @@
     rows: [
       {
         key: {
-          text: "School"
+          text: "School details"
         },
         value: {
           text: schoolInfoHtml | safe
@@ -35,6 +35,6 @@
 {% endset %}
 {{ appSummaryCard({
   classes: "govuk-!-margin-bottom-6",
-  titleText: 'School details',
+  headingLevel: 3 if pageContext == "check-application",
   html: schoolDetailsHtml | safe
 }) }}

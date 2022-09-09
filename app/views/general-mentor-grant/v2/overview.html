@@ -1,5 +1,5 @@
 
-{% set pageHeading = "Claim general mentor funding" %}
+{% set pageHeading = "Claim general mentor training funding" %}
 
 {% extends "layout.html" %}
 
@@ -10,43 +10,52 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       {% include "includes/school-name-caption.html" %}
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-xl">
         {{ pageHeading }}
       </h1>
+
+      <h2 class="govuk-heading-s govuk-!-margin-bottom-2">
+        Application incomplete
+      </h2>
+      <p class="govuk-body govuk-!-margin-bottom-7">
+        You have completed {{ data.generalMentorTaskList.sectionsComplete }} of 4 sections.
+      </p>
+
 
       <ol class="app-task-list">
         <li>
           <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">1. </span>
-            School and ITT providers
+            <span class="app-task-list__section-number">1. </span> School
           </h2>
-          {% set schoolAndIttProviderTaskListItems = [
-            {
+          {{ appTaskList({
+            items: [{
               text: "School",
               href: data.generalMentorTaskList.school.href,
               tag: {
                 text: data.generalMentorTaskList.school.status,
                 classes: data.generalMentorTaskList.school.status | getStatusClass
-              }
-            },
-            {
+                }
+              }]
+            }) }}
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            <span class="app-task-list__section-number">2. </span> ITT providers
+          </h2>
+          {{ appTaskList({
+            items: [{
               text: "ITT providers",
               href: data.generalMentorTaskList.providers.href,
               tag: {
                 text: data.generalMentorTaskList.providers.status,
                 classes: data.generalMentorTaskList.providers.status | getStatusClass
-              }
-            }
-          ] %}
-          {{ appTaskList({
-            classes: "govuk-!-margin-bottom-8",
-            items: schoolAndIttProviderTaskListItems
-          }) }}
+                }
+              }]
+            }) }}
         </li>
         <li>
           <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">2. </span>
-            General mentors
+            <span class="app-task-list__section-number">3. </span> General mentors
           </h2>
           {% set generalMentorTaskListItems = [] %}
           {% if data.providers.length == 0 %}
@@ -63,7 +72,7 @@
             {% for provider in data.providers %}
               {% set generalMentorTask = {
                 text: provider.name,
-                href: "/general-mentor-grant/v2/provider/" + loop.index0 + "/general-mentor",
+                href: "/general-mentor-grant/v2/provider/" + loop.index0 + "/check-for-mentors",
                 tag: {
                   text: provider.status,
                   classes: provider.status | getStatusClass
@@ -79,9 +88,21 @@
         </li>
         <li>
           <h2 class="app-task-list__section">
-            <span class="app-task-list__section-number">
-              3.
-            </span>
+            <span class="app-task-list__section-number">4. </span> Claim amount
+          </h2>
+          {{ appTaskList({
+            items: [{
+                text: "Claim amount",
+                href: data.generalMentorTaskList.claimAmount.href if data.generalMentorTaskList.claimAmount.status != "Cannot start yet",
+                tag: {
+                  text: data.generalMentorTaskList.claimAmount.status,
+                  classes: data.generalMentorTaskList.claimAmount.status | getStatusClass
+                }
+              }]
+            }) }}
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
             Final check
           </h2>
           <form action="./check-application" method="get" novalidate>

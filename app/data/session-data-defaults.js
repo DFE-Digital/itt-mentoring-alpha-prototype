@@ -36,15 +36,21 @@ module.exports = {
 
   generalMentorTaskList: {
     school:
-      {
-        "href":   "/general-mentor-grant/v2/school-answer",
-        "status": "Not started",
-      },
-    providers:
-      {
-        "status": "Cannot start yet",
-      }
+    {
+      "href":   "/general-mentor-grant/v2/school-answer",
+      "status": "Not started"
     },
+    providers:
+    {
+      "status": "Cannot start yet",
+    },
+    claimAmount:
+    {
+      "href":   "/general-mentor-grant/v2/claim-amount",
+      "status": "Cannot start yet"
+    },
+    sectionsComplete: 0,
+  },
 
   providers: [],
 
@@ -59,13 +65,29 @@ module.exports = {
     "Voluntary aided school"
   ],
 
-  /*
-    Inner London    - 1072
-    Outer London    -  965
-    Fringe          -  902
-    Rest of England -  876
-  */
-  amountForSession: 902,
+  regionalAmounts: [
+    { 
+      region: "Inner London",
+      value: 1072
+    },
+    { 
+      region: "Outer London",
+      value: 965
+    },
+    { 
+      region: "Fringe",
+      value: 902
+    },
+    { 
+      region: "Rest of England",
+      value: 876
+    }
+  ],
+  schoolRegion: "Inner London",
+  hourlyRate: 0,
+  totalTrainingHours: 0,
+  maxClaim: 0,
+  actualClaim: 0,
 
   /*
     ========================================================================

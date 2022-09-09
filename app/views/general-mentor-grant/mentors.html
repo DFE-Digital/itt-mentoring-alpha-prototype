@@ -1,5 +1,5 @@
 
-{% set formAction   = "./teachers-answer" %}
+{% set formAction   = "./mentors-answer" %}
 {% set providerName = data.providers[ providerIndex ].name if data.providers[ providerIndex ].name else "Example provider" %}
 
 {% set pageHeadingHtml -%}
@@ -12,7 +12,7 @@
   <h1 class="govuk-heading-l">
     {{ pageHeadingHtml | safe }}
   </h1>
-  {% for teacherIndex in range(0, data.maxGeneralMentors) %}
+  {% for mentorIndex in range(0, data.maxGeneralMentors) %}
     {% set trnHtml %}
       {{ govukInput({
         label: {
@@ -20,9 +20,9 @@
           classes: "govuk-label--s"
         },
         classes: "govuk-input--width-10",
-        id: "teacher-" + teacherIndex + "-dob-or-nino",
-        name: "teachers[" + ( teacherIndex ) + "][trn]",
-        value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["trn"]
+        id: "mentor-" + mentorIndex + "-dob-or-nino",
+        name: "mentors[" + ( mentorIndex ) + "][trn]",
+        value: data.mentors[ providerIndex ].mentors[ mentorIndex ]["trn"]
       }) }}
     {% endset %}
     {% set ninoHtml %}
@@ -35,15 +35,15 @@
           text: "For example, QQ 12 34 56 A"
         },
         classes: "govuk-input--width-10",
-        id: "teacher-" + teacherIndex + "-dob-or-nino",
-        name: "teachers[" + ( teacherIndex ) + "][nationalInsuranceNumber]",
-        value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["nationalInsuranceNumber"]
+        id: "mentor-" + mentorIndex + "-dob-or-nino",
+        name: "mentors[" + ( mentorIndex ) + "][National insurance number]",
+        value: data.mentors[ providerIndex ].mentors[ mentorIndex ]["National insurance number"]
       }) }}
     {% endset %}
     {% set otherAmountHtml %}
       {{ govukInput({
-        id: "teacher-" + teacherIndex + "-trainingTime",
-        name: "teachers[" + ( teacherIndex ) + "][trainingTime]",
+        id: "mentor-" + mentorIndex + "-trainingTime",
+        name: "mentors[" + ( mentorIndex ) + "][Training time]",
         suffix: {
           text: "hours"
         },
@@ -54,7 +54,7 @@
       }) }}
     {% endset %}
     <div
-      id="{{ teacherIndex | getOrdinalName }}-teacher-input-group"
+      id="{{ mentorIndex | getOrdinalName }}-mentor-input-group"
       class="{{ 'app-display-hidden' if loop.index > 1 }}">
         <h2 class="govuk-heading-m">
           {{ loop.index | getOrdinalName | sentenceCase }} general mentor
@@ -65,19 +65,19 @@
             classes: "govuk-label--s"
           },
           classes: "govuk-!-width-one-half",
-          id: "teacher-" + teacherIndex,
-          name: "teachers[" + ( teacherIndex ) + "][name]",
-          value: data.teachers[ providerIndex ].teachers[ teacherIndex ]["name"]
+          id: "mentor-" + mentorIndex,
+          name: "mentors[" + ( mentorIndex ) + "][Name]",
+          value: data.mentors[ providerIndex ].mentors[ mentorIndex ]["Name"]
         }) }}
         {% if data.mainstreamSchool == true %}
           {{ trnHtml | safe }}
         {% else %}
           {{ govukRadios({
-            idPrefix: "teacher-" + teacherIndex + "-dob-or-nino",
+            idPrefix: "mentor-" + mentorIndex + "-dob-or-nino",
             name: "qualified",
             fieldset: {
               legend: {
-                text: "Is the mentor a qualified teacher?",
+                text: "Is the mentor a qualified mentor?",
                 classes: "govuk-fieldset__legend--s"
               }
             },
@@ -87,7 +87,7 @@
             items: [
               {
                 value: "yes",
-                text: "Yes, they have qualified teacher status (QTS)",
+                text: "Yes, they have qualified mentor status (QTS)",
                 conditional: {
                   html: trnHtml
                 }
@@ -103,8 +103,8 @@
           }) }}
         {% endif %}
         {{ govukDateInput({
-          id: "teacher-DOB-" + teacherIndex,
-          namePrefix: "teachers[" + ( teacherIndex ) + "][dateOfBirth]",
+          id: "mentor-DOB-" + mentorIndex,
+          namePrefix: "mentors[" + ( mentorIndex ) + "][Date of birth]",
           fieldset: {
             legend: {
               text: "Date of birth",
@@ -116,8 +116,8 @@
           }
         }) }}
         {{ govukRadios({
-          idPrefix: "teacher-" + teacherIndex + "-trainingTime",
-          name: "teachers[" + ( teacherIndex ) + "][trainingTime]",
+          idPrefix: "mentor-" + mentorIndex + "-trainingTime",
+          name: "mentors[" + ( mentorIndex ) + "][Training time]",
           fieldset: {
             legend: {
               text: "Mentor training time",
@@ -145,7 +145,7 @@
       </div>
     {% if loop.index > 1 %}
         <a 
-          id=   "remove-{{ loop.index | getOrdinalName }}-teacher"
+          id=   "remove-{{ loop.index | getOrdinalName }}-mentor"
           href= "#"
           type= "button"
           class="
@@ -155,7 +155,7 @@
             app-display-hidden
             govuk-!-margin-bottom-7"
           >
-          Remove {{ loop.index | getOrdinalName }} teacher
+          Remove {{ loop.index | getOrdinalName }} mentor
         </a>
     {% endif %}
   {% endfor %}
@@ -164,8 +164,8 @@
     classes: "govuk-button--secondary",
     attributes: {
       "type": "button",
-      "name": "add-teacher",
-      "id":   "add-teacher"
+      "name": "add-mentor",
+      "id":   "add-mentor"
     }
   }) }}
 {% endblock %}
