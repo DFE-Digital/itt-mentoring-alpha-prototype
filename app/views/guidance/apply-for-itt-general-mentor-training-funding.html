@@ -93,7 +93,7 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h2>
+      <h3 class="govuk-heading-s" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h3>
       <p class="govuk-body">
         For the 2024 to 2025 academic year all teachers who mentor a
         trainee during their ITT placement must have completed 
@@ -106,7 +106,18 @@
       <p class="govuk-body">
         Schools can claim funding for up to <span class="app-nowrap">20 hours</span> of training time, per general mentor.
       </p>
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h2>
+
+      {{ govukButton({
+        text: "Start now",
+        href: "/general-mentor-grant/v2/start",
+        isStartButton: true
+      }) }}
+
+
+      <h2 class="govuk-heading-m">
+        Before you start
+      </h2>
+      <h3 class="govuk-heading-s" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h3>
       <p class="govuk-body">
         Funding is to support schools with general mentor training. 
         This is for any time spent training, not only 
@@ -157,13 +168,14 @@
           school can claim up to the full amount
         </li>
       </ul>
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h2>
+      <h3 class="govuk-heading-s" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h3>
 
-      <p class="govuk-body">
+
+      {# <p class="govuk-body">
         <a href="/general-mentor-grant/school">
           Apply for grant funding
         </a>
-      </p>
+      </p> #}
 
       <!-- p class="govuk-body govuk-!-margin-bottom-1">
         After all your general mentors have completed their training
@@ -202,7 +214,7 @@
         <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">
           How to provide information about your banking and payments</a>.
       </p>
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h2>
+      <h3 class="govuk-heading-s" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h3>
       <p class="govuk-body">
         Claims will be paid between September and October 2025
       </p>
