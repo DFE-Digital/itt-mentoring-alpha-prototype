@@ -121,6 +121,48 @@ module.exports = function (env) {
     return obj
   }
 
+  filters.highlightInvalidInputs = function(data, params={}){
+
+    let value = data.value
+
+    if (value && value.includes('**invalid**')) {
+      params.type = 'invalid'
+      // Using .apply() to pass on value of 'this'
+      data = exports.markInput.apply(this, [data, params])
+    }
+
+    if (value && value.includes('**missing**')) {
+      params.type = 'missing'
+      // Using .apply() to pass on value of 'this'
+      data = exports.markInput.apply(this, [data, params])
+    }
+
+    return data
+  }
+
+  filters.falsify = (input) => {
+    if (!input) return false
+    if (input == null) return false
+    if (input == undefined) return false
+    if (_.isNumber(input)) return input
+    else if (input == false) return false
+    if (_.isString(input)){
+      let truthyValues = ['yes', 'true']
+      let falsyValues = ['no', 'false']
+      if (truthyValues.includes(input.toLowerCase())) return true
+      else if (falsyValues.includes(input.toLowerCase())) return false
+    }
+    return input;
+  }
+
+  filters.includes = (route, string) =>{
+    if (route && route.includes(string)) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 
   /* ------------------------------------------------------------------
     keep the following line to return your filters to the app

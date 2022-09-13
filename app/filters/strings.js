@@ -126,4 +126,10 @@ filters.possessive = (noun) => {
   }
 }
 
+// Split a string using a separator
+filters.split = (string, separator) => {
+  if (!string || typeof string != "string") return
+  else return string.split(separator)
+}
+
 exports.filters = filters

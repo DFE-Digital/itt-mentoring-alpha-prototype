@@ -66,4 +66,5 @@ $(document).ready(function () {
   addRemoveItems('mentor', sessionData.maxGeneralMentors)
 
   window.GOVUKFrontend.initAll()
+  initAutocompletes()
 })

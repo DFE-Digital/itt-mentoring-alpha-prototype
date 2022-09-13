@@ -2,26 +2,49 @@
 {% set formAction  = "./add-answer" %}
 
 {% set pageHeadingHtml -%}
-    ITT provider your <span class="app-nowrap">general mentors</span>
+    {{ (providerIndex + 1) | getOrdinalName | sentenceCase }} ITT provider your <span class="app-nowrap">general mentors</span>
     trained with in the <span class="app-nowrap">2024 to 2025</span> 
     <span class="app-nowrap">school year</span>
 {%- endset %}
 
 {% extends "_templates/_form.html" %}
 
+
 {% block formContent %}
+
+  {% set items = [] %}
+  {% for provider in data.ittProviders %}
+    {% set items = items | push(
+      {
+        value: provider,
+        text: provider
+      }
+    ) %}
+  {% endfor %}
+
+  {{ items | log }}
+
   {% include "includes/school-name-caption.html" %}
-  <h1 class="govuk-heading-l">
-    {{ pageHeadingHtml | safe }}
-  </h1>
-  {{ govukInput({
+  {{ appAutocompleteFromSelect({
     label: {
-      text:"ITT provider name",
-      classes: "govuk-label--m"
+      text: pageHeadingHtml | safe,
+      classes: "govuk-label--l",
+      isHeading: true
     },
-    classes: "govuk-!-width-two-thirds",
-    id: "provider-" + providerIndex,
+    id: 'degree-institutions',
     name: "tempProviderStore",
-    value: data.providers[ providerIndex ]["name"]
-  }) }}
+    items: items,
+    classes: "govuk-!-width-two-thirds",
+    value: data.providers[providerIndex].name,
+    autocompleteOptions: {
+      minLength: 2,
+      autoselect: false,
+      showAllValues: false,
+      showSuggestionsBanner: false
+    }
+  } | highlightInvalidInputs({invalidMessage: institutionNotRecognisedHtml}) ) }}
 {% endblock %}
+
+{% set institutionNotRecognisedHtml %}
+  , which was not recognised as a UK institution. Search for the correct institution or change to a non-UK degree.
+{% endset %}
