@@ -1,5 +1,5 @@
 
-{% set pageHeading = "Apply for ITT general mentor training funding" %}
+{% set pageHeading = "Initial teacher training general mentor grant" %}
 {% set serviceName = false %}
 
 {% extends "layout.html" %}
@@ -47,9 +47,7 @@
         {{ pageHeading }}
       </h1>
       <p class="govuk-body-lead">
-        Funding for all placement schools to cover the 
-        costs associated with training a general mentor for the 
-        new minimum time requirements.
+        How placement schools working with initial teacher training (ITT) providers can claim funding to cover the costs associated with training a general mentor.
       </p>
     </div>
   </div>
@@ -70,10 +68,10 @@
   </div>
 
   {% set sectionTitles = [
+    'What the funding is for',
+    'How to cliam',
     'Conditions of funding',
-    'What you’ll need when applying',
-    'What happens next',
-    'Payment for independent schools'
+    'Reporting and accountability'
   ] %}
 
   <div class="govuk-grid-row">
@@ -94,48 +92,21 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <p class="govuk-body">
-        For the 2024 to 2025 school year, teachers who mentor a
-        trainee teacher must complete up to
-        <span class="app-nowrap">20 hours</span> of general mentor
-        training with an <span class="app-nowrap">ITT provider</span>.
+        For the 2024 to 2025 school year, teachers who mentor a trainee teacher must complete up to 20 hours general mentor training with an ITT provider.
       </p>
       <p class="govuk-body">
-        <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/1077177/Initial_Teacher_Training__ITT__Reform_Funding_Guidance_160522.pdf">
-        Read more about general ITT mentor training
-        </a>.
+        The general mentor training grant is to support the costs of having general mentors train to meet the new ITT quality requirements.
       </p>
       <p class="govuk-body">
-        This funding is to help schools with the cost of covering
-        teacher’s time to participate in mentor training.
-      </p>
-      <p class="govuk-body">
-        Where it’s not possible to give the time-off timetable to the
-        teacher for mentor training, the schools must give the teacher
-        time-off timetable at another time or pass the funding to the teacher.
+        <a href="https://www.gov.uk/government/consultations/initial-teacher-training-itt-market-review" class="govuk-link">Read more about the changes to ITT</a>.
       </p>
 
-      {{ govukButton({
-        text: "Start now",
-        href: "/general-mentor-grant/v2/start",
-        isStartButton: true
-      }) }}
-
-
-      <h2 class="govuk-heading-m">
-        Before you start
-      </h2>
-      <h3 class="govuk-heading-s" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h3>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h2>
       <p class="govuk-body">
-        Funding is to support schools with general mentor training. 
-        This is for any time spent training, not only 
-        face-to-face with <span class="app-nowrap">ITT providers</span>.
+        This funding is to help schools with the cost of covering teacher’s time to participate in mentor training. Where it is not possible to give the time-off timetable to the teacher for mentor training, the schools must give the teacher time-off timetable at another time or pass the funding to the teacher.
       </p>
       <p class="govuk-body">
-        Each general mentor must mentor at least 1 trainee each. For example, if a trainee had 2 general mentors and neither of those mentors worked with another trainee. The school could only claim for 1 general mentor’s training.
-      </p>
-      <p class="govuk-bdoy">
-        Funding is adjusted by region. For each general mentor,
-        schools can claim:
+        Schools can claim up to 20 hours per general mentor depending on your school’s region:
       </p>
       <ul class="govuk-list govuk-list--bullet">
         <li>Inner London — up to £1,072</li>
@@ -152,124 +123,95 @@
         <li>amount given to the teacher where time away from lessons was not possible</li>
       </ul>
       <p class="govuk-body">
-        This is available to all schools that host trainee teachers, 
-        including <span class="app-nowrap">independent schools</span>.
+        This is available to all schools that host trainee teachers, including independent schools.
       </p>
-      <h3 class="govuk-heading-s">
-        What is not covered by the funding
-      </h3>
+      <p class="govuk-body">
+        The grant cannot be spent on:
+      </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>
-          teachers that train to become a general mentor without a 
-          trainee to mentor
-        </li>
-        <li>
-          travel time or expenses
-        </li>
+        <li>teachers that train to become a general mentor without a trainee to mentor</li>
+        <li>travel</li>
+        <li>expenses</li>
       </ul>
 
-      <h3 class="govuk-heading-s">
-        What happens if a trainee withdraws or defers
-      </h3>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h2>
       <p class="govuk-body">
-        If an ITT trainee withdraws or defers:
+        To make a claim you will need:
       </p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          before a teacher starts their general mentor training, the 
-          school cannot claim any funding
+          the name of school you are claiming on behalf of
         </li>
         <li>
-          after a teacher has started their general mentor training, the
-          school can claim up to the full amount
+          the name, birth date and teacher reference number (TRN) of teachers who took part in training
         </li>
-      </ul>
-      <h3 class="govuk-heading-s" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h3>
-
-
-      {# <p class="govuk-body">
-        <a href="/general-mentor-grant/school">
-          Apply for grant funding
-        </a>
-      </p> #}
-
-      <!-- p class="govuk-body govuk-!-margin-bottom-1">
-        After all your general mentors have completed their training
-        and hosted at least one trainee, email <a href="mailto:ITTReform.Funding@education.gov.uk">ITTReform.Funding@education.gov.uk</a>
-        with:
-      </p -->
-
-      <p class="govuk-body">
-        When you claim you will need to provide:
-      </p>
-
-      <ul class="govuk-list govuk-list--bullet">
-        {# to identify the school, and the region for funding level #}
-        <li>
-          the school’s name or URN your claiming on behalf of
-        </li> 
-        {# ? #}
-        <li>
-          the name, birth date and teacher reference number (TRN)
-          of teachers who took part in training
-        </li>
-        {# so we know how much to pay the school #}
         <li>
           the hours of training completed by each teacher
-        </li> 
+        </li>
         <li>
           the amount you want to claim for
-        </li> 
-        {# so we know they're eligible #}
+        </li>
         <li>
-          confirmation that each teacher you’re claiming for
-          mentored at least one different trainee each
+          confirmation that each teacher you are claiming for mentored at least one different trainee each
         </li>
       </ul>
       <p class="govuk-body">
-        You will need to keep and provide when requested evidence of:
+        You will also need to keep and provide when requested evidence of:
       </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>
-          the identity of staff attending general mentor training
-        </li>
-        <li>
-          timetables that shows when a mentor attended
-          training and needed cover, if applicable
-        </li>
-        <li>
-          timetables that shows when a teacher was given time-off
-          timetable at another time and needed cover, if applicable
-        </li>
-        <li>
-          transfer of money to the teacher where training was done in
-          their own time, if applicable
-        </li>
-        <li>
-          hours of training attended. For example, provider’s
-          certificates of completion or a register of attendance
-        </li>
+        <li>the identity of staff attending general mentor training</li>
+        <li>timetables that show when a teacher attended training and needed cover, if applicable</li>
+        <li>timetables that show when a teacher was given time-off timetable at another time and needed cover, if applicable</li>
+        <li>transfer of money to the teacher where training was done in their own time, if applicable</li>
+        <li>hours of attending training. For example, provider certificates or registers</li>
       </ul>
-
-      <p class="govuk-body">
-        Applications for ITT general mentor funding must be made by 
-        <span class="app-nowrap">31 August 2025</span>.
-      </p>
-      <h3 class="govuk-heading-s" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h3>
+      {{ govukButton({
+        text: "Start now",
+        href: "/general-mentor-grant/v2/start",
+        isStartButton: true
+      }) }}
       <p class="govuk-body">
         Claims will be paid between September and October 2025.
       </p>
-      <p class="govuk-body">
-        A sample of schools will be asked to provide evidence of costs.
-      </p>
-      <h3 class="govuk-heading-s" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h3>
+      <h3 class="govuk-heading-s">
+        Payment for independent schools
+      </h3>
       <p class="govuk-body">
         If your school is not an academy or does not belong to a local
         authority, you will need to provide payment information.
         <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">
           How to provide information about your banking and payments</a>.
       </p>
-      {{ publishedDateHtml | safe }}
+
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h2>
+      <p class="govuk-body">
+        Funding is to support schools with any time teachers spent training, not only face-to-face with ITT providers.
+      </p>
+      <p class="govuk-body">
+        Each general mentor must mentor at least 1 trainee each. For example, if a trainee had 2 general mentors and neither of those mentors worked with another trainee. The school could only claim for 1 general mentor’s training. This grant is also subject to the additional conditions set out in DfE’s standard grant terms and conditions.
+      </p>
+      <p class="govuk-body">
+        This grant is also subject to the additional conditions set out in <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975812/DfE_GFA_T_Cs_2021_.pdf" class="govuk-link">the DfE’s standard grant terms and conditions</a>.
+      </p>
+      <p class="govuk-body">
+        If an ITT trainee withdraws or defers:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          before a teacher starts their general mentor training, the school cannot claim any funding
+        </li>
+        <li>
+          after a teacher has started their general mentor training, the school can claim up to the full amount
+        </li>
+      </ul>
+      <h2 class="govuk-heading-m" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h2>
+      <p class="govuk-body">
+        Schools who choose to spend grant funding on ineligible activities will be liable for a grant clawback and this could impact their eligibility for any future grants.
+      </p>
+      <p class="govuk-body">
+        We will collect actual expenditure information from a sample of schools as part of the end of financial year assurance process in March 2025 and as part of the claim’s assurance process in general.
+      </p>
+            {{ publishedDateHtml | safe }}
       {{ getEmailsAboutThisPageHtml | safe }}
       <p class="govuk-body-s">
         <a href="#contents" class="govuk-link govuk-link--no-visited-state">↑ Contents</a>
