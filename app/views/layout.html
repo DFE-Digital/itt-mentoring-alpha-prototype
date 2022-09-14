@@ -33,6 +33,8 @@
 
 {# Custom components #}
 {# From Register #}
+{% from "_components/autocomplete-new/macro.njk"   import appAutocompleteFromSelect %}
+{% from "_components/autocomplete-new/macro.njk"   import appAutocompleteFromInput %}
 {% from "_components/footer/macro.njk"                   import appFooter %}
 {% from "_components/task-list/macro.njk"                import appTaskList %}
 {% from "_components/school-autocomplete/macro.njk"      import appSchoolAutocomplete with context %}

@@ -87,6 +87,10 @@ const onConfirm = function(selected) {
     }
   }
 
+  if (this.hasOnConfirmExtra){
+    onConfirmExtra(selected)
+  }
+
  };
 
 // Extract data attributes from select options
@@ -121,6 +125,8 @@ const setupAutocomplete = (component) => {
   const showAllValues       = element.getAttribute('data-show-all-values') || false
   const showNoOptionsFound  = element.getAttribute('data-show-no-options-found') || true
   const showSuggestions     = element.getAttribute('data-show-suggestions') || false
+  const hasOnConfirmExtra   = element.getAttribute('data-on-confirm-extra') || false
+
   // Default value should be set to '' if there's no item or else the autocomplete will display the 
   // initial value of the select 'please select'
   const defaultValue               = element.getAttribute('data-value') || ''
@@ -200,6 +206,7 @@ const setupAutocomplete = (component) => {
     ...(describedBy ? { tAssistiveHint: describedByHint } : {}),
     ...(showSuggestions ? { tNoResults: suggestionNoResults } : {}), // conditional
     ...(showSuggestions ? { tStatusNoResults: suggestionStatusNoResults } : {}), // conditional
+    hasOnConfirmExtra
   }
 
   // Select mode commented out, because of bug https://github.com/alphagov/accessible-autocomplete/issues/495 - where the select's default 'Please select' would get pre-filled as if it's a valid option, and then render as an option when you focus the field.
