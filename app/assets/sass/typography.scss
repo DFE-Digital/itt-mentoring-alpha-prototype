@@ -9,3 +9,7 @@
 .app-nowrap {
   white-space: nowrap;
 }
+
+p.govuk-body:has( + ul.govuk-list ) {
+  margin-bottom: govuk-spacing(1);
+}
