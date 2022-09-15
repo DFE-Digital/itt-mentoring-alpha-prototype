@@ -83,7 +83,7 @@ module.exports = {
       value: 876
     }
   ],
-  schoolRegion: "Inner London",
+  schoolRegion: "Fringe",
   hourlyRate: 0,
   totalTrainingHours: 0,
   maxClaim: 0,
