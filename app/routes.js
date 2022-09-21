@@ -244,11 +244,11 @@ const getSchools = () => {
   */
 
   // set route from sign-in
-  router.get('/general-mentor-grant/v2/start', function(req, res){
+  router.get('/general-mentor-grant/v2/setup-general-mentor', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = 'generalMentorTraining'
     data.school = null
-    res.redirect('/sign-in')
+    res.redirect('/dfe-sign-in')
   })
 
   // if data has been reset while on v2 index,
@@ -649,10 +649,10 @@ const getSchools = () => {
     Lead mentor
   */
 
-  router.get('/lead-mentor-grant/answer', function(req, res){
+  router.get('/lead-mentor-grant/setup-lead-mentor', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = 'leadMentor'
-    res.redirect('/sign-in')
+    res.redirect('/dfe-sign-in')
   })
 
   const leadMentorRouting = {
@@ -680,10 +680,10 @@ const getSchools = () => {
     Intensive training and practice grant
   */
 
-  router.get('/itp-grant/answer', function(req, res){
+  router.get('/itp-grant/setup-itp', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = 'intensiveTrainingAndPractice'
-    res.redirect('/sign-in')
+    res.redirect('/dfe-sign-in')
   })
 
 
@@ -697,6 +697,8 @@ const getSchools = () => {
       ],
     folder: '/itp-grant/'
   }
+
+
 
   router.post('/itp-grant/:lastPage', function(req, res, next){
     let lastPage = req.params.lastPage
