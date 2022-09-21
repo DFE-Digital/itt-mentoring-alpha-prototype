@@ -689,7 +689,7 @@ const getSchools = () => {
 
   const itpRouting = {
     pageOrder: [
-        'weeks',
+        'postgrad-trainees',
         'claim-value',
         'evidence',
         'check-your-answers',
