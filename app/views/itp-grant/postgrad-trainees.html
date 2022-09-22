@@ -1,16 +1,45 @@
 
-{% set formAction  = './weeks-answer' %}
-{% set pageHeading = 'Did all these ' + ('postgraduate' if data.providerType == 'hei') + ' trainees complete 4 weeks of ITP?'%}
-
-{% if data.leadMentors %}
-  {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
-{% else %}
-  {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
-{% endif %}
+{% set formAction  = './postgrad-trainees-answer' %}
+{% set pageHeading = 'Did these ' + ('postgraduate' if data.providerType == 'hei') + ' trainees complete 4 weeks of ITP?'%}
 
 {% extends "_templates/_form.html" %}
 {% block formContent %}
-  <h1 class="govuk-heading-l">
-    {{ pageHeading }}
-  </h1>
+  {% set trainees = [
+      {
+        value: "selectAll",
+        text:  "All trainees",
+        id: "select-all"
+      }
+    ] %}
+  {% for trainee in data.postgradTrainees %}
+    {% set traineeName = trainee.identification.givenName + " " + trainee.identification.familyName %}
+    {% set hintTextHtml %}
+      TRN: {{ trainee.identification.trn }}<br>
+      Course: {{ trainee.courseDetails.courseNameShort }}
+    {% endset %}
+    {% set trainees = trainees | push(
+      { 
+        value: trainee.identification.trn,
+        text:  traineeName,
+        hint: {
+          text: hintTextHtml | safe
+        }
+      }
+    ) %}
+  {% endfor %}
+  {{ govukCheckboxes({
+    idPrefix: "confrimedPostgradTRNs",
+    name: "confrimedPostgradTRNs",
+    fieldset: {
+      legend: {
+        text: pageHeading,
+        isPageHeading: true,
+        classes: "govuk-fieldset__legend--l"
+      }
+    },
+    hint: {
+      text: "Select all that apply."
+    },
+    items: trainees
+  }) }}
 {% endblock %}

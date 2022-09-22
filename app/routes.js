@@ -676,13 +676,33 @@ const getSchools = () => {
     }
   })
 
+
+
+
+
+
+
+
+
+
+
+
   /*
+  ====================================================================
     Intensive training and practice grant
+  ====================================================================
   */
 
   router.get('/itp-grant/setup-itp', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = 'intensiveTrainingAndPractice'
+
+    /* Setup postgrad trainees who have compelted their course */
+    /* Get trainees who are postgrad and completed */
+    data.postgradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('postgrad') )
+    /* Sort list by surnames */
+    data.postgradTrainees.sort((a, b) => a.identification.familyName.localeCompare(b.identification.familyName))
+
     res.redirect('/dfe-sign-in')
   })
 
@@ -698,6 +718,32 @@ const getSchools = () => {
     folder: '/itp-grant/'
   }
 
+  router.post('/itp-grant/postgrad-trainees-answer', function(req, res){
+    const data = req.session.data
+
+    /* Clean up data from postgrad-trainees-answers */
+    data.confrimedPostgradTRNs = data.confrimedPostgradTRNs.filter(trainee => trainee != 'selectAll' && trainee != '_unchecked')
+
+    /* Set all confirmed trainees to 4 weeks of ITP */
+    data.trainees.forEach(trainee => {
+      data.confrimedPostgradTRNs.forEach(trn => {
+        if (trainee.identification.trn == trn) {
+          trainee.itpWeeks = 4
+        }
+      })
+    })
+
+    /* Store any postgrad trainees did not do 4 weeks */
+    data.unconfirmedPostgrads = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('postgrad') && !trainee.itpWeeks)
+
+    if (data.unconfirmedPostgrads.length > 0) {
+      res.redirect('/itp-grant/postgrad-how-many-weeks')
+    } else if (data.providerType == "hei") {
+      res.redirect('/itp-grant/undergrad-trainees')
+    } else {
+      res.redirect('/itp-grant/withdrawl')
+    }
+  })
 
 
   router.post('/itp-grant/:lastPage', function(req, res, next){

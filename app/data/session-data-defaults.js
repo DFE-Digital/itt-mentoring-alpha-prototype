@@ -304,7 +304,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education",
-        "courseNameLong":  "Physical education (G622)"
+        "courseNameLong":  "Physical education (G622)",
+        "status":          "Completed"
       }
     },
     {
@@ -317,7 +318,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Mathematics",
-        "courseNameLong":  "Mathematics (X348)"
+        "courseNameLong":  "Mathematics (X348)",
+        "status":          "Completed"
       }
     },
     {
@@ -330,7 +332,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Biology with social sciences",
-        "courseNameLong":  "Biology with social sciences (N656)"
+        "courseNameLong":  "Biology with social sciences (N656)",
+        "status":          "Completed"
       }
     },
     {
@@ -343,20 +346,22 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Primary with English",
-        "courseNameLong":  "Primary with English (L109)"
+        "courseNameLong":  "Primary with English (L109)",
+        "status":          "Completed"
       }
     },
     {
       "identification": {
-      "givenName":  "George",
-      "familyName": "Briggs",
+      "givenName":  "Lee",
+      "familyName": "Hazlewood",
       "trn":        "8411978"
       },
       "courseDetails": {
         "route":           "School direct (salaried)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education",
-        "courseNameLong":  "Physical education (T672)"
+        "courseNameLong":  "Physical education (T672)",
+        "status":          "Completed"
       }
     },
     {
@@ -369,7 +374,8 @@ module.exports = {
         "route":           "School direct (salaried)",
         "studyMode":       "Part time",
         "courseNameShort": "Physics with chemistry",
-        "courseNameLong":  "Physics with chemistry (H968)"
+        "courseNameLong":  "Physics with chemistry (H968)",
+        "status":          "Completed"
       }
     },
     {
@@ -382,7 +388,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "French",
-        "courseNameLong":  "French (K466)"
+        "courseNameLong":  "French (K466)",
+        "status":          "Completed"
       }
     },
     {
@@ -395,7 +402,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Latin",
-        "courseNameLong":  "Latin (F001)"
+        "courseNameLong":  "Latin (F001)",
+        "status":          "Completed"
       }
     },
     {
@@ -408,7 +416,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Physics with chemistry",
-        "courseNameLong":  "Physics with chemistry (F893)"
+        "courseNameLong":  "Physics with chemistry (F893)",
+        "status":          "Completed"
       }
     },
     {
@@ -421,7 +430,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Biology with chemistry",
-        "courseNameLong":  "Biology with chemistry (L971)"
+        "courseNameLong":  "Biology with chemistry (L971)",
+        "status":          "Completed"
       }
     },
     {
@@ -434,7 +444,8 @@ module.exports = {
         "route":           "Teaching apprenticeship (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with chemistry",
-        "courseNameLong":  "Physical education with chemistry (G271)"
+        "courseNameLong":  "Physical education with chemistry (G271)",
+        "status":          "Completed"
       }
     },
     {
@@ -447,7 +458,8 @@ module.exports = {
         "route":           "Teaching apprenticeship (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (G647)"
+        "courseNameLong":  "Primary with physical education (G647)",
+        "status":          "Completed"
       }
     },
     {
@@ -460,7 +472,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Design and technology",
-        "courseNameLong":  "Design and technology (A124)"
+        "courseNameLong":  "Design and technology (A124)",
+        "status":          "Completed"
       }
     },
     {
@@ -473,7 +486,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with mathematics",
-        "courseNameLong":  "Primary with mathematics (B057)"
+        "courseNameLong":  "Primary with mathematics (B057)",
+        "status":          "Completed"
       }
     },
     {
@@ -486,7 +500,8 @@ module.exports = {
         "route":           "School direct (salaried)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with mathematics",
-        "courseNameLong":  "Primary with mathematics (Y932)"
+        "courseNameLong":  "Primary with mathematics (Y932)",
+        "status":          "Completed"
       }
     },
     {
@@ -499,7 +514,8 @@ module.exports = {
         "route":           "School direct (salaried)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with mathematics",
-        "courseNameLong":  "Primary with mathematics (B057)"
+        "courseNameLong":  "Primary with mathematics (B057)",
+        "status":          "Completed"
       }
     },
     {
@@ -512,7 +528,8 @@ module.exports = {
         "route":           "High potential initial teacher training (HPITT)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary",
-        "courseNameLong":  "Primary (Y938)"
+        "courseNameLong":  "Primary (Y938)",
+        "status":          "Completed"
       }
     },
     {
@@ -525,7 +542,8 @@ module.exports = {
         "route":           "High potential initial teacher training (HPITT)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with geography and history",
-        "courseNameLong":  "Primary with geography and history (L724)"
+        "courseNameLong":  "Primary with geography and history (L724)",
+        "status":          "Withdrew"
       }
     },
     {
@@ -538,7 +556,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with biology",
-        "courseNameLong":  "Physical education with biology (E777)"
+        "courseNameLong":  "Physical education with biology (E777)",
+        "status":          "Completed"
       }
     },
     {
@@ -551,7 +570,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Spanish",
-        "courseNameLong":  "Spanish (C404)"
+        "courseNameLong":  "Spanish (C404)",
+        "status":          "Completed"
       }
     },
     {
@@ -564,7 +584,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Italian",
-        "courseNameLong":  "Italian (Q586)"
+        "courseNameLong":  "Italian (Q586)",
+        "status":          "Completed"
       }
     },
     {
@@ -577,7 +598,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Primary",
-        "courseNameLong":  "Primary (A489)"
+        "courseNameLong":  "Primary (A489)",
+        "status":          "Completed"
       }
     },
     {
@@ -587,10 +609,11 @@ module.exports = {
       "trn":        "6516771"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Italian",
-        "courseNameLong":  "Italian (Q586)"
+        "courseNameLong":  "Italian (Q586)",
+        "status":          "Completed"
       }
     },
     {
@@ -600,10 +623,11 @@ module.exports = {
       "trn":        "6353649"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Physical education",
-        "courseNameLong":  "Physical education (Z210)"
+        "courseNameLong":  "Physical education (Z210)",
+        "status":          "Completed"
       }
     },
     {
@@ -616,7 +640,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with English",
-        "courseNameLong":  "Primary with English (L109)"
+        "courseNameLong":  "Primary with English (L109)",
+        "status":          "Completed"
       }
     },
     {
@@ -629,7 +654,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physics with biology",
-        "courseNameLong":  "Physics with biology (B639)"
+        "courseNameLong":  "Physics with biology (B639)",
+        "status":          "Completed"
       }
     },
     {
@@ -642,7 +668,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with modern languages",
-        "courseNameLong":  "Primary with modern languages (D196)"
+        "courseNameLong":  "Primary with modern languages (D196)",
+        "status":          "Completed"
       }
     },
     {
@@ -655,7 +682,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Modern languages",
-        "courseNameLong":  "Modern languages (B887)"
+        "courseNameLong":  "Modern languages (B887)",
+        "status":          "Withdrew"
       }
     },
     {
@@ -668,7 +696,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Biology with chemistry",
-        "courseNameLong":  "Biology with chemistry (E076)"
+        "courseNameLong":  "Biology with chemistry (E076)",
+        "status":          "Completed"
       }
     },
     {
@@ -681,7 +710,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with physics",
-        "courseNameLong":  "Physical education with physics (Y387)"
+        "courseNameLong":  "Physical education with physics (Y387)",
+        "status":          "Withdrew"
       }
     },
     {
@@ -694,7 +724,8 @@ module.exports = {
         "route":           "School direct (salaried)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with physics",
-        "courseNameLong":  "Physical education with physics (Y387)"
+        "courseNameLong":  "Physical education with physics (Y387)",
+        "status":          "Completed"
       }
     },
     {
@@ -707,7 +738,8 @@ module.exports = {
         "route":           "School direct (salaried)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (X602)"
+        "courseNameLong":  "Primary with physical education (X602)",
+        "status":          "Withdrew"
       }
     },
     {
@@ -720,7 +752,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (G642)"
+        "courseNameLong":  "Primary with physical education (G642)",
+        "status":          "Completed"
       }
     },
     {
@@ -733,7 +766,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with physics",
-        "courseNameLong":  "Physical education with physics (Y387)"
+        "courseNameLong":  "Physical education with physics (Y387)",
+        "status":          "Completed"
       }
     },
     {
@@ -746,7 +780,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Japanese",
-        "courseNameLong":  "Japanese (G132)"
+        "courseNameLong":  "Japanese (G132)",
+        "status":          "Completed"
       }
     },
     {
@@ -759,7 +794,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Physical education with physics",
-        "courseNameLong":  "Physical education with physics (Y387)"
+        "courseNameLong":  "Physical education with physics (Y387)",
+        "status":          "Completed"
       }
     },
     {
@@ -769,10 +805,11 @@ module.exports = {
       "trn":        "3719255"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Modern languages",
-        "courseNameLong":  "Modern languages (H984)"
+        "courseNameLong":  "Modern languages (H984)",
+        "status":          "Completed"
       }
     },
     {
@@ -782,10 +819,11 @@ module.exports = {
       "trn":        "6814241"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Design and technology",
-        "courseNameLong":  "Design and technology (K054)"
+        "courseNameLong":  "Design and technology (K054)",
+        "status":          "Completed"
       }
     },
     {
@@ -798,7 +836,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Design and technology",
-        "courseNameLong":  "Design and technology (F855)"
+        "courseNameLong":  "Design and technology (F855)",
+        "status":          "Completed"
       }
     },
     {
@@ -811,7 +850,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Part time",
         "courseNameShort": "Biology with chemistry",
-        "courseNameLong":  "Biology with chemistry (E076)"
+        "courseNameLong":  "Biology with chemistry (E076)",
+        "status":          "Completed"
       }
     },
     {
@@ -824,7 +864,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Design and technology",
-        "courseNameLong":  "Design and technology (F855)"
+        "courseNameLong":  "Design and technology (F855)",
+        "status":          "Completed"
       }
     },
     {
@@ -837,7 +878,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (G642)"
+        "courseNameLong":  "Primary with physical education (G642)",
+        "status":          "Completed"
       }
     },
     {
@@ -850,7 +892,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (G642)"
+        "courseNameLong":  "Primary with physical education (G642)",
+        "status":          "Completed"
       }
     },
     {
@@ -863,7 +906,8 @@ module.exports = {
         "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with modern languages",
-        "courseNameLong":  "Primary with modern languages (D735)"
+        "courseNameLong":  "Primary with modern languages (D735)",
+        "status":          "Completed"
       }
     },
     {
@@ -873,10 +917,11 @@ module.exports = {
       "trn":        "2618627"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Primary with physical education",
-        "courseNameLong":  "Primary with physical education (G642)"
+        "courseNameLong":  "Primary with physical education (G642)",
+        "status":          "Completed"
       }
     },
     {
@@ -886,10 +931,11 @@ module.exports = {
       "trn":        "6423056"
       },
       "courseDetails": {
-        "route":           "Assessment only",
+        "route":           "Provider-led (postgrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Physical education with physics",
-        "courseNameLong":  "Physical education with physics (Y387)"
+        "courseNameLong":  "Physical education with physics (Y387)",
+        "status":          "Completed"
       }
     },
     {
@@ -902,7 +948,8 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Design and technology",
-        "courseNameLong":  "Design and technology (T402)"
+        "courseNameLong":  "Design and technology (T402)",
+        "status":          "Completed"
       }
     },
     {
@@ -915,10 +962,13 @@ module.exports = {
         "route":           "Provider-led (undergrad)",
         "studyMode":       "Full time",
         "courseNameShort": "Biology with music",
-        "courseNameLong":  "Biology with music (M945)"
+        "courseNameLong":  "Biology with music (M945)",
+        "status":          "Completed"
       }
     }
-  ]
+  ],
 
+
+  "postgradTrainees": null
 
 }
