@@ -1,5 +1,5 @@
 
-{% set formAction  = './postgrad-trainees-answer' %}
+{% set formAction  = './postgrad-how-many-weeks-answer' %}
 {% set pageHeading = 'How many weeks of ITP did these ' + ('postgraduate' if data.providerType == 'hei') + ' trainees complete?'%}
 
 {% extends "_templates/_form.html" %}
@@ -23,8 +23,8 @@
         text: hintTextHtml | safe
       },
       classes: "govuk-input--width-2 govuk-!-margin-bottom-4",
-      id: "weight",
-      name: "weight",
+      id: trainee.itpWeeks,
+      name: "itpWeeks",
       suffix: {
         text: "weeks"
       },

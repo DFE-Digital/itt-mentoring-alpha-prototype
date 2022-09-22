@@ -721,28 +721,55 @@ const getSchools = () => {
   router.post('/itp-grant/postgrad-trainees-answer', function(req, res){
     const data = req.session.data
 
-    /* Clean up data from postgrad-trainees-answers */
-    data.confrimedPostgradTRNs = data.confrimedPostgradTRNs.filter(trainee => trainee != 'selectAll' && trainee != '_unchecked')
+    if (data.confrimedPostgradTRNs) {
 
-    /* Set all confirmed trainees to 4 weeks of ITP */
-    data.trainees.forEach(trainee => {
-      data.confrimedPostgradTRNs.forEach(trn => {
-        if (trainee.identification.trn == trn) {
-          trainee.itpWeeks = 4
-        }
+      /* Clean up data from postgrad-trainees-answers */
+      data.confrimedPostgradTRNs = data.confrimedPostgradTRNs.filter(trainee => trainee != 'selectAll' && trainee != '_unchecked')
+
+      /* Set all confirmed trainees to 4 weeks of ITP */
+      data.trainees.forEach(trainee => {
+        data.confrimedPostgradTRNs.forEach(trn => {
+          if (trainee.identification.trn == trn) {
+            trainee.itpWeeks = 4
+          }
+        })
       })
-    })
+    }
+
 
     /* Store any postgrad trainees did not do 4 weeks */
     data.unconfirmedPostgrads = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('postgrad') && !trainee.itpWeeks)
 
-    if (data.unconfirmedPostgrads.length > 0) {
+    if (data.unconfirmedPostgrads.length == data.postgradTrainees.length) {
+      res.redirect('/itp-grant/postgrad-trainees')
+    } else if (data.unconfirmedPostgrads.length > 0) {
       res.redirect('/itp-grant/postgrad-how-many-weeks')
     } else if (data.providerType == "hei") {
       res.redirect('/itp-grant/undergrad-trainees')
     } else {
       res.redirect('/itp-grant/withdrawl')
     }
+  })
+
+  router.post('/itp-grant/postgrad-how-many-weeks-answer', function(req, res){
+    const data = req.session.data
+
+    data.unconfirmedPostgrads.forEach((trainee, index) => {
+      trainee.itpWeeks = parseInt(data.itpWeeks[index])
+    })
+
+    data.trainees.forEach(baseTrainee => {
+      data.unconfirmedPostgrads.forEach(updatedTrainee => {
+        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+        }
+      })
+    })
+
+    // delete data.unconfirmedPostgrads
+    delete data.itpWeeks
+
+    res.redirect('/itp-grant/undergrad-trainees')
   })
 
 
