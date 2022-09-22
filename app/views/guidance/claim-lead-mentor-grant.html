@@ -94,7 +94,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <p class="govuk-body">
-        This is a funding stream available to providers to support
+        This is a funding is available to providers to support
         the costs associated with introducing the lead mentor role.
         This funding is designed to help providers with the cost for
         placement schools or themselves of the staff time needed to
@@ -146,21 +146,111 @@
         For every 25 trainees training at time of the ITT census in
         October 2024, providers can claim up to £9,514.
       </p>
+      <h3 class="govuk-heading-m">
+        How to calculate the trainee to lead mentor ratio
+      </h3>
       <p class="govuk-body">
-        All trainees, including undergraduates and part time trainees
-        count towards this ratio. 
+        There is not a required ratio for lead mentors to trainees. For the purpose of calculating funding, providers will be able to claim funding for 1 lead mentor to a minimum of 25 trainees.
+      </p>
+      <p class="govuk-body">
+        All trainees on routes that lead to QTS (except Assessment only) included in the October 2024 ITT census count towards this ratio. Including trainees on undergraduate and part time trainees.
       </p>
       <p class="govuk-body">
         Providers that have fewer than 25 trainees can claim up to
         £9,514.
       </p>
+      {{ govukTable({
+        caption: "Trainee to lead mentor ratio",
+        captionClasses: "govuk-table__caption--s",
+        firstCellIsHeader: false,
+        head: [
+          {
+            text: "Trainees"
+          },
+          {
+            text: "Units of funding",
+            format: "numeric"
+          },
+          {
+            text: "Max claim",
+            format: "numeric"
+          }
+        ],
+        rows: [
+          [
+            {
+              text: "1 to 49"
+            },
+            {
+              text: "1",
+              format: "numeric"
+            },
+            {
+              text: (1 * 9514) | currency,
+              format: "numeric"
+            }
+          ],
+          [
+            {
+              text: "50 to 74"
+            },
+            {
+              text: "2",
+              format: "numeric"
+            },
+            {
+              text: (2 * 9514) | currency,
+              format: "numeric"
+            }
+          ],
+          [
+            {
+              text: "75 to 99"
+            },
+            {
+              text: "3",
+              format: "numeric"
+            },
+            {
+              text: (3 * 9514) | currency,
+              format: "numeric"
+            }
+          ],
+          [
+            {
+              text: "100 to 124"
+            },
+            {
+              text: "4",
+              format: "numeric"
+            },
+            {
+              text: (4 * 9514) | currency,
+              format: "numeric"
+            }
+          ],
+          [
+            {
+              text: "125 to 149"
+            },
+            {
+              text: "5",
+              format: "numeric"
+            },
+            {
+              text: (5 * 9514) | currency,
+              format: "numeric"
+            }
+          ]
+        ]
+      }) }}
       <p class="govuk-body">
         Providers must pass funding onto schools if the lead mentor is
         employed by a school and taking time away from their school 
         activities.
       </p>
       <p class="govuk-body">
-        Funding is available for all activity from 1 April 2024 to 31 July 2025.
+        Funding is available for all activity from 1 August 2024 to 31 July 2025.
       </p>
       <h2 class="govuk-heading-l" id="{{ sectionTitles[2] | slugify }}">
         {{ sectionTitles[2] }}
@@ -214,11 +304,11 @@
       <h2 class="govuk-heading-l" id="{{ sectionTitles[4] | slugify }}">
         {{ sectionTitles[4] }}
       </h2>
-      <p class="govuk-body">
-        <a href="#" class="govuk-link">
-          Download the grant funding agreement
-        </a>.
-      </p>
+      {{ govukButton({
+        text: "Start now",
+        href: "/lead-mentor-grant/sign-in",
+        isStartButton: true
+      }) }}
       <p class="govuk-body">
         Send the signed agreement to 
         {{ appDefaultEmail({ 
