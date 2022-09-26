@@ -14,7 +14,7 @@
     rows: [
       {
         key: {
-          text: "Postgradute intensive training and practice" if data.providerType == "hei" else
+          text: "Postgradute ITP" if data.providerType == "hei" else
                 "Intensive training and practice"
         },
         value: {
@@ -32,7 +32,7 @@
       },
       {
         key: {
-          text: "Undergraduate intensive training and practice"
+          text: "Undergraduate ITP"
         },
         value: {
           text: data.totalUndergradItpWeeks + " weeks" | pluralise(data.totalUndergradItpWeeks) + " for " + data.undergradTraineeCount + " trainees"

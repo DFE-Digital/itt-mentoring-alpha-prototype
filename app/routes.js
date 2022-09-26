@@ -730,14 +730,14 @@ const getSchools = () => {
   router.post('/itp-grant/postgrad-trainees-answer', function(req, res){
     const data = req.session.data
 
-    if (data.confrimedPostgradTRNs) {
+    if (data.confirmedPostgradTRNs) {
 
       /* Clean up data from postgrad-trainees-answers */
-      data.confrimedPostgradTRNs = data.confrimedPostgradTRNs.filter(trainee => trainee != 'selectAll' && trainee != '_unchecked')
+      data.confirmedPostgradTRNs = data.confirmedPostgradTRNs.filter(trainee => trainee != 'selectAll' && trainee != '_unchecked')
 
       /* Set all confirmed trainees to 4 weeks of ITP */
-      data.trainees.forEach(trainee => {
-        data.confrimedPostgradTRNs.forEach(trn => {
+      data.postgradTrainees.forEach(trainee => {
+        data.confirmedPostgradTRNs.forEach(trn => {
           if (trainee.identification.trn == trn) {
             trainee.itpWeeks = 4
           }
@@ -746,7 +746,7 @@ const getSchools = () => {
     }
 
     /* Store any postgrad trainees did not do 4 weeks */
-    data.unconfirmedPostgrads = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && !trainee.courseDetails.route.toLowerCase().includes('undergrad') && !trainee.itpWeeks)
+    data.unconfirmedPostgrads = data.postgradTrainees.filter(trainee => !trainee.itpWeeks)
 
     if (data.unconfirmedPostgrads.length == data.postgradTrainees.length) {
       res.redirect('/itp-grant/postgrad-trainees')
@@ -770,7 +770,7 @@ const getSchools = () => {
     })
 
     /* Store weeks of ITP against trainees */
-    data.trainees.forEach(baseTrainee => {
+    data.postgradTrainees.forEach(baseTrainee => {
       data.unconfirmedPostgrads.forEach(updatedTrainee => {
         if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
           baseTrainee.itpWeeks = updatedTrainee.itpWeeks
@@ -846,6 +846,15 @@ const getSchools = () => {
 
     let totalPostgradItpWeeks  = 0
     let totalUndergradItpWeeks = 0
+
+    data.trainees.forEach(baseTrainee => {
+      data.postgradTrainees.forEach(updatedTrainee => {
+        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+        }
+      })
+    })
+
 
     data.trainees.forEach(trainee => {
       /* Clean-up data */
