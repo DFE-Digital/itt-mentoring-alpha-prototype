@@ -1,11 +1,6 @@
 
 {% set formAction  = "./claim-value-answer" %}
-{% set pageHeading = "How much do you want to claim!?" %}
-
-{% set maxClaimValue = 
-  (data.postgradTraineeWeeks | stringToNumber * data.postgradWeekValue) +
-  (data.undergradTraineeWeeks | stringToNumber * data.undergradWeekValue)
-%}
+{% set pageHeading = "How much do you want to claim!" %}
 
 {% extends "_templates/_form.html" %}
 
@@ -28,11 +23,11 @@
     }) }}
   {% endset %}
   {{ govukRadios({
-  idPrefix: "itpClaimValue",
-  name: "itpClaimValue",
+  idPrefix: "actualItpClaimValue",
+  name: "actualItpClaimValue",
   fieldset: {
     legend: {
-      text: "How much do you want to claim?",
+      text: pageHeading,
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
@@ -42,12 +37,12 @@
   },
   items: [
     {
-      value: maxClaimValue,
-      text: maxClaimValue | currency
+      value: actualItpClaimValue,
+      text: data.totalItpClaimValue | currency
     },
     {
-      value: "otherClaimAmount",
-      text: "Less than " + maxClaimValue | currency,
+      value: "actualItpClaimValue",
+      text: "Less than " + data.totalItpClaimValue | currency,
       conditional: {
         html: lessThanMaximumHtml
       }

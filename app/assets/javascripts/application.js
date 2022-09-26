@@ -65,6 +65,20 @@ $(document).ready(function () {
   addRemoveItems('provider', sessionData.maxProviders)
   addRemoveItems('mentor', sessionData.maxGeneralMentors)
 
+  /* To do - make this handle unchecking of individual */
+  $('#select-all').click(function(event) {
+    if(this.checked) {
+        // Iterate each checkbox
+        $(':checkbox').each(function() {
+            this.checked = true;
+        });
+    } else {
+        $(':checkbox').each(function() {
+            this.checked = false;
+        });
+    }
+  });
+
   window.GOVUKFrontend.initAll()
   initAutocompletes()
 })

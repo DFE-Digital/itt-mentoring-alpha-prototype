@@ -1,0 +1,36 @@
+
+{% set formAction  = './postgrad-how-many-weeks-answer' %}
+{% set pageHeading = 'How many weeks of ITP have these ' + ('postgraduate' if data.providerType == 'hei') + ' trainees completed?'%}
+
+{% extends "_templates/_form.html" %}
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {% set trainees = [] %}
+  {% for trainee in data.unconfirmedPostgrads %}
+    {% set traineeName = trainee.identification.givenName + " " + trainee.identification.familyName %}
+    {% set hintTextHtml %}
+      TRN: {{ trainee.identification.trn }}<br>
+      Course: {{ trainee.courseDetails.courseNameShort }}
+    {% endset %}
+    {{ govukInput({
+      label: {
+        text: traineeName,
+        classes: "govuk-label--m"
+      },
+      hint: {
+        text: hintTextHtml | safe,
+        classes: "govuk-!-font-size-16"
+      },
+      classes: "govuk-input--width-2 govuk-!-margin-bottom-4",
+      id: trainee.itpWeeks,
+      value: trainee.itpWeeks,
+      name: "itpWeeks",
+      suffix: {
+        text: "weeks"
+      },
+      spellcheck: false
+    }) }}
+  {% endfor %}
+{% endblock %}
