@@ -1,6 +1,6 @@
 
 {% set formAction  = "./claim-value-answer" %}
-{% set pageHeading = "How much do you want to claim!?" %}
+{% set pageHeading = "How much do you want to claim!" %}
 
 {% extends "_templates/_form.html" %}
 
@@ -27,7 +27,7 @@
   name: "actualItpClaimValue",
   fieldset: {
     legend: {
-      text: "How much do you want to claim?",
+      text: pageHeading,
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
