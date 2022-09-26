@@ -697,15 +697,24 @@ const getSchools = () => {
     const data = req.session.data
     data.grantBeingAppliedFor = 'intensiveTrainingAndPractice'
 
-    /* Setup postgrad trainees who have compelted their course */
-    /* Get trainees who are postgrad and completed */
-    data.postgradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('postgrad') )
     /* Sort list by surnames */
-    data.postgradTrainees.sort((a, b) => a.identification.familyName.localeCompare(b.identification.familyName))
+    data.trainees = data.trainees.sort((a, b) => a.identification.familyName.localeCompare(b.identification.familyName))
+
+    /* Get trainees who are postgrad and completed */
+    data.postgradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && !trainee.courseDetails.route.toLowerCase().includes('undergrad'))
+    data.postgradTraineeCount = data.postgradTrainees.length
+
+    /* Get trainees who are undergrad and completed */
+    if (data.providerType == "hei") {
+      data.undergradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('undergrad'))
+      data.undergradTraineeCount = data.undergradTrainees.length
+    }
+
+    /* Get trainees who deferred or withdrew */
+    data.incompleteTrainees = data.trainees.filter(trainee => trainee.courseDetails.status != 'Completed')
 
     res.redirect('/dfe-sign-in')
   })
-
 
   const itpRouting = {
     pageOrder: [
@@ -736,28 +745,31 @@ const getSchools = () => {
       })
     }
 
-
     /* Store any postgrad trainees did not do 4 weeks */
-    data.unconfirmedPostgrads = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('postgrad') && !trainee.itpWeeks)
+    data.unconfirmedPostgrads = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && !trainee.courseDetails.route.toLowerCase().includes('undergrad') && !trainee.itpWeeks)
 
     if (data.unconfirmedPostgrads.length == data.postgradTrainees.length) {
       res.redirect('/itp-grant/postgrad-trainees')
     } else if (data.unconfirmedPostgrads.length > 0) {
       res.redirect('/itp-grant/postgrad-how-many-weeks')
-    } else if (data.providerType == "hei") {
+    } else if (data.undergradTrainees.length > 0) {
       res.redirect('/itp-grant/undergrad-trainees')
+    } else if (data.incompleteTrainees.length > 0) {
+      res.redirect('/itp-grant/incomplete-trainees')
     } else {
-      res.redirect('/itp-grant/withdrawl')
+      res.redirect('/itp-grant/calculate-claim')
     }
   })
 
   router.post('/itp-grant/postgrad-how-many-weeks-answer', function(req, res){
     const data = req.session.data
 
+    /* Convert weeks of ITP into number */
     data.unconfirmedPostgrads.forEach((trainee, index) => {
       trainee.itpWeeks = parseInt(data.itpWeeks[index])
     })
 
+    /* Store weeks of ITP against trainees */
     data.trainees.forEach(baseTrainee => {
       data.unconfirmedPostgrads.forEach(updatedTrainee => {
         if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
@@ -769,7 +781,96 @@ const getSchools = () => {
     // delete data.unconfirmedPostgrads
     delete data.itpWeeks
 
-    res.redirect('/itp-grant/undergrad-trainees')
+    if (data.undergradTrainees.length > 0) {
+      res.redirect('/itp-grant/undergrad-trainees')
+    } else if (data.incompleteTrainees.length > 0) {
+      res.redirect('/itp-grant/incomplete-trainees')
+    } else {
+      res.redirect('/itp-grant/calculate-claim')
+    }
+  })
+
+
+  router.post('/itp-grant/undergrad-trainees-answer', function(req, res){
+    const data = req.session.data
+
+    /* Convert weeks of ITP into number */
+    data.undergradTrainees.forEach((trainee, index) => {
+      trainee.itpWeeks = parseInt(data.itpWeeks[index])
+    })
+
+    /* Store weeks of ITP against trainees */
+    data.trainees.forEach(baseTrainee => {
+      data.undergradTrainees.forEach(updatedTrainee => {
+        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+        }
+      })
+    })
+
+    if (data.incompleteTrainees.length > 0) {
+      res.redirect('/itp-grant/incomplete-trainees')
+    } else {
+      res.redirect('/itp-grant/calculate-claim')
+    }
+
+  })
+
+
+  router.post('/itp-grant/incomplete-trainees-answer', function(req, res){
+    const data = req.session.data
+
+    /* Convert weeks of ITP into number */
+    data.incompleteTrainees.forEach((trainee, index) => {
+      trainee.itpWeeks = parseInt(data.itpWeeks[index])
+    })
+
+    /* Store weeks of ITP against trainees */
+    data.trainees.forEach(baseTrainee => {
+      data.incompleteTrainees.forEach(updatedTrainee => {
+        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+        }
+      })
+    })
+
+    res.redirect('/itp-grant/calculate-claim')
+
+  })
+
+  router.get('/itp-grant/calculate-claim', function(req, res){
+    const data = req.session.data
+
+    const postgradWeekValue  = 51
+    const undergradWeekValue = 49.67
+
+    let totalPostgradItpWeeks  = 0
+    let totalUndergradItpWeeks = 0
+
+    data.trainees.forEach(trainee => {
+      /* Clean-up data */
+      if (!Number.isInteger(trainee.itpWeeks)) {
+        trainee.itpWeeks = 0
+      }
+
+      if (trainee.courseDetails.route.toLowerCase().includes('undergrad')) {
+        totalUndergradItpWeeks = totalUndergradItpWeeks + trainee.itpWeeks
+      } else {
+        totalPostgradItpWeeks = totalPostgradItpWeeks + trainee.itpWeeks
+      }
+
+    let postgradItpValue = totalPostgradItpWeeks * postgradWeekValue
+    let undergradItpValue = totalUndergradItpWeeks * undergradWeekValue
+
+
+    /* Store in session data */
+    data.totalPostgradItpWeeks = totalPostgradItpWeeks
+    data.totalUndergradItpWeeks = totalUndergradItpWeeks
+    data.totalItpClaimValue = postgradItpValue + undergradItpValue
+
+    })
+
+    res.redirect('/itp-grant/claim-value')
   })
 
 

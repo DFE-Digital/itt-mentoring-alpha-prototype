@@ -1,6 +1,6 @@
 
-{% set formAction  = './undergrad-trainees-answer' %}
-{% set pageHeading = 'How many weeks of ITP have these ' + ('undergraduate' if data.providerType == 'hei') + ' trainees completed?'%}
+{% set formAction  = './incomplete-trainees-answer' %}
+{% set pageHeading = 'How many weeks of ITP did these who withdrew or deferred complete?'%}
 
 {% extends "_templates/_form.html" %}
 {% block formContent %}
@@ -8,7 +8,7 @@
     {{ pageHeading }}
   </h1>
   {% set trainees = [] %}
-  {% for trainee in data.undergradTrainees %}
+  {% for trainee in data.incompleteTrainees %}
     {% set traineeName = trainee.identification.givenName + " " + trainee.identification.familyName %}
     {% set hintTextHtml %}
       TRN: {{ trainee.identification.trn }}<br>
@@ -25,7 +25,6 @@
       },
       classes: "govuk-input--width-2 govuk-!-margin-bottom-4",
       id: trainee.itpWeeks,
-      value: trainee.itpWeeks,
       name: "itpWeeks",
       suffix: {
         text: "weeks"

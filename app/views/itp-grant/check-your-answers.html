@@ -18,12 +18,12 @@
                 "Intensive training and practice"
         },
         value: {
-          text: data.postgradTraineeWeeks + " weeks"
+          text: data.totalPostgradItpWeeks + " weeks" | pluralise(data.totalPostgradItpWeeks) + " for " + data.postgradTraineeCount + " trainees"
         },
         actions: {
           items: [
             {
-              href: "./lead-mentors",
+              href: "./postgrad-trainees",
               text: "Change",
               visuallyHiddenText: "number of lead mentors"
             }
@@ -35,12 +35,12 @@
           text: "Undergraduate intensive training and practice"
         },
         value: {
-          text: data.undergradateTraineeWeeks + " weeks" | pluralise(data.undergradateTraineeWeeks)
+          text: data.totalUndergradItpWeeks + " weeks" | pluralise(data.totalUndergradItpWeeks) + " for " + data.undergradTraineeCount + " trainees"
         },
         actions: {
           items: [
             {
-              href: "./lead-mentors",
+              href: "./undergrad-trainees",
               text: "Change",
               visuallyHiddenText: "number of lead mentors"
             }
@@ -52,7 +52,7 @@
           text: "Claim value"
         },
         value: {
-          text: (data.leadMentorClaimValueOther if data.leadMentorClaimValueOther else data.leadMentorClaimValue) | currency
+          text: (data.totalItpClaimValue if data.totalItpClaimValue else data.itpClaimValueOther) | currency
         },
         actions: {
           items: [

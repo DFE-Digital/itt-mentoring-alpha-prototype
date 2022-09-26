@@ -96,8 +96,6 @@ module.exports = {
   */
 
   leadMentorMaxAmount: 9514,
-  postgradWeekValue:     51,
-  undergradWeekValue:    49.67,
 
   // Using this for routing through shared pages
   // Lead mentor - leadMentor
