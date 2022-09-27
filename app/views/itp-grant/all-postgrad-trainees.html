@@ -1,0 +1,77 @@
+
+{% set formAction  = "./all-postgrad-trainees-answer" %}
+{% set pageHeading = 'Postgraduate trainees' if data.providerType == 'hei' else 'Trainees' %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  <p class="govuk-body">
+    Your organisation had {{ data.postgradTrainees.length }} {{ "postgraduate" if data.providerType == "hei" }} trainees that stared in 2024/25 and did not defer or withdraw.
+  </p>
+
+  {% set headRow = [
+    {
+      text: "Name"
+    },
+    {
+      text: "Provider number"
+    },
+    {
+      text: "TRN"
+    },
+    {
+      text: "Course"
+    }
+  ] %}
+
+  {% set bodyRows = [] %}
+  {% for trainee in data.postgradTrainees %}
+    {% set row = [] %}
+    {% set row = row | push({ text: trainee.identification.givenName + " " + trainee.identification.familyName }) %}
+    {% set row = row | push({ text: trainee.identification.reference }) %}
+    {% set row = row | push({ text: trainee.identification.trn }) %}
+    {% set row = row | push({ text: trainee.courseDetails.courseNameShort }) %}
+    {% set bodyRows = bodyRows | push(row) %}
+  {% endfor %}
+
+  {% set listOfTraineesHtml %}
+    {{ govukTable({
+      caption: "Postgraduate trainees",
+      captionClasses: "govuk-table__caption--s",
+      firstCellIsHeader: true,
+      head: headRow,
+      rows: bodyRows
+    }) }}
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: "See list of " + ('postgraduate' if data.providerType == 'hei') + " trainees",
+    html: listOfTraineesHtml
+  }) }}
+
+  {{ govukRadios({
+    name: "allPostgrad",
+    fieldset: {
+      legend: {
+        text: "Did all " + ('postgraduate' if data.providerType == 'hei') + " trainees complete 4 weeks of ITP?",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    hint: {
+      text: "Select one option."
+    },
+    items: [
+      {
+        value: "yes",
+        text: "Yes, they all completed 4 weeks"
+      },
+      {
+        value: "no",
+        text: "No, some " + ('postgraduate' if data.providerType == 'hei') + " trainees did less than 4 weeks"
+      }
+    ]
+  }) }}
+{% endblock %}

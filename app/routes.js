@@ -702,12 +702,10 @@ const getSchools = () => {
 
     /* Get trainees who are postgrad and completed */
     data.postgradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && !trainee.courseDetails.route.toLowerCase().includes('undergrad'))
-    data.postgradTraineeCount = data.postgradTrainees.length
 
     /* Get trainees who are undergrad and completed */
     if (data.providerType == "hei") {
       data.undergradTrainees = data.trainees.filter(trainee => trainee.courseDetails.status == 'Completed' && trainee.courseDetails.route.toLowerCase().includes('undergrad'))
-      data.undergradTraineeCount = data.undergradTrainees.length
     }
 
     /* Get trainees who deferred or withdrew */
@@ -726,6 +724,25 @@ const getSchools = () => {
       ],
     folder: '/itp-grant/'
   }
+
+  router.post('/itp-grant/all-postgrad-trainees-answer', function(req, res){
+    const data = req.session.data
+
+    if (data.allPostgrad == "yes") {
+      data.postgradTrainees.forEach(trainee => {
+        trainee.itpWeeks = 4
+      })
+      if (data.undergradTrainees) {
+        res.redirect('/itp-grant/all-undergrad-trainees')
+      } else if (data.incompleteTrainees.length > 0) {
+        res.redirect('/itp-grant/incomplete-trainees')
+      } else {
+        res.redirect('/itp-grant/calculate-claim')
+      }
+    } else {
+      res.redirect('/itp-grant/postgrad-trainees')
+    }
+  })
 
   router.post('/itp-grant/postgrad-trainees-answer', function(req, res){
     const data = req.session.data
@@ -752,8 +769,8 @@ const getSchools = () => {
       res.redirect('/itp-grant/postgrad-trainees')
     } else if (data.unconfirmedPostgrads.length > 0) {
       res.redirect('/itp-grant/postgrad-how-many-weeks')
-    } else if (data.undergradTrainees.length > 0) {
-      res.redirect('/itp-grant/undergrad-trainees')
+    } else if (data.undergradTrainees) {
+      res.redirect('/itp-grant/all-undergrad-trainees')
     } else if (data.incompleteTrainees.length > 0) {
       res.redirect('/itp-grant/incomplete-trainees')
     } else {
@@ -781,12 +798,29 @@ const getSchools = () => {
     // delete data.unconfirmedPostgrads
     delete data.itpWeeks
 
-    if (data.undergradTrainees.length > 0) {
-      res.redirect('/itp-grant/undergrad-trainees')
+    if (data.undergradTrainees) {
+      res.redirect('/itp-grant/all-undergrad-trainees')
     } else if (data.incompleteTrainees.length > 0) {
       res.redirect('/itp-grant/incomplete-trainees')
     } else {
       res.redirect('/itp-grant/calculate-claim')
+    }
+  })
+
+  router.post('/itp-grant/all-undergrad-trainees-answer', function(req, res){
+    const data = req.session.data
+
+    if (data.allUndergrad == "yes") {
+      data.undergradTrainees.forEach(trainee => {
+        trainee.itpWeeks = parseInt(data.undergradWeeksAll)
+      })
+      if (data.incompleteTrainees.length > 0) {
+        res.redirect('/itp-grant/incomplete-trainees')
+      } else {
+        res.redirect('/itp-grant/calculate-claim')
+      }
+    } else {
+      res.redirect('/itp-grant/undergrad-trainees')
     }
   })
 
@@ -797,15 +831,6 @@ const getSchools = () => {
     /* Convert weeks of ITP into number */
     data.undergradTrainees.forEach((trainee, index) => {
       trainee.itpWeeks = parseInt(data.itpWeeks[index])
-    })
-
-    /* Store weeks of ITP against trainees */
-    data.trainees.forEach(baseTrainee => {
-      data.undergradTrainees.forEach(updatedTrainee => {
-        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
-          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
-        }
-      })
     })
 
     if (data.incompleteTrainees.length > 0) {
@@ -825,15 +850,6 @@ const getSchools = () => {
       trainee.itpWeeks = parseInt(data.itpWeeks[index])
     })
 
-    /* Store weeks of ITP against trainees */
-    data.trainees.forEach(baseTrainee => {
-      data.incompleteTrainees.forEach(updatedTrainee => {
-        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
-          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
-        }
-      })
-    })
-
     res.redirect('/itp-grant/calculate-claim')
 
   })
@@ -847,13 +863,38 @@ const getSchools = () => {
     let totalPostgradItpWeeks  = 0
     let totalUndergradItpWeeks = 0
 
-    data.trainees.forEach(baseTrainee => {
-      data.postgradTrainees.forEach(updatedTrainee => {
-        if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
-          baseTrainee.itpWeeks = updatedTrainee.itpWeeks
-        }
+    /* move postgrad data to all trainees */
+    if (data.postgradTrainees) {
+      data.trainees.forEach(baseTrainee => {
+        data.postgradTrainees.forEach(updatedTrainee => {
+          if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+            baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+          }
+        })
       })
-    })
+    }
+
+    /* move undergrad data to all trainees */
+    if (data?.undergradTrainees) {
+      data.trainees.forEach(baseTrainee => {
+        data?.undergradTrainees.forEach(updatedTrainee => {
+          if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+            baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+          }
+        })
+      })
+    }
+
+    /* move incomplete data to all trainees */
+    if (data.incompleteTrainees) {
+      data.trainees.forEach(baseTrainee => {
+        data.incompleteTrainees.forEach(updatedTrainee => {
+          if (baseTrainee.identification.trn == updatedTrainee.identification.trn) {
+            baseTrainee.itpWeeks = updatedTrainee.itpWeeks
+          }
+        })
+      })
+    }
 
 
     data.trainees.forEach(trainee => {
