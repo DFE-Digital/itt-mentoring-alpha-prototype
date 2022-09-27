@@ -173,26 +173,29 @@
         {{ sectionTitles[2] }}
       </h2>
       <p class="govuk-body">
-        When you claim funding you will need to provide evidence of the cost of intensive training and practice.
+        When you claim funding you will need to provide evidence of cost incurred as a result of intensive training and practice, this evidence will need to cover the full cost of funding you are claiming for.
       </p>
-      <p class="govuk-body">
-        The evidence you need to provide is:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          transfer of funds to schools
-        </li>
-        <li>
-          classroom attendance
-        </li>
-      </ul>
       <p class="govuk-body">
         Types of evidence can be:
       </p>
       <ul class="govuk-list govuk-list--bullet">
         <li>
-          contracts of staff employed to provide training
+          contracts of staff employed to provide training or organise the placements
         </li>
+        <li>
+          cost to hire venues
+        </li>
+        <li>
+          other costs to develop materials
+        </li>
+      </ul>
+      <p class="govuk-body">
+        You will also need to provide evidence of trainees attending Intensive training and practise, in line with the number of trainees you have claimed against in the form.
+      </p>
+      <p class="govuk-body">
+        Types of evidence can be:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
         <li>
           registers
         </li>
@@ -209,11 +212,11 @@
       <h2 class="govuk-heading-l" id="{{ sectionTitles[3] | slugify }}">
         {{ sectionTitles[3] }}
       </h2>
-      <p class="govuk-body">
-        <a href="#" class="govuk-link">
-          Download the grant funding agreement
-        </a>.
-      </p>
+      {{ govukButton({
+        text: "Start now",
+        href: "/itp-grant/sign-in",
+        isStartButton: true
+      }) }}
       <p class="govuk-body">
         Send the signed agreement to 
         {{ appDefaultEmail({ 
