@@ -18,14 +18,15 @@
                 "Intensive training and practice"
         },
         value: {
-          text: data.totalPostgradItpWeeks + " weeks" | pluralise(data.totalPostgradItpWeeks) + " for " + data.postgradTraineeCount + " trainees"
+          text: data.totalPostgradItpWeeks + " weeks" | pluralise(data.totalPostgradItpWeeks) + " for " + data.postgradTrainees.length + " trainees"
         },
         actions: {
           items: [
             {
               href: "./postgrad-trainees",
               text: "Change",
-              visuallyHiddenText: "number of lead mentors"
+              visuallyHiddenText: "number of postgraduate trainees" if data.providerType == "hei" else
+                "number of trainees"
             }
           ]
         }
@@ -35,7 +36,7 @@
           text: "Undergraduate ITP"
         },
         value: {
-          text: data.totalUndergradItpWeeks + " weeks" | pluralise(data.totalUndergradItpWeeks) + " for " + data.undergradTraineeCount + " trainees"
+          text: data.totalUndergradItpWeeks + " weeks" | pluralise(data.totalUndergradItpWeeks) + " for " + data.undergradTrainees.length + " trainees"
         },
         actions: {
           items: [

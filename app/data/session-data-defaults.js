@@ -296,6 +296,7 @@ module.exports = {
       "identification": {
       "givenName":  "Jane",
       "familyName": "Smith",
+      "reference": "XE8301",
       "trn":        "1551883"
       },
       "courseDetails": {
@@ -310,6 +311,7 @@ module.exports = {
       "identification": {
       "givenName":  "Samantha",
       "familyName": "Koch",
+      "reference": "SS7197",
       "trn":        "1743356"
       },
       "courseDetails": {
@@ -324,6 +326,7 @@ module.exports = {
       "identification": {
       "givenName":  "Jill",
       "familyName": "Bachmann",
+      "reference": "WC8006",
       "trn":        "8909748"
       },
       "courseDetails": {
@@ -338,6 +341,7 @@ module.exports = {
       "identification": {
       "givenName":  "Rachel",
       "familyName": "Laverty",
+      "reference": "TC0098",
       "trn":        "9672556"
       },
       "courseDetails": {
@@ -352,6 +356,7 @@ module.exports = {
       "identification": {
       "givenName":  "Lee",
       "familyName": "Hazlewood",
+      "reference": "TP2771",
       "trn":        "8411978"
       },
       "courseDetails": {
@@ -366,6 +371,7 @@ module.exports = {
       "identification": {
       "givenName":  "Becky",
       "familyName": "Brothers",
+      "reference": "XS0128",
       "trn":        "8123503"
       },
       "courseDetails": {
@@ -380,6 +386,7 @@ module.exports = {
       "identification": {
       "givenName":  "Honorine",
       "familyName": "Renault",
+      "reference": "QC4145",
       "trn":        "1675046"
       },
       "courseDetails": {
@@ -394,6 +401,7 @@ module.exports = {
       "identification": {
       "givenName":  "Craig",
       "familyName": "Stroman",
+      "reference": "WN7814",
       "trn":        "9252148"
       },
       "courseDetails": {
@@ -408,6 +416,7 @@ module.exports = {
       "identification": {
       "givenName":  "Miranda",
       "familyName": "Walter",
+      "reference": "CS8639",
       "trn":        "7785421"
       },
       "courseDetails": {
@@ -422,6 +431,7 @@ module.exports = {
       "identification": {
       "givenName":  "Essie",
       "familyName": "Durgan",
+      "reference": "WK2480",
       "trn":        "8694898"
       },
       "courseDetails": {
@@ -436,6 +446,7 @@ module.exports = {
       "identification": {
       "givenName":  "Harriet",
       "familyName": "Wilkinson",
+      "reference": "NH4119",
       "trn":        "4808581"
       },
       "courseDetails": {
@@ -450,6 +461,7 @@ module.exports = {
       "identification": {
       "givenName":  "Shelia",
       "familyName": "Kozey",
+      "reference": "XQ2178",
       "trn":        "7839154"
       },
       "courseDetails": {
@@ -464,6 +476,7 @@ module.exports = {
       "identification": {
       "givenName":  "Emily",
       "familyName": "Feest",
+      "reference": "CH0600",
       "trn":        "3508938"
       },
       "courseDetails": {
@@ -478,6 +491,7 @@ module.exports = {
       "identification": {
       "givenName":  "Sally",
       "familyName": "Denesik",
+      "reference": "ZZ8176",
       "trn":        "8405624"
       },
       "courseDetails": {
@@ -492,6 +506,7 @@ module.exports = {
       "identification": {
       "givenName":  "Delia",
       "familyName": "Klein",
+      "reference": "EF5779",
       "trn":        "1529428"
       },
       "courseDetails": {
@@ -506,6 +521,7 @@ module.exports = {
       "identification": {
       "givenName":  "Martin",
       "familyName": "Cable",
+      "reference": "SD4874",
       "trn":        "7731875"
       },
       "courseDetails": {
@@ -520,6 +536,7 @@ module.exports = {
       "identification": {
       "givenName":  "Javier",
       "familyName": "Crist",
+      "reference": "WT8778",
       "trn":        "8773574"
       },
       "courseDetails": {
@@ -534,6 +551,7 @@ module.exports = {
       "identification": {
       "givenName":  "Alonzo",
       "familyName": "Leuschke",
+      "reference": "ET1604",
       "trn":        "4599126"
       },
       "courseDetails": {
@@ -548,6 +566,7 @@ module.exports = {
       "identification": {
       "givenName":  "Jeff",
       "familyName": "VonRueden",
+      "reference": "NG0760",
       "trn":        "1268124"
       },
       "courseDetails": {
@@ -562,6 +581,7 @@ module.exports = {
       "identification": {
       "givenName":  "Bea",
       "familyName": "Waite",
+      "reference": "MG5752",
       "trn":        "2006629"
       },
       "courseDetails": {
@@ -576,6 +596,7 @@ module.exports = {
       "identification": {
       "givenName":  "Michele",
       "familyName": "Bartoletti",
+      "reference": "EQ7471",
       "trn":        "8885301"
       },
       "courseDetails": {
@@ -590,6 +611,7 @@ module.exports = {
       "identification": {
       "givenName":  "Stanley",
       "familyName": "Champlin",
+      "reference": "YK3407",
       "trn":        "7281755"
       },
       "courseDetails": {
@@ -604,6 +626,7 @@ module.exports = {
       "identification": {
       "givenName":  "Swassane",
       "familyName": "Berger",
+      "reference": "RE6018",
       "trn":        "6516771"
       },
       "courseDetails": {
@@ -618,6 +641,7 @@ module.exports = {
       "identification": {
       "givenName":  "Betty",
       "familyName": "Dupuy",
+      "reference": "HM1350",
       "trn":        "6353649"
       },
       "courseDetails": {
@@ -632,6 +656,7 @@ module.exports = {
       "identification": {
       "givenName":  "Tricia",
       "familyName": "Mertz",
+      "reference": "NK7804",
       "trn":        "2595391"
       },
       "courseDetails": {
@@ -646,6 +671,7 @@ module.exports = {
       "identification": {
       "givenName":  "Juana",
       "familyName": "Baumbach",
+      "reference": "FM5221",
       "trn":        "3710844"
       },
       "courseDetails": {
@@ -660,6 +686,7 @@ module.exports = {
       "identification": {
       "givenName":  "Mégane",
       "familyName": "Leroux",
+      "reference": "DD7917",
       "trn":        "3183173"
       },
       "courseDetails": {
@@ -674,6 +701,7 @@ module.exports = {
       "identification": {
       "givenName":  "Alexis",
       "familyName": "Block",
+      "reference": "BX1852",
       "trn":        "3041494"
       },
       "courseDetails": {
@@ -688,6 +716,7 @@ module.exports = {
       "identification": {
       "givenName":  "Sharon",
       "familyName": "Bergnaum",
+      "reference": "PB3346",
       "trn":        "6306010"
       },
       "courseDetails": {
@@ -702,6 +731,7 @@ module.exports = {
       "identification": {
       "givenName":  "Troy",
       "familyName": "Romaguera",
+      "reference": "PR2821",
       "trn":        "7216207"
       },
       "courseDetails": {
@@ -716,6 +746,7 @@ module.exports = {
       "identification": {
       "givenName":  "Lana",
       "familyName": "Cardno",
+      "reference": "LG1154",
       "trn":        "6737688"
       },
       "courseDetails": {
@@ -730,6 +761,7 @@ module.exports = {
       "identification": {
       "givenName":  "Darren",
       "familyName": "Perry",
+      "reference": "TQ9132",
       "trn":        "6287363"
       },
       "courseDetails": {
@@ -744,6 +776,7 @@ module.exports = {
       "identification": {
       "givenName":  "Jodie",
       "familyName": "Fletcher",
+      "reference": "PF7429",
       "trn":        "1776765"
       },
       "courseDetails": {
@@ -758,6 +791,7 @@ module.exports = {
       "identification": {
       "givenName":  "Justine",
       "familyName": "Simon",
+      "reference": "YQ4961",
       "trn":        "8594837"
       },
       "courseDetails": {
@@ -772,6 +806,7 @@ module.exports = {
       "identification": {
       "givenName":  "Marilyn",
       "familyName": "Moore",
+      "reference": "MA4768",
       "trn":        "7159145"
       },
       "courseDetails": {
@@ -786,6 +821,7 @@ module.exports = {
       "identification": {
       "givenName":  "Angela",
       "familyName": "Scholz",
+      "reference": "ZM2864",
       "trn":        "8229967"
       },
       "courseDetails": {
@@ -800,6 +836,7 @@ module.exports = {
       "identification": {
       "givenName":  "Olga",
       "familyName": "Satterfield",
+      "reference": "RP7075",
       "trn":        "3719255"
       },
       "courseDetails": {
@@ -814,6 +851,7 @@ module.exports = {
       "identification": {
       "givenName":  "Donnie",
       "familyName": "Kling",
+      "reference": "PC5723",
       "trn":        "6814241"
       },
       "courseDetails": {
@@ -828,6 +866,7 @@ module.exports = {
       "identification": {
       "givenName":  "Jerome",
       "familyName": "Pfeffer",
+      "reference": "LZ3264",
       "trn":        "1789750"
       },
       "courseDetails": {
@@ -842,6 +881,7 @@ module.exports = {
       "identification": {
       "givenName":  "Ben",
       "familyName": "Jones",
+      "reference": "DH8307",
       "trn":        "6292096"
       },
       "courseDetails": {
@@ -856,6 +896,7 @@ module.exports = {
       "identification": {
       "givenName":  "Kari",
       "familyName": "Bartell",
+      "reference": "XA2058",
       "trn":        "9391115"
       },
       "courseDetails": {
@@ -870,6 +911,7 @@ module.exports = {
       "identification": {
       "givenName":  "Amber",
       "familyName": "Effertz",
+      "reference": "FM4041",
       "trn":        "6789465"
       },
       "courseDetails": {
@@ -884,6 +926,7 @@ module.exports = {
       "identification": {
       "givenName":  "Eunice",
       "familyName": "Smith",
+      "reference": "MR0294",
       "trn":        "6067301"
       },
       "courseDetails": {
@@ -898,6 +941,7 @@ module.exports = {
       "identification": {
       "givenName":  "Ysaline",
       "familyName": "Dupont",
+      "reference": "PX9959",
       "trn":        "9651847"
       },
       "courseDetails": {
@@ -912,6 +956,7 @@ module.exports = {
       "identification": {
       "givenName":  "Alicia",
       "familyName": "Luettgen",
+      "reference": "LA3595",
       "trn":        "2618627"
       },
       "courseDetails": {
@@ -926,6 +971,7 @@ module.exports = {
       "identification": {
       "givenName":  "Aurélie",
       "familyName": "Michel",
+      "reference": "TD6982",
       "trn":        "6423056"
       },
       "courseDetails": {
@@ -940,6 +986,7 @@ module.exports = {
       "identification": {
       "givenName":  "Angeline",
       "familyName": "Mercier",
+      "reference": "FK9515",
       "trn":        "9392797"
       },
       "courseDetails": {
@@ -954,6 +1001,7 @@ module.exports = {
       "identification": {
       "givenName":  "Fulgence",
       "familyName": "Vasseur",
+      "reference": "MQ9596",
       "trn":        "2406388"
       },
       "courseDetails": {

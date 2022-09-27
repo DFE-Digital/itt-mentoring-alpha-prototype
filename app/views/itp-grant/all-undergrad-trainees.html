@@ -1,0 +1,100 @@
+
+{% set formAction  = "./all-undergrad-trainees-answer" %}
+{% set pageHeading = "Undergraduate trainees" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  <p class="govuk-body">
+    Your organisation had {{ data.undergradTrainees.length }} undergraduate trainees that stared in 2024/25 and did not defer or withdraw.
+  </p>
+
+  {% set headRow = [
+    {
+      text: "Name"
+    },
+    {
+      text: "Provider number"
+    },
+    {
+      text: "TRN"
+    },
+    {
+      text: "Course"
+    }
+  ] %}
+
+  {% set bodyRows = [] %}
+  {% for trainee in data.undergradTrainees %}
+    {% set row = [] %}
+    {% set row = row | push({ text: trainee.identification.givenName + " " + trainee.identification.familyName }) %}
+    {% set row = row | push({ text: trainee.identification.reference }) %}
+    {% set row = row | push({ text: trainee.identification.trn }) %}
+    {% set row = row | push({ text: trainee.courseDetails.courseNameShort }) %}
+    {% set bodyRows = bodyRows | push(row) %}
+  {% endfor %}
+
+  {% set listOfTraineesHtml %}
+    {{ govukTable({
+      caption: "Undergraduate trainees",
+      captionClasses: "govuk-table__caption--s",
+      firstCellIsHeader: true,
+      head: headRow,
+      rows: bodyRows
+    }) }}
+  {% endset %}
+
+  {{ govukDetails({
+    summaryText: "See list of undergraduate trainees",
+    html: listOfTraineesHtml
+  }) }}
+
+  {% set howManyWeeksHtml %}
+    {{ govukInput({
+      label: {
+        text: "Weeks of ITP",
+        classes: "govuk-label--s"
+      },
+      suffix: {
+        text: "weeks"
+      },
+      classes: "govuk-input--width-4",
+      id: "undegradWeeksAll",
+      name: "undergradWeeksAll",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% endset %}
+
+  {{ govukRadios({
+    name: "allUndergrad",
+    fieldset: {
+      legend: {
+        text: "Did all these undergraduate trainees complete the same amount of ITP?",
+        classes: "govuk-fieldset__legend--m"
+      }
+    },
+    hint: {
+      text: "Select one option."
+    },
+    items: [
+      {
+        value: "no",
+        text:  "No, trainees completed different amounts of ITP"
+      },
+      {
+        value: "yes",
+        text: "Yes, all undergraduate trainees completed the same amount of ITP",
+        conditional: {
+          html: howManyWeeksHtml
+        }
+      }
+    ]
+  }) }}
+
+{% endblock %}
