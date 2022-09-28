@@ -1,0 +1,62 @@
+
+{% set formAction  = "./confirm-answer" %}
+
+{% set pageHeadingHtml -%}
+  Did {{ data.mentors[ mentorIndex ].fullName }} train with any of these mentors?
+{%- endset %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  {% include "includes/school-name-caption.html" %}
+  {% if data.providersFromRegister.length == 1 %}
+    {{ govukRadios({
+      idPrefix: "tempProviderStore",
+      name: "tempProviderStore",
+      fieldset: {
+        legend: {
+          text: pageHeadingHtml | safe,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      items: [
+        {
+          value: data.providersFromRegister[0],
+          text: "Yes, our mentors trained with " + data.providersFromRegister[0]
+        },
+        {
+          value: "none",
+          text: "No"
+        }
+      ]
+    }) }}
+  {% else %}
+    {% set providers = [] %}
+    {% for provider in data.providersFromRegister %}
+      {% set providers = providers | push(
+        { value: provider, 
+          text: provider }
+      ) %}
+    {% endfor %}
+    {% set providers = providers | push ({ divider: "or" }) %}
+    {% set providers = providers | push ({ value: "none", text: "None of these providers", behaviour: "exclusive"}) %}
+
+    {{ govukCheckboxes({
+      idPrefix: "tempProviderStore",
+      name: "tempProviderStore",
+      fieldset: {
+        legend: {
+          text: pageHeadingHtml | safe,
+          isPageHeading: true,
+          classes: "govuk-fieldset__legend--l"
+        }
+      },
+      hint: {
+        text: "Select all that apply."
+      },
+      items: providers
+    }) }}
+  {% endif %}
+
+{% endblock %}

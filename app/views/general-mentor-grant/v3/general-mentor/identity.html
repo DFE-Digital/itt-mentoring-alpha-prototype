@@ -1,0 +1,126 @@
+
+{% set formAction = "./identity-answer" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {{ govukInput({
+    label: {
+      text: "First names",
+      classes: "govuk-label--s"
+    },
+    classes: "govuk-!-width-one-half",
+    id: "mentor-" + mentorIndex + "-first-names",
+    name: "mentor[firstNames]",
+    value: data.mentors[ mentorIndex ]["firstNames"]
+  }) }}
+  {{ govukInput({
+    label: {
+      text: "Last names",
+      classes: "govuk-label--s"
+    },
+    classes: "govuk-!-width-one-half",
+    id: "mentor-" + mentorIndex + "-last-names",
+    name: "mentor[lastNames]",
+    value: data.mentors[ mentorIndex ]["lastNames"]
+  }) }}
+  {% set trnHtml %}
+    {{ govukInput({
+      label: {
+        text: "Teacher reference number (TRN)",
+        classes: "govuk-label--s"
+      },
+      classes: "govuk-input--width-10",
+      id: "mentor-" + mentorIndex + "-trn",
+      name: "mentor[Teacher reference number (TRN)]",
+      value: data.mentors[ mentorIndex ]["Teacher reference number (TRN)"]
+    }) }}
+  {% endset %}
+  {% set ninoHtml %}
+    {{ govukInput({
+      label: {
+        text: "National insurance number",
+        classes: "govuk-label--s"
+      },
+      hint: {
+        text: "For example, QQ 12 34 56 A"
+      },
+      classes: "govuk-input--width-10",
+      id: "mentor-" + mentorIndex + "-trn-or-nino",
+      name: "mentor[National insurance number]",
+      value: data.mentors[ mentorIndex ]["National insurance number"]
+    }) }}
+  {% endset %}
+  {% if data.mainstreamSchool == true %}
+    {{ trnHtml | safe }}
+  {% else %}
+    {{ govukRadios({
+      idPrefix: "teacher-" + teacherIndex + "-trn-or-nino",
+      name: "qualified",
+      fieldset: {
+        legend: {
+          text: "Is the mentor a qualified teacher?",
+          classes: "govuk-fieldset__legend--s"
+        }
+      },
+      hint: {
+        text: "Select one option."
+      },
+      items: [
+        {
+          value: "yes",
+          text: "Yes, they have qualified teacher status (QTS)",
+          conditional: {
+            html: trnHtml
+          }
+        },
+        {
+          value: "no",
+          text: "No",
+          conditional: {
+            html: ninoHtml
+          }
+        }
+      ]
+    }) }}
+  {% endif %}
+
+  {% set dateOfBirthArray = 
+    data.mentors[mentorIndex]['Date of birth'] | toDateArray
+  %}
+
+  {{ govukDateInput({
+    id: "mentor-" + mentorIndex + "-date-of-birth",
+    namePrefix: "mentor[Date of birth]",
+    fieldset: {
+      legend: {
+        text: "Date of birth",
+        classes: "govuk-fieldset__legend--s"
+      }
+    },
+    hint: {
+      text: "For example, 31 3 1980"
+    },
+    items: [
+        {
+          name: "day",
+          classes: "govuk-input--width-2",
+          value: dateOfBirthArray["0"]
+        },
+        {
+          name: "month",
+          classes: "govuk-input--width-2",
+          value: dateOfBirthArray["1"]
+        },
+        {
+          name: "year",
+          classes: "govuk-input--width-4",
+          value: dateOfBirthArray["2"]
+        }
+      ]
+  }) }}
+
+{% endblock %}

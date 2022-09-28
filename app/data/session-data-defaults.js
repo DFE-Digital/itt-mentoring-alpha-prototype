@@ -44,6 +44,10 @@ module.exports = {
     {
       "status": "Cannot start yet",
     },
+    mentors: {
+      "href": "/general-mentor-grant/v3/general-mentor/0/identity",
+      "status": "Not started"
+    },
     claimAmount:
     {
       "href":   "/general-mentor-grant/v2/claim-amount",
@@ -53,6 +57,8 @@ module.exports = {
   },
 
   providers: [],
+
+  mentors: [],
 
   /* Prototype routes on whether a school is state school or not
      https://www.gov.uk/types-of-school */

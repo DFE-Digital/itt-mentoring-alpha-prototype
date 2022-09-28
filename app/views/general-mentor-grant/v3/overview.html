@@ -1,0 +1,52 @@
+
+{% set pageHeading = "Claim general mentor training funding" %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+  {% set taskListItems = [] %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% include "includes/school-name-caption.html" %}
+      <h1 class="govuk-heading-xl">
+        {{ pageHeading }}
+      </h1>
+
+      <ol class="app-task-list">
+        <li>
+          {{ appTaskList({
+            items: [
+              {
+                text: "General mentors",
+                href: data.generalMentorTaskList.mentors.href,
+                tag: {
+                  text: data.generalMentorTaskList.mentors.status,
+                  classes: data.generalMentorTaskList.mentors.status | getStatusClass
+                }
+              },
+              {
+                text: "Claim amount",
+                href: data.generalMentorTaskList.claimAmount.href if data.generalMentorTaskList.claimAmount.status != "Cannot start yet",
+                tag: {
+                  text: data.generalMentorTaskList.claimAmount.status,
+                  classes: data.generalMentorTaskList.claimAmount.status | getStatusClass
+                }
+              }]
+            }) }}
+        </li>
+        <li>
+          <h2 class="app-task-list__section">
+            Final check
+          </h2>
+          <form action="./check-application" method="get" novalidate>
+            {{ govukButton({
+              text: "Check application"
+            }) }}
+          </form>
+        </li>
+      </ol>
+    </div>
+  </div>
+{% endblock %}
