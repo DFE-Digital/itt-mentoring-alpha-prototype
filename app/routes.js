@@ -248,7 +248,7 @@ const getSchools = () => {
     const data = req.session.data
     data.grantBeingAppliedFor = 'generalMentorTraining'
     data.school = null
-    res.redirect('/dfe-sign-in')
+    res.redirect('/general-mentor-grant/v2/dfe-sign-in')
   })
 
   // if data has been reset while on v2 index,
@@ -652,7 +652,7 @@ const getSchools = () => {
   router.get('/lead-mentor-grant/setup-lead-mentor', function(req, res){
     const data = req.session.data
     data.grantBeingAppliedFor = 'leadMentor'
-    res.redirect('/dfe-sign-in')
+    res.redirect('/lead-mentor-grant/dfe-sign-in')
   })
 
   const leadMentorRouting = {
@@ -675,16 +675,6 @@ const getSchools = () => {
       next()
     }
   })
-
-
-
-
-
-
-
-
-
-
 
 
   /*
@@ -711,7 +701,7 @@ const getSchools = () => {
     /* Get trainees who deferred or withdrew */
     data.incompleteTrainees = data.trainees.filter(trainee => trainee.courseDetails.status != 'Completed')
 
-    res.redirect('/dfe-sign-in')
+    res.redirect('/itp-grant/dfe-sign-in')
   })
 
   const itpRouting = {
@@ -933,5 +923,10 @@ const getSchools = () => {
       next()
     }
   })
+
+  // =============================================================================
+  // General mentor - version 3
+  // =============================================================================
+  require('./routes/general-mentor-v3')(router)
 
 module.exports = router

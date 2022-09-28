@@ -42,10 +42,12 @@
     {% set destionationHref %}
       {%- if data.grantBeingAppliedFor == 'generalMentorTraining' -%}
         /general-mentor-grant/v2/overview
+      {%- elseif data.grantBeingAppliedFor == 'generalMentorTrainingV3' -%}
+        /general-mentor-grant/v3/overview
       {%- elseif data.grantBeingAppliedFor == 'leadMentor' -%}
         /lead-mentor-grant/lead-mentors
       {%- elseif data.grantBeingAppliedFor == 'intensiveTrainingAndPractice' -%}
-        /itp-grant/weeks
+        /itp-grant/all-postgrad-trainees
       {%- else -%}
         /
       {%- endif -%}
