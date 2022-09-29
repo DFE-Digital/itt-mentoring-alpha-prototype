@@ -1,12 +1,17 @@
 
 {% set formAction = "./identity-answer" %}
 
+{% set pageHeadingHtml -%}
+  {{ (mentorIndex + 1) | getOrdinalName | sentenceCase }} general mentor details
+{%- endset %}
+
 {% extends "_templates/_form.html" %}
 
 {% block formContent %}
   <h1 class="govuk-heading-l">
     {{ pageHeading }}
   </h1>
+
   {{ govukInput({
     label: {
       text: "First names",
@@ -15,7 +20,7 @@
     classes: "govuk-!-width-one-half",
     id: "mentor-" + mentorIndex + "-first-names",
     name: "mentor[firstNames]",
-    value: data.mentors[ mentorIndex ]["firstNames"]
+    value: data.mentors[ mentorIndex ].identity["firstNames"]
   }) }}
   {{ govukInput({
     label: {
@@ -25,7 +30,7 @@
     classes: "govuk-!-width-one-half",
     id: "mentor-" + mentorIndex + "-last-names",
     name: "mentor[lastNames]",
-    value: data.mentors[ mentorIndex ]["lastNames"]
+    value: data.mentors[ mentorIndex ].identity["lastNames"]
   }) }}
   {% set trnHtml %}
     {{ govukInput({
@@ -36,7 +41,7 @@
       classes: "govuk-input--width-10",
       id: "mentor-" + mentorIndex + "-trn",
       name: "mentor[Teacher reference number (TRN)]",
-      value: data.mentors[ mentorIndex ]["Teacher reference number (TRN)"]
+      value: data.mentors[ mentorIndex ].identity["Teacher reference number (TRN)"]
     }) }}
   {% endset %}
   {% set ninoHtml %}
@@ -51,7 +56,7 @@
       classes: "govuk-input--width-10",
       id: "mentor-" + mentorIndex + "-trn-or-nino",
       name: "mentor[National insurance number]",
-      value: data.mentors[ mentorIndex ]["National insurance number"]
+      value: data.mentors[ mentorIndex ].identity["National insurance number"]
     }) }}
   {% endset %}
   {% if data.mainstreamSchool == true %}

@@ -1,0 +1,44 @@
+
+{% set formAction  = "./add-provider-answer" %}
+
+{% set pageHeadingHtml -%}
+    {{ (providerIndex + 1) | getOrdinalName | sentenceCase }} ITT provider 
+    <span class="app-nowrap">{{ data.mentors[ mentorIndex ].identity.fullName }}</span>
+    trained with
+{%- endset %}
+
+{% extends "_templates/_form.html" %}
+
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeadingHtml | safe }}
+  </h1>
+  {% set items = [] %}
+  {% for provider in data.ittProviders %}
+    {% set items = items | push(
+      {
+        value: provider,
+        text: provider
+      }
+    ) %}
+  {% endfor %}
+  {% include "includes/school-name-caption.html" %}
+  {{ appAutocompleteFromSelect({
+    label: {
+      text: "Search for ITT provider by name",
+      classes: "govuk-label--s"
+    },
+    id: 'degree-institutions',
+    name: "tempProvider",
+    items: items,
+    classes: "govuk-!-width-two-thirds",
+    value: data.mentors[mentorIndex].providers[providerIndex].name,
+    autocompleteOptions: {
+      minLength: 2,
+      autoselect: false,
+      showAllValues: false,
+      showSuggestionsBanner: false
+    }
+  }) }}
+{% endblock %}

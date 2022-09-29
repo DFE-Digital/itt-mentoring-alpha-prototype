@@ -1,0 +1,20 @@
+
+{% set formAction  = "./known-providers-answer" %}
+
+{% set pageHeadingHtml -%}
+  General mentors
+{%- endset %}
+
+{% extends "layout.html" %}
+{% block content %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+
+  {% for mentor in data.mentors %}
+    <a href="./general-mentor/{{ loop.index0 }}/identity">
+      {{ mentor.identity.fullName }}
+    </a>
+  {% endfor %}
+
+{% endblock %}
