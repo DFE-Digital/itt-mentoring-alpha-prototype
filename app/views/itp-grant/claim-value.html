@@ -1,6 +1,6 @@
 
-{% set formAction  = "./claim-value-answer" %}
-{% set pageHeading = "How much do you want to claim?" %}
+{% set formAction  = './claim-value-answer' %}
+{% set pageHeadingHtml = 'Did you spend more than ' + data.totalItpClaimValue | currency + ' on the development and delivery of <span class="app-nowrap">ITP placements?</span>' %}
 
 {% extends "_templates/_form.html" %}
 
@@ -8,13 +8,13 @@
   {% set lessThanMaximumHtml %}
     {{ govukInput({
       label: {
-        text: "Claim amount",
+        text: "Cost of ITP",
         classes: "govuk-label--s"
       },
       prefix: {
         text: "£"
       },
-      classes: "govuk-input--width-4",
+      classes: "govuk-input--width-10",
       id: "itpClaimValueOther",
       name: "itpClaimValueOther",
       inputmode: "numeric",
@@ -27,7 +27,7 @@
   name: "actualItpClaimValue",
   fieldset: {
     legend: {
-      text: pageHeading,
+      text: pageHeadingHtml | safe,
       isPageHeading: true,
       classes: "govuk-fieldset__legend--l"
     }
@@ -38,11 +38,11 @@
   items: [
     {
       value: actualItpClaimValue,
-      text: data.totalItpClaimValue | currency
+      text: "Yes, claim " + data.totalItpClaimValue | currency
     },
     {
       value: "actualItpClaimValue",
-      text: "Less than " + data.totalItpClaimValue | currency,
+      text: "No",
       conditional: {
         html: lessThanMaximumHtml
       }

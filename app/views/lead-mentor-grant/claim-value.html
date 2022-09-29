@@ -1,6 +1,6 @@
 
 {% set formAction  = "./claim-value-answer" %}
-{% set pageHeading = "How much do you want to claim?" %}
+
 
 {% if data.leadMentors %}
   {% set maxClaimValue = data.leadMentors | stringToNumber * data.leadMentorMaxAmount %}
@@ -8,19 +8,20 @@
   {% set maxClaimValue = 1 * data.leadMentorMaxAmount %}
 {% endif %}
 
+{% set pageHeadingHtml = 'Did you spend more than ' + maxClaimValue | currency + ' on lead mentors?' %}
 {% extends "_templates/_form.html" %}
 
 {% block formContent %}
   {% set lessThanMaximumHtml %}
     {{ govukInput({
       label: {
-        text: "Claim amount",
+        text: "Cost of lead mentors",
         classes: "govuk-label--s"
       },
       prefix: {
         text: "£"
       },
-      classes: "govuk-input--width-4",
+      classes: "govuk-input--width-10",
       id: "leadMentorClaimValueOther",
       name: "leadMentorClaimValueOther",
       inputmode: "numeric",
@@ -44,11 +45,11 @@
   items: [
     {
       value: maxClaimValue,
-      text: maxClaimValue | currency
+      text: "Yes, claim " + maxClaimValue | currency
     },
     {
       value: "otherClaimAmount",
-      text: "Less than " + maxClaimValue | currency,
+      text: "No",
       conditional: {
         html: lessThanMaximumHtml
       }
