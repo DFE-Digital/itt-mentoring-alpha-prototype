@@ -18,7 +18,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      {% include "includes/school-name-caption.html" %}
+      {% include "_includes/school-name-caption.html" %}
       <h1 class="govuk-heading-l">
         {{ pageHeading }}
       </h1>
@@ -29,7 +29,7 @@
 
       {% set mentorIndex = 0 %}
       {% for mentor in data.providers[ providerIndex ].mentors %}
-        {% include "includes/summary-cards/general-mentor.html" %}
+        {% include "_includes/summary-cards/general-mentor.html" %}
         {% set mentorIndex = mentorIndex + 1 %}
       {% endfor %}
 

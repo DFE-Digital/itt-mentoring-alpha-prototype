@@ -14,7 +14,7 @@
 {% extends "_templates/_form.html" %}
 
 {% block formContent %}
-  {% include "includes/school-name-caption.html" %}
+  {% include "_includes/school-name-caption.html" %}
   {% if data.providersFromRegister.length == 1 %}
     {{ govukRadios({
       idPrefix: "tempProviderStore",
