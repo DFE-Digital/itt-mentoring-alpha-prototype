@@ -15,7 +15,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      {% include "includes/school-name-caption.html" %}
+      {% include "_includes/school-name-caption.html" %}
       <h1 class="govuk-heading-l">
         {{ pageHeading }}
       </h1>
@@ -30,7 +30,7 @@
 
   {% set schoolSection = data.generalMentorTaskList.school %}
   {% if schoolSection.status == "Completed" %}
-    {% include "includes/summary-cards/school.html" %}
+    {% include "_includes/summary-cards/school.html" %}
   {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body govuk-!-margin-bottom-2">
@@ -50,7 +50,7 @@
 
   {% set providersSection = data.generalMentorTaskList.providers %}
   {% if providersSection.status == "Completed" %}
-    {% include "includes/summary-cards/providers.html" %}
+    {% include "_includes/summary-cards/providers.html" %}
   {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body {{ 'govuk-!-margin-bottom-2' if data.school }}">
@@ -83,7 +83,7 @@
       {% set providerIndex = loop.index0 %}
       {% for mentor in data.providers[ providerIndex ].mentors %}
         {% set mentorIndex = loop.index0 %}
-        {% include "includes/summary-cards/general-mentor.html" %}
+        {% include "_includes/summary-cards/general-mentor.html" %}
       {% endfor %}
     {% else %}
       <div class="govuk-inset-text">
@@ -109,7 +109,7 @@
   </h2>
   {% set claimSection = data.generalMentorTaskList.claimAmount %}
   {% if claimSection.status == "Completed" %}
-    {% include "includes/summary-cards/claim-amount.html" %}
+    {% include "_includes/summary-cards/claim-amount.html" %}
   {% else %}
     <div class="govuk-inset-text">
       <p class="govuk-body">

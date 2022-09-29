@@ -15,7 +15,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      {% include "includes/school-name-caption.html" %}
+      {% include "_includes/school-name-caption.html" %}
       <h1 class="govuk-heading-l">
         {{ pageHeadingHtml | safe }}
       </h1>
@@ -23,7 +23,7 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-full">
-      {% include "includes/summary-cards/providers.html" %}
+      {% include "_includes/summary-cards/providers.html" %}
 
       <form 
         action="/general-mentor-grant/v2/provider/{{ data.providers.length }}/add"

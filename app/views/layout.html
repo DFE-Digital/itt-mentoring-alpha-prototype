@@ -44,7 +44,7 @@
 {% from "_components/default-email/macro.njk"            import appDefaultEmail %}
 
 {% block head %}
-  {% include "includes/head.html" %}
+  {% include "_includes/head.html" %}
   {{ data | makeDataAvailable("sessionData") }}
   {{ data | log }}
 {% endblock %}
@@ -112,7 +112,7 @@
 
 {% block bodyEnd %}
   {% block scripts %}
-    {% include "includes/scripts.html" %}
+    {% include "_includes/scripts.html" %}
     {% block pageScripts %}{% endblock %}
   {% endblock %}
   <!-- GOV.UK Prototype Kit {{releaseVersion}} -->
