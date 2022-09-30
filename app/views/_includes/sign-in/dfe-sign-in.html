@@ -39,21 +39,9 @@
     }) }}
     <p class="govuk-body"><a href="#" class="govuk-link">Forgotten your password?</a></p>
 
-    {% set destionationHref %}
-      {%- if data.grantBeingAppliedFor == 'generalMentorTraining' -%}
-        /general-mentor-grant/v2/overview
-      {%- elseif data.grantBeingAppliedFor == 'leadMentor' -%}
-        /lead-mentor-grant/lead-mentors
-      {%- elseif data.grantBeingAppliedFor == 'intensiveTrainingAndPractice' -%}
-        /itp-grant/all-postgrad-trainees
-      {%- else -%}
-        /
-      {%- endif -%}
-    {% endset %}
-
     {{ govukButton({
       "text": "Sign-in",
-      href: destionationHref
+      href: href if href else "/"
     }) }}
 
     {{ govukButton({

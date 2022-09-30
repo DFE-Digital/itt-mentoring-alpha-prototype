@@ -1,0 +1,44 @@
+
+{% set formAction  = "./check-your-answers" %}
+{% set pageHeading = "Evidence of intensive training and practice activity" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  <p class="govuk-body">
+    Provide evidence of cost incurred as a result of intensive training and practice, this evidence needs to cover the full cost of funding you are claiming for. Types of evidence can be:
+  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      contracts of staff employed to provide training or organise the placements
+    </li>
+    <li>
+      cost to hire venues
+    </li>
+    <li>
+      other costs to develop materials
+    </li>
+  </ul>
+  <p class="govuk-body">
+    You also need to provide evidence of the numbers of trainees attending ITP. Types of evidence can be:
+  </p>
+  <ul class="govuk-list govuk-list--bullet">
+    <li>
+      registers
+    </li>
+    <li>
+      timetable evidence
+    </li>
+  </ul>
+  {{ govukFileUpload({
+    id: "file-upload-1",
+    name: "file-upload-1",
+    label: {
+      text: "Upload a file",
+      classes: "govuk-label--m"
+    }
+  }) }}
+{% endblock %}

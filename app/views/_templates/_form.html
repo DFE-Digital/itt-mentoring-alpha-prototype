@@ -41,6 +41,13 @@
         {{ govukButton({
           text: buttonText if buttonText else "Continue"
         }) }}
+        {% if cancelLinkText %}
+          <p class="govuk-body">
+            <a href="{{ cancelHref }}" class="govuk-link govuk-link--no-visited-state">
+              {{ cancelLinkText }}
+            </a>
+          </p>
+        {% endif %}
       </div>
     </div>
   </form>

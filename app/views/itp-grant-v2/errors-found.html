@@ -1,0 +1,100 @@
+
+{% set errorCount = data.uploadErrors.length %}
+{% set errorCountWithRow = errorCount + " " + "row" | pluralise(errorCount) %}
+
+{% set pageHeading = errorCountWithRow + " with errors found in the uploaded file" %}
+
+{% extends "layout.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Back',
+    href: 'javascript:history.back();'
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  {% set bodyRows = [] %}
+  {% for trainee in data.uploadErrors %}
+    {% set row = [
+      {
+        text: trainee.rowNumber,
+        format: "numeric"
+      },
+      { text: trainee.identification.givenName + " " + trainee.identification.familyName },
+      { text: trainee.identification.reference },
+      { text: trainee.identification.trn },
+      { text: trainee.courseDetails.route },
+      {
+        text: trainee.itpWeeks,
+        format: "numeric"
+       },
+       {
+        text: trainee.errorSummary
+       }
+      ]%}
+    {% set bodyRows = bodyRows | push(row) %}
+  {% endfor %}
+
+  {% set detailsOfErrorsHtml %}
+    {{ govukTable({
+      caption: "Errors in uploaded file",
+      captionClasses: "govuk-table__caption--m",
+      head: [
+        { text: "Row" },
+        { text: "Trainee name" },
+        { text: "Provider ID" },
+        { text: "TRN" },
+        { text: "Route" },
+        { text: "Weeks of ITP" },
+        { text: "Error summary" }
+      ],
+      rows: bodyRows
+    }) }}
+  {% endset %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        {{ pageHeading }}
+      </h1>
+      <p class="govuk-body">
+        Your file was uploaded successfully, but had {{ errorCountWithRow }} with errors. You need to fix these errors or remove the trainees.
+      </p>
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+    {{ govukDetails({
+      summaryText: "Show error" | pluralise(errorCount),
+      html: detailsOfErrorsHtml | safe
+    }) }}
+    </div>
+  </div>
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h2 class="govuk-heading-m">
+        Fix the errors and upload the file again
+      </h2>
+      <form action="./errors-found-answer" method="post" novalidate>
+        {{ govukFileUpload({
+          id: "file-upload-1",
+          name: "file-upload-1",
+          hint: {
+            text: "File type must be ‘csv’."
+          },
+          label: {
+            text: "Upload a file"
+          },
+          attributes: {
+            "accept": ".csv"
+          }
+        }) }}
+        {{ govukButton({
+          text: "Upload file"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
