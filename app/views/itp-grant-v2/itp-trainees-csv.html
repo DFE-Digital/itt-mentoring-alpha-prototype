@@ -1,0 +1,72 @@
+
+{% set pageHeadingHtml -%}
+  How many weeks of <span class="app-nowrap">intensive training and practice</span> did each trainee complete?
+{%- endset %}
+
+{% set bodyRows = [] %}
+{% for trainee in data.trainees %}
+  {% set row =
+    [
+      {
+        text: trainee.identification.familyName
+      },
+      {
+        text: trainee.identification.givenName
+      },
+      {
+        text: trainee.identification.reference
+      },
+      {
+        text: trainee.identification.trn
+      },
+      {
+        text: trainee.courseDetails.route
+      },
+      {
+        text: trainee.courseDetails.studyMode
+      },
+      {
+        text: " "
+      }
+    ]
+  %}
+  {% set bodyRows = bodyRows | push(row) %}
+{% endfor %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+      {{ govukTable({
+        head: [
+          {
+            text: "Surname"
+          },
+          {
+            text: "First names"
+          },
+          {
+            text: "Provider ID"
+          },
+          {
+            text: "TRN"
+          },
+          {
+            text: "Route"
+          },
+          {
+            text: "Study mode"
+          },
+          {
+            text: "Weeks of ITP"
+          }
+        ],
+        rows: bodyRows
+      }) }}
+    </div>
+  </div>
+
+{% endblock %}
+

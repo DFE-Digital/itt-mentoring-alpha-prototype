@@ -5,6 +5,16 @@ module.exports = router => {
     return routing.folder + `${ routing.pageOrder[nextPage] }`
   }
 
+  const itpRouting = {
+    pageOrder: [
+        'postgrad-trainees',
+        'claim-value',
+        'evidence',
+        'check-your-answers',
+        'confirmation'
+      ],
+    folder: '/itp-grant/'
+  }
 
   router.get('/itp-grant/setup-itp', function(req, res){
     const data = req.session.data
@@ -27,16 +37,6 @@ module.exports = router => {
     res.redirect('/itp-grant/dfe-sign-in')
   })
 
-  const itpRouting = {
-    pageOrder: [
-        'postgrad-trainees',
-        'claim-value',
-        'evidence',
-        'check-your-answers',
-        'confirmation'
-      ],
-    folder: '/itp-grant/'
-  }
 
   router.post('/itp-grant/all-postgrad-trainees-answer', function(req, res){
     const data = req.session.data

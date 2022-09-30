@@ -21,4 +21,9 @@ require('./routes/lead-mentors')(router)
 // =============================================================================
 require('./routes/intensive-training-and-practice')(router)
 
+// =============================================================================
+// Intensive training and practice - CSV upload
+// =============================================================================
+require('./routes/intensive-training-and-practice-v2')(router)
+
 module.exports = router

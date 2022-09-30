@@ -1,0 +1,73 @@
+
+{% set formAction  = "./claim-value" %}
+
+{% set pageHeading = "File succesfully uploaded" %}
+{% set cancelHref = "./upload-a-file" %}
+{% set cancelLinkText = "Upload a different file" %}
+
+{% extends "_templates/_form.html" %}
+
+{% block pageNavigation %}
+  {{ govukBackLink({
+    text: 'Back',
+    href: 'javascript:history.back();'
+  }) }}
+{% endblock %}
+
+{% block formContent %}
+  <h1 class="govuk-heading-l">
+    {{ pageHeading }}
+  </h1>
+  {{ govukTable({
+    caption: "Summary of data",
+    captionClasses: "govuk-table__caption--m",
+    head: [
+      { text: "Trainee group" },
+      { text: "Number of trainees",
+        format: "numeric" },
+      { text: "Total weeks of ITP",
+        format: "numeric" }
+    ],
+    rows:[
+      [
+        {
+          text: "Postgraduate trainees that met QTS"
+        },
+        {
+          text: data.postgradTrainees.length,
+          format: "numeric"
+        },
+        {
+          text: data.postgradTraineeWeeks,
+          format: "numeric"
+        }
+      ],
+      [
+        {
+          text: "Undergraduate trainees still in training"
+        },
+        {
+          text: data.undergradTrainees.length,
+          format: "numeric"
+        },
+        {
+          text: data.undergradTraineeWeeks,
+          format: "numeric"
+        }
+      ],
+      [
+        {
+          text: "All trainees that deferred or withdrew"
+        },
+        {
+          text: data.incompleteTrainees.length,
+          format: "numeric"
+        },
+        {
+          text: data.incompleteTraineesWeeks,
+          format: "numeric"
+        }
+      ]
+    ]
+  }) }}
+{% endblock %}

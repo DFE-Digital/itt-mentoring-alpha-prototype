@@ -1,0 +1,35 @@
+
+{% set pageHeading = "Application complete" %}
+{% set buttonText = "Accept and send" %}
+
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {{ govukPanel({
+        titleText: pageHeading,
+        html:      "Your reference number<br><strong>HDJ2123F</strong>"
+      }) }}
+      <p class="govuk-body">
+        We have sent you a confirmation email.
+      </p>
+      <h2 class="govuk-heading-m">
+        What happens next
+      </h2>
+      <p class="govuk-body">
+        Your application will be processed and payment will be made
+        by <span class="app-nowrap">31 October 2025</span>.
+      </p>
+      <p class="govuk-body">
+        For support with your application, contact
+        {{ appDefaultEmail({
+          subject: "Help with general mentor funding application"
+        }) }}
+      </p>
+      <p class="govuk-body">
+        If you have not applied for the the lead mentor grant, <a href="../lead-mentor-grant/answer" class="govuk-link">apply for the lead mentor grant</a>.
+      </p>
+    </div>
+  </div>
+{% endblock %}

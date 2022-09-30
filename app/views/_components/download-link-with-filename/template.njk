@@ -1,0 +1,6 @@
+<p class="govuk-body {{params.classes if params.classes}}">
+  <span class="app-nowrap"><a class="govuk-link--no-visited-state" href="/public/downloads/{{ params.fileName }}.{{ params.fileType }}" download="{{ params.downloadedFileName | slugify }}.{{ params.fileType }}">{{ params.linkText }}</a></span><br>
+  {% if params.showDownloadedFileName %}
+    <span class="govuk-hint">File name: <span class="app-nowrap">{{ params.downloadedFileName }}.{{ params.fileType }}</span></span>
+  {% endif %}
+</p>

@@ -1,0 +1,52 @@
+
+{% set formAction  = './evidence' %}
+{% set pageHeadingHtml = 'Did you spend more than ' + data.totalItpClaimValue | currency + ' on the development and delivery of <span class="app-nowrap">ITP placements?</span>' %}
+
+{% extends "_templates/_form.html" %}
+
+{% block formContent %}
+  {% set lessThanMaximumHtml %}
+    {{ govukInput({
+      label: {
+        text: "Cost of ITP",
+        classes: "govuk-label--s"
+      },
+      prefix: {
+        text: "£"
+      },
+      classes: "govuk-input--width-10",
+      id: "itpClaimValueOther",
+      name: "itpClaimValueOther",
+      inputmode: "numeric",
+      pattern: "[0-9]*",
+      spellcheck: false
+    }) }}
+  {% endset %}
+  {{ govukRadios({
+  idPrefix: "actualItpClaimValue",
+  name: "actualItpClaimValue",
+  fieldset: {
+    legend: {
+      text: pageHeadingHtml | safe,
+      isPageHeading: true,
+      classes: "govuk-fieldset__legend--l"
+    }
+  },
+  hint: {
+    text: "Select one option."
+  },
+  items: [
+    {
+      value: actualItpClaimValue,
+      text: "Yes, claim " + data.totalItpClaimValue | currency
+    },
+    {
+      value: "actualItpClaimValue",
+      text: "No",
+      conditional: {
+        html: lessThanMaximumHtml
+      }
+    }
+  ]
+}) }}
+{% endblock %}
