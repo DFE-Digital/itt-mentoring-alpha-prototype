@@ -104,7 +104,7 @@ module.exports = {
   
   // For ITP, if we know the provider is a SCITT, we don’t need to show undergrad
   // in production this should be calculated on whether the provider has any undergrad trainees
-  providerType: "scitt",
+  providerType: "hei",
 
   /*
     Provider list

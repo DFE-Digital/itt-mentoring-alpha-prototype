@@ -22,10 +22,12 @@
         text: trainee.rowNumber,
         format: "numeric"
       },
-      { text: trainee.identification.givenName + " " + trainee.identification.familyName },
+      { text: trainee.identification.familyName },
+      { text: trainee.identification.givenName },
       { text: trainee.identification.reference },
       { text: trainee.identification.trn },
       { text: trainee.courseDetails.route },
+      { text: trainee.courseDetails.studyMode },
       {
         text: trainee.itpWeeks,
         format: "numeric"
@@ -43,10 +45,12 @@
       captionClasses: "govuk-table__caption--m",
       head: [
         { text: "Row" },
-        { text: "Trainee name" },
+        { text: "Trainee surname" },
+        { text: "Trainee first names" },
         { text: "Provider ID" },
         { text: "TRN" },
         { text: "Route" },
+        { text: "Study mode" },
         { text: "Weeks of ITP" },
         { text: "Error summary" }
       ],
