@@ -30,8 +30,8 @@ module.exports = {
   maxGeneralMentors: 5,
   mainstreamSchool: true,
   providersFromRegister: [
-    "University of Greenwich",
-    "Gorse SCITT"
+    // "University of Greenwich",
+    // "Gorse SCITT"
   ],
 
   generalMentorTaskList: {
