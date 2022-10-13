@@ -17,11 +17,20 @@
       text: label
     }
   }) }}
-  {# {% set detailsHtml %}
-    {% include "_includes/manual-school-details.html" %}
+  {% set detailsHtml %}
+    <p class="govuk-body">
+      Settings are eligible if they are in England and listed in 
+      <span class="app-nowrap">Get information about schools</span> (GIAS).
+    </p>
+    <p class="govuk-body">
+      If your school is not listed, read guidance on <a href="https://www.get-information-schools.service.gov.uk/Guidance/Governance">how to add or update your setting in GIAS</a>.
+    </p>
+    <p class="govuk-body">
+      If your school is listed in GIAS and you cannot find it, contact {{ appDefaultEmail({ subject: "Cannot find setting"}) }}
+    </p>
   {% endset %}
   {{ govukDetails({
-    summaryText: "Placement school is not listed",
+    summaryText: "Setting is not listed",
     html: detailsHtml
-  }) }} #}
+  }) }}
 {% endblock %}
