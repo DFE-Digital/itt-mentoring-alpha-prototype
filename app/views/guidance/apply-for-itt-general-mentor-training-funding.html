@@ -1,5 +1,5 @@
 
-{% set pageHeading = "Initial teacher training general mentor grant" %}
+{% set pageHeading = "Initial teacher training (ITT) mentor training funding for schools" %}
 {% set serviceName = false %}
 
 {% extends "layout.html" %}
@@ -42,12 +42,12 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-xl">
         <span class="govuk-caption-xl">Guidance</span>
         {{ pageHeading }}
       </h1>
       <p class="govuk-body-lead">
-        Placement schools working with initial teacher training (ITT) providers can claim funding to cover the costs associated with training a general mentor.
+        This funding is to help schools with the cost of training their teachers to be mentors to ITT trainees in the 2024 to 2025 academic year.
       </p>
     </div>
   </div>
@@ -68,10 +68,11 @@
   </div>
 
   {% set sectionTitles = [
-    'What the funding is for',
-    'How to claim',
-    'Conditions of funding',
-    'Reporting and accountability'
+    'Overview',
+    'Amount of funding available to schools',
+    'Funding conditions relating to ITT mentors',
+    'Funding conditions relating to ITT trainees',
+    'Claiming ITT mentor training funding'
   ] %}
 
   <div class="govuk-grid-row">
@@ -91,132 +92,207 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <p class="govuk-body">
-        For the 2024 to 2025 school year, teachers who mentor a trainee teacher must complete up to 20 hours general mentor training with an ITT provider.
-      </p>
-      <p class="govuk-body">
-        The general mentor training grant is to support the costs of having general mentors train to meet the new ITT quality requirements.
-      </p>
-      <p class="govuk-body">
-        <a href="https://www.gov.uk/government/consultations/initial-teacher-training-itt-market-review" class="govuk-link">Read more about the changes to ITT</a>.
-      </p>
 
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h2>
+
+      <h2 class="govuk-heading-l" id="{{ sectionTitles[0] | slugify }}">
+        {{ sectionTitles[0] }}
+      </h2>
       <p class="govuk-body">
-        This funding is to help schools with the cost of covering teacher’s time to participate in mentor training. Where it is not possible to give the time-off timetable to the teacher for mentor training, the schools must give the teacher time-off timetable at another time or pass the funding to the teacher.
+        The funding was set up in response to the Department for Education’s (DfE) <a href="https://www.gov.uk/government/publications/initial-teacher-training-itt-market-review/initial-teacher-training-itt-market-review-overview" class="govuk-link">review of ITT</a>. This review identified high-quality mentoring as an important part of a trainee’s development as a teacher.
       </p>
       <p class="govuk-body">
-        Schools can claim up to 20 hours per general mentor depending on your school’s location:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Inner London — up to £1,072</li>
-        <li>Outer London — up to £965</li>
-        <li>Fringe — up to £902</li>
-        <li>Rest of England — up to £876</li>
-      </ul>
-      <p class="govuk-body">
-        Your maximum claim is based on the:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>hours of training a teacher completed</li>
-        <li>cost incurred in covering the teacher’s time away from lessons</li>
-        <li>amount given to the teacher where time away from lessons was not possible</li>
-      </ul>
-      <p class="govuk-body">
-        This is available to all schools that host trainee teachers, including independent schools.
+        Starting in the 2024 to 2025 academic year, mentors working at schools who offer ITT placements need to do up to 20 hours of initial mentor training with an accredited training provider. This is to help build on mentoring expertise in schools.
       </p>
       <p class="govuk-body">
-        The grant cannot be spent on:
+        After mentors have done initial mentor training, they can do extra training in following academic years to refresh their mentoring skills.
+      </p>
+      <p class="govuk-body">
+        Funding for initial ITT mentor training will help schools support their teachers in becoming mentors. It will also help with the cost of their teachers being away from the classroom while they train.
+      </p>
+      <p class="govuk-body">
+        This funding is not for Early Career Teacher (ECT) mentor training.
+      </p>
+      <p class="govuk-body">
+        Funding is also available to help accredited training providers:
       </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>teachers that train to become a general mentor without a trainee to mentor</li>
-        <li>travel</li>
-        <li>expenses</li>
-        <li>
-          cover for teachers to train that is already paid for by someone else (for example, the ITT provider)
-        </li>
+        <li>cover the cost of <a href="#" class="govuk-link">lead mentors training and carrying out their role</a></li>
+        <li>create and deliver the new intensive <a href="#" class="govuk-link">training and practice programme</a> for ITT trainees</li>
       </ul>
 
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h2>
+
+      <h2 class="govuk-heading-l" id="{{ sectionTitles[1] | slugify }}">
+        {{ sectionTitles[1] }}
+      </h2>
       <p class="govuk-body">
-        To make a claim you will need:
+        The amount of funding schools can get is based on the region of the school and how many hours a teacher spent training to be a mentor. Schools can only claim this funding in the 2024 to 2025 academic year.
+      </p>
+      <p class="govuk-body">
+        This funding applies to all schools who offer placements to ITT trainees, including independent schools and further education organisations.
+      </p>
+      <p class="govuk-body">
+        For each mentor, a school can claim:
       </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>
-          the name of school you are claiming on behalf of
-        </li>
-        <li>
-          the name, birth date and teacher reference number (TRN) of teachers who took part in training
-        </li>
-        <li>
-          the hours of training completed by each teacher
-        </li>
-        <li>
-          the amount you want to claim for
-        </li>
-        <li>
-          confirmation that each teacher you are claiming for mentored at least one different trainee each
-        </li>
+        <li>up to £1,072 — for schools in Inner London</li>
+        <li>up to £965 — for schools in Outer London</li>
+        <li>up to £902 — for schools in the Fringe region (the area between Outer London and the rest of England)</li>
+        <li>up to £876 — for schools in the rest of England</li>
       </ul>
       <p class="govuk-body">
-        If the teacher does not know their TRN, they can use the <a href="#" class="govuk-link">Find a lost TRN</a> service.
+        Find out what 
+        <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/289699/Annex_C_-_Area_Cost_Adjustment__ACA_.pdf" class="govuk-link">
+          region your school is in
+        </a>.
       </p>
       <p class="govuk-body">
-        You will need to keep and provide when requested evidence of:
+        Schools should only use this funding to support the costs of teachers training to be mentors, this could include:
       </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>the identity of staff attending general mentor training</li>
-        <li>timetables that show when a teacher attended training and needed cover, if applicable</li>
-        <li>timetables that show when a teacher was given time-off timetable at another time and needed cover, if applicable</li>
-        <li>transfer of money to the teacher where training was done in their own time, if applicable</li>
-        <li>hours of attending training. For example, provider certificates or registers</li>
+        <li>paying for someone to take over lessons while a teacher trains to be a mentor</li>
+        <li>overtime payments if a teacher is training outside of normal working hours</li>
+        <li>paying for any costs that come from reducing a teacher’s other responsibilities so they have time to train</li>
       </ul>
-      {{ govukButton({
-        text: "Start now",
-        href: "/general-mentor-grant/v2/sign-in",
-        isStartButton: true
-      }) }}
       <p class="govuk-body">
-        Claims will be paid between September and October 2025.
+        Schools should only use this funding to support the costs of teachers training to be mentors, this could include:
       </p>
-      <h3 class="govuk-heading-s">
-        Payment for independent schools
+      <ul class="govuk-list govuk-list--bullet">
+        <li>a teacher’s travel to and from their mentor training</li>
+        <li>expenses while a teacher is training to be a mentor</li>
+        <li>paying someone to take over a teacher’s lessons if the training provider has already paid for this</li>
+      </ul>
+
+      <h2 class="govuk-heading-l" id="{{ sectionTitles[2] | slugify }}">
+        {{ sectionTitles[2] }}
+      </h2>
+      <p class="govuk-body">
+        Teachers training to be mentors must do up to 20 hours of initial mentor training for schools to claim this funding. This is not the same training that a <a href="#" class="govuk-link">lead mentor</a> has to do (up to 30 hours).
+      </p>
+      <p class="govuk-body">
+        The amount of time a teacher spends in training can be decided by training providers. For example, if a teacher has done their national professional qualification (NPQ), they might not need the full 20 hours of mentor training.
+      </p>
+      <p class="govuk-body">
+        Teachers can do their 20 hours of initial mentor training between 6 April 2024 and 1 July 2025.
+      </p>
+      <h3 class="govuk-heading-m">
+        Mentors who cannot continue with mentoring
       </h3>
       <p class="govuk-body">
-        If your school is not an academy or does not belong to a local
-        authority, you will need to provide payment information.
-        <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">
-          How to provide information about your banking and payments</a>.
-      </p>
-
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h2>
-      <p class="govuk-body">
-        Funding is to support all time teachers spend training. Including face-to-face training with the provider and learning the mentor does in their own.
+        If a mentor starts working with a trainee but then cannot continue, the school can decide to replace the existing mentor with a new one.
       </p>
       <p class="govuk-body">
-        Each general mentor must mentor at least 1 trainee each in 2024/25. Only trainees that start in or after the 2024/25 school year count towards this. For example, if a trainee had 2 general mentors and neither of those mentors worked with another trainee who started in 2024/25. The school could only claim for 1 general mentor’s training.
+        Schools will be able to claim for the training time of the old mentor and the new mentor if they both did their training between 6 April 2024 and 1 July 2025.
       </p>
+      <h3 class="govuk-heading-m">
+        Mentors who do not finish their training
+      </h3>
       <p class="govuk-body">
-        This grant is subject to conditions set out in <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975812/DfE_GFA_T_Cs_2021_.pdf" class="govuk-link">the DfE’s standard grant terms and conditions</a>.
+        A mentor can complete the remaining hours of their training in the next academic year if they do not complete the full 20 hours in the 2024 to 2025 academic year. For example:
       </p>
+      <div class="govuk-inset-text">
+        <p class="govuk-body">
+          A mentor starts training late in the 2024 to 2025 academic year and does not finish the full 20 hours before the end of the academic year.
+        </p>
+        <p class="govuk-body">
+          They only finish 16 hours of initial training which means the school can claim funding for 16 hours of training in the 2024 to 2025 academic year.
+        </p>
+      </div>
+      <h3 class="govuk-heading-m">
+        Mentors training with more than 1 provider
+      </h3>
       <p class="govuk-body">
-        If an ITT trainee withdraws or defers:
+        A school can claim up to 20 hours of initial mentor training for each provider a mentor trains with. This can happen if a mentor works with trainees from different providers. For example:
+      </p>
+      <div class="govuk-inset-text">
+        <p class="govuk-body">
+          In the 2024 to 2025 academic year, a mentor works with 1 trainee from Provider A and 1 trainee from Provider B at the same school.
+        </p>
+        <p class="govuk-body">
+          Each training provider decides the mentor must do 20 hours of mentor training with each of them.
+        </p>
+        <p class="govuk-body">
+          The mentor trains for a total of 40 hours in the 2024 to 2025 academic year. The school can claim for 40 hours of training for that mentor.
+        </p>
+      </div>
+      <h3 class="govuk-heading-m">
+        Mentors working for more than 1 school
+      </h3>
+      <p class="govuk-body">
+        Each school a mentor works at can claim up to 20 hours of mentor training for each provider a mentor trains with. This can happen if a mentor works with trainees from:
       </p>
       <ul class="govuk-list govuk-list--bullet">
-        <li>
-          before a teacher starts their general mentor training, the school cannot claim any funding
-        </li>
-        <li>
-          after a teacher has started their general mentor training, the school can claim up to the full amount
-        </li>
+        <li>different providers but doing their ITT placements at different schools</li>
+        <li>the same provider but doing their ITT placements at different schools</li>
       </ul>
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h2>
       <p class="govuk-body">
-        Schools who choose to spend grant funding on ineligible activities will be liable for a grant clawback and this could impact their eligibility for any future grants.
+        For example:
+      </p>
+      <div class="govuk-inset-text">
+        <p class="govuk-body">
+          A mentor works for 2 schools, School A and School B. School A hosts a trainee from Provider A. School B hosts a trainee from Provider B.
+        </p>
+        <p class="govuk-body">
+          The mentor works with the trainee from Provider A at School A and the trainee from Provider B at School B.
+        </p>
+        <p class="govuk-body">
+          The mentor trains for 20 hours with Provider A and 18 hours with Provider B.
+        </p>
+        <p class="govuk-body">
+          School A can claim for 20 hours of training with Provider A. School B can claim for 18 hours of training with Provider B.
+        </p>
+      </div>
+
+      <h2 class="govuk-heading-l" id="{{ sectionTitles[3] | slugify }}">
+        {{ sectionTitles[3] }}
+      </h2>
+      <p class="govuk-body">
+        For schools to claim this funding, mentors must have worked with trainees that started their ITT at some point in the 2024 to 2025 academic year (between 1 September 2024 and 31 August 2025).
       </p>
       <p class="govuk-body">
-        We will collect actual expenditure information from a sample of schools as part of the claim’s assurance process in August 2025.
+        A trainee can have 2 mentors, but the Department for Education (DfE) will only fund 1 of the mentors in this case.
       </p>
+      <p class="govuk-body">
+        ITT mentor funding is not available to schools if trainees are:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>doing ‘Assessment only’ training</li>
+        <li>high potential initial teacher training (HPITT) trainees</li>
+      </ul>
+      <h3 class="govuk-heading-m">
+        Trainees that defer or withdraw from ITT
+      </h3>
+      <p class="govuk-body">
+        A school can claim funding if a trainee:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>deferred in a previous academic year and then returns to their course in the 2024 to 2025 academic year for any amount of training</li>
+        <li>defers or withdraws after a mentor has started their training – the mentor can still continue with their mentor training</li>
+      </ul>
+      <p class="govuk-body">
+        A school cannot claim funding if a trainee withdraws or defers before a mentor starts their training.
+      </p>
+
+      <h2 class="govuk-heading-l" id="{{ sectionTitles[4] | slugify }}">
+        {{ sectionTitles[4] }}
+      </h2>
+      <p class="govuk-body">
+        Schools will be able to claim this funding at the end of the 2024 to 2025 academic year.
+      </p>
+      <p class="govuk-body">
+        To make a claim, schools will need to give evidence of:
+      </p>
+      <ul class="govuk-list govuk-list--bullet">
+        <li>ITT trainees that did placements at their school</li>
+        <li>the hours of mentor training each teacher did – this should come from the provider the mentor trained with</li>
+      </ul>
+      <p class="govuk-body">
+        Schools will not need this evidence upfront when they claim. The DfE may ask for it when checking claims. In some cases the DfE may ask for proof of employment of the mentors as well.
+      </p>
+      <p class="govuk-body">
+        After the 2024 to 2025 academic year, future funding for ITT mentor training will depend on Spending Reviews.
+      </p>
+
+
       {{ publishedDateHtml | safe }}
       {{ getEmailsAboutThisPageHtml | safe }}
       <p class="govuk-body-s">
