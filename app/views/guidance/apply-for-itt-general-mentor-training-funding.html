@@ -1,12 +1,12 @@
 
-{% set pageHeading = "Initial teacher training general mentor grant" %}
+{% set pageHeading = "Initial teacher training (ITT) mentor training funding for schools" %}
 {% set serviceName = false %}
 
 {% extends "layout.html" %}
 
 {% set publishedDateHtml %}
   <p class="govuk-body-s">
-    Published 1 September 2023
+    Published 10 January 2023
   </p>
 {% endset %}
 
@@ -42,12 +42,12 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <h1 class="govuk-heading-l">
+      <h1 class="govuk-heading-xl">
         <span class="govuk-caption-xl">Guidance</span>
         {{ pageHeading }}
       </h1>
       <p class="govuk-body-lead">
-        Placement schools working with initial teacher training (ITT) providers can claim funding to cover the costs associated with training a general mentor.
+        This funding is to help schools with the cost of training their teachers to be mentors to ITT trainees in the 2024 to 2025 academic year.
       </p>
     </div>
   </div>
@@ -67,11 +67,13 @@
     </div>
   </div>
 
+
   {% set sectionTitles = [
-    'What the funding is for',
-    'How to claim',
-    'Conditions of funding',
-    'Reporting and accountability'
+    'Overview',
+    'Amount of funding available to schools',
+    'Funding conditions relating to ITT mentors',
+    'Funding conditions relating to ITT trainees',
+    'Claiming ITT mentor training funding'
   ] %}
 
   <div class="govuk-grid-row">
@@ -91,132 +93,9 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <p class="govuk-body">
-        For the 2024 to 2025 school year, teachers who mentor a trainee teacher must complete up to 20 hours general mentor training with an ITT provider.
-      </p>
-      <p class="govuk-body">
-        The general mentor training grant is to support the costs of having general mentors train to meet the new ITT quality requirements.
-      </p>
-      <p class="govuk-body">
-        <a href="https://www.gov.uk/government/consultations/initial-teacher-training-itt-market-review" class="govuk-link">Read more about the changes to ITT</a>.
-      </p>
 
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[0] | slugify }}">{{ sectionTitles[0] }}</h2>
-      <p class="govuk-body">
-        This funding is to help schools with the cost of covering teacher’s time to participate in mentor training. Where it is not possible to give the time-off timetable to the teacher for mentor training, the schools must give the teacher time-off timetable at another time or pass the funding to the teacher.
-      </p>
-      <p class="govuk-body">
-        Schools can claim up to 20 hours per general mentor depending on your school’s location:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>Inner London — up to £1,072</li>
-        <li>Outer London — up to £965</li>
-        <li>Fringe — up to £902</li>
-        <li>Rest of England — up to £876</li>
-      </ul>
-      <p class="govuk-body">
-        Your maximum claim is based on the:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>hours of training a teacher completed</li>
-        <li>cost incurred in covering the teacher’s time away from lessons</li>
-        <li>amount given to the teacher where time away from lessons was not possible</li>
-      </ul>
-      <p class="govuk-body">
-        This is available to all schools that host trainee teachers, including independent schools.
-      </p>
-      <p class="govuk-body">
-        The grant cannot be spent on:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>teachers that train to become a general mentor without a trainee to mentor</li>
-        <li>travel</li>
-        <li>expenses</li>
-        <li>
-          cover for teachers to train that is already paid for by someone else (for example, the ITT provider)
-        </li>
-      </ul>
+      {% include "../_includes/guidance/general-mentor.html" %}
 
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[1] | slugify }}">{{ sectionTitles[1] }}</h2>
-      <p class="govuk-body">
-        To make a claim you will need:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          the name of school you are claiming on behalf of
-        </li>
-        <li>
-          the name, birth date and teacher reference number (TRN) of teachers who took part in training
-        </li>
-        <li>
-          the hours of training completed by each teacher
-        </li>
-        <li>
-          the amount you want to claim for
-        </li>
-        <li>
-          confirmation that each teacher you are claiming for mentored at least one different trainee each
-        </li>
-      </ul>
-      <p class="govuk-body">
-        If the teacher does not know their TRN, they can use the <a href="#" class="govuk-link">Find a lost TRN</a> service.
-      </p>
-      <p class="govuk-body">
-        You will need to keep and provide when requested evidence of:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>the identity of staff attending general mentor training</li>
-        <li>timetables that show when a teacher attended training and needed cover, if applicable</li>
-        <li>timetables that show when a teacher was given time-off timetable at another time and needed cover, if applicable</li>
-        <li>transfer of money to the teacher where training was done in their own time, if applicable</li>
-        <li>hours of attending training. For example, provider certificates or registers</li>
-      </ul>
-      {{ govukButton({
-        text: "Start now",
-        href: "/general-mentor-grant/v2/sign-in",
-        isStartButton: true
-      }) }}
-      <p class="govuk-body">
-        Claims will be paid between September and October 2025.
-      </p>
-      <h3 class="govuk-heading-s">
-        Payment for independent schools
-      </h3>
-      <p class="govuk-body">
-        If your school is not an academy or does not belong to a local
-        authority, you will need to provide payment information.
-        <a href="https://www.gov.uk/guidance/provide-information-about-your-banking-and-payments-to-dfe">
-          How to provide information about your banking and payments</a>.
-      </p>
-
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[2] | slugify }}">{{ sectionTitles[2] }}</h2>
-      <p class="govuk-body">
-        Funding is to support all time teachers spend training. Including face-to-face training with the provider and learning the mentor does in their own.
-      </p>
-      <p class="govuk-body">
-        Each general mentor must mentor at least 1 trainee each in 2024/25. Only trainees that start in or after the 2024/25 school year count towards this. For example, if a trainee had 2 general mentors and neither of those mentors worked with another trainee who started in 2024/25. The school could only claim for 1 general mentor’s training.
-      </p>
-      <p class="govuk-body">
-        This grant is subject to conditions set out in <a href="https://assets.publishing.service.gov.uk/government/uploads/system/uploads/attachment_data/file/975812/DfE_GFA_T_Cs_2021_.pdf" class="govuk-link">the DfE’s standard grant terms and conditions</a>.
-      </p>
-      <p class="govuk-body">
-        If an ITT trainee withdraws or defers:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          before a teacher starts their general mentor training, the school cannot claim any funding
-        </li>
-        <li>
-          after a teacher has started their general mentor training, the school can claim up to the full amount
-        </li>
-      </ul>
-      <h2 class="govuk-heading-m" id="{{ sectionTitles[3] | slugify }}">{{ sectionTitles[3] }}</h2>
-      <p class="govuk-body">
-        Schools who choose to spend grant funding on ineligible activities will be liable for a grant clawback and this could impact their eligibility for any future grants.
-      </p>
-      <p class="govuk-body">
-        We will collect actual expenditure information from a sample of schools as part of the claim’s assurance process in August 2025.
-      </p>
       {{ publishedDateHtml | safe }}
       {{ getEmailsAboutThisPageHtml | safe }}
       <p class="govuk-body-s">
