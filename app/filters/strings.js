@@ -1,5 +1,7 @@
 const string = require('string')
-const _      = require('lodash');
+const _      = require('lodash')
+const { marked } = require('marked')
+const GovukHTMLRenderer = require('govuk-markdown')
 
 var filters = {}
 
@@ -130,6 +132,35 @@ filters.possessive = (noun) => {
 filters.split = (string, separator) => {
   if (!string || typeof string != "string") return
   else return string.split(separator)
+}
+
+// Format text using markdown
+// Documentation at https://marked.js.org/
+filters.markdown = (input, params = {}) => {
+
+  marked.setOptions({
+    renderer: new GovukHTMLRenderer(),
+    headerIds: true,
+    headingsStartWith: params.headingsStartWith ?? 'xl',
+    smartypants: true
+  })
+
+  // Offset headings - useful where embedded content
+  // needs to start at h2 rather than h1
+  // https://marked.js.org/using_pro#walk-tokens
+  let headingOffset = params.headingOffset ?? 0
+  const walkTokens = (token) => {
+    if (token.type === 'heading') {
+      token.depth += headingOffset;
+    }
+  }
+
+  marked.use({ walkTokens })
+
+  if (input) return marked(input)
+  else {
+    console.log("Error with markdown: no input given")
+  }
 }
 
 exports.filters = filters
