@@ -1,12 +1,12 @@
 
-{% set pageHeading = "Claim ITT intensive training and practice grant" %}
+{% set pageHeading = "Initial teacher training (ITT) intensive training and practice funding for accredited training providers" %}
 {% set serviceName = false %}
 
 {% extends "layout.html" %}
 
 {% set publishedDateHtml %}
   <p class="govuk-body-s">
-    Published 1 September 2022
+    Published 10 January 2023
   </p>
 {% endset %}
 
@@ -47,8 +47,7 @@
         {{ pageHeading }}
       </h1>
       <p class="govuk-body-lead">
-        Conditions of funding and how to sign-up for the
-        intensive training and practice grant.
+        This funding is for accredited training providers to help pay for the time needed from teaching experts to create and deliver the new intensive training and practice programme for ITT trainees.
       </p>
     </div>
   </div>
@@ -68,11 +67,13 @@
     </div>
   </div>
 
+
   {% set sectionTitles = [
-    "Funding available",
-    "Conditions of funding",
-    "Evidence of activity and cost",
-    "How to claim"
+    'Overview',
+    'Amount of funding available to schools',
+    'Funding conditions relating to ITT mentors',
+    'Funding conditions relating to ITT trainees',
+    'Claiming ITT mentor training funding'
   ] %}
 
   <div class="govuk-grid-row">
@@ -92,142 +93,38 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <p class="govuk-body">
-        This funding stream is to help providers and schools with the
-        costs of delivering the new intensive training and practice
-        requirement. This funding is designed to support the costs of
-        both group and individual expert time as well as the
-        administrative costs of organising this activity.
+
+      {% include "../_includes/guidance/itp.html" %}
+
+      {{ publishedDateHtml | safe }}
+      {{ getEmailsAboutThisPageHtml | safe }}
+      <p class="govuk-body-s">
+        <a href="#contents" class="govuk-link govuk-link--no-visited-state">↑ Contents</a>
       </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[0] | slugify }}">
-        {{ sectionTitles[0] }}
+      <a class="app-govuk-notification-button" href="#">
+        Print this page
+      </a>
+      <hr class="app-govuk-blue-divider">
+      <h2 class="govuk-heading-s">
+        Explore this topic
       </h2>
-      <h4 class="govuk-heading-s">
-        Postgraduate trainees
-      </h4>
-      <p class="govuk-body">
-        Up to £204 per trainee for:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
+      <ul class="govuk-list">
         <li>
-          4 weeks of training during the 2024 to 2025 academic year
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Initial Teacher Training (ITT)
+          </a>
         </li>
         <li>
-          trainees who started in the 2024 to 2025 academic year
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Apply for lead mentor funding
+          </a>
         </li>
         <li>
-          trainees registered at the time of the ITT October census
-          2024
-        </li>
-      </ul>
-      <h4 class="govuk-heading-s">
-        Undergraduate trainees
-      </h4>
-      <p class="govuk-body">
-        Up to £298 per trainee for:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          up to 6 weeks of training during the 2024 to 2025 academic
-          year
-        </li>
-        <li>
-          trainees who started in the 2024 to 2025 academic year
-        </li>
-        <li>
-          trainees registered at the time of the ITT October census
-          2024
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Apply for intensive training and practice funding
+          </a>
         </li>
       </ul>
-      <p class="govuk-body">
-        Providers must prioritise sharing this funding with placement
-        schools where activity is school-based or utilises
-        school-based staff.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[1] | slugify }}">
-        {{ sectionTitles[1] }}
-      </h2>
-      <p class="govuk-body">
-        The funding is available to providers who:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          have passed stage 2 of the accreditation process
-        </li>
-        <li>
-          provide evidence of costs when claiming funding
-        </li>
-        <li>
-          sign the grant funding agreement
-        </li>
-      </ul>
-      <p class="govuk-body">
-        Providers must prioritise sharing this funding with placement
-        schools where activity is school-based or utilises
-        school-based staff.
-      </p>
-      <p class="govuk-body">
-        Funding is available for all activity from 1 April 2024 to 31 July 2025.
-      </p>
-       <h2 class="govuk-heading-l" id="{{ sectionTitles[2] | slugify }}">
-        {{ sectionTitles[2] }}
-      </h2>
-      <p class="govuk-body">
-        When you claim funding you will need to provide evidence of cost incurred as a result of intensive training and practice, this evidence will need to cover the full cost of funding you are claiming for.
-      </p>
-      <p class="govuk-body">
-        Types of evidence can be:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          contracts of staff employed to provide training or organise the placements
-        </li>
-        <li>
-          cost to hire venues
-        </li>
-        <li>
-          other costs to develop materials
-        </li>
-      </ul>
-      <p class="govuk-body">
-        You will also need to provide evidence of trainees attending Intensive training and practise, in line with the number of trainees you have claimed against in the form.
-      </p>
-      <p class="govuk-body">
-        Types of evidence can be:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          registers
-        </li>
-        <li>
-          timetable evidence
-        </li>
-      </ul>
-      <p class="govuk-body">
-        As part of the grant funding agreement, the DfE will request
-        evidence from a sample of ITT providers during the 2024 to
-        2025 academic year. You will have 30 days to submit evidence
-        when requested.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[3] | slugify }}">
-        {{ sectionTitles[3] }}
-      </h2>
-      {{ govukButton({
-        text: "Start now",
-        href: "/itp-grant/sign-in",
-        isStartButton: true
-      }) }}
-      <p class="govuk-body">
-        Send the signed agreement to 
-        {{ appDefaultEmail({ 
-            subject: "Return ITT provider grant agreement"
-        }) }}
-      </p>
-      <p class="govuk-body">
-        You will then be contacted after 31 July 2025 with details of
-        how to submit your claim.
-      </p>
     </div>
   </div>
 {% endblock %}
-s
