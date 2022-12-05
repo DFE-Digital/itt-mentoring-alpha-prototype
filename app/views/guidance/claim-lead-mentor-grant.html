@@ -1,12 +1,12 @@
 
-{% set pageHeading = "Claim ITT lead mentor grant" %}
+{% set pageHeading = "Initial teacher training (ITT): funding for accredited training providers to use for lead mentors" %}
 {% set serviceName = false %}
 
 {% extends "layout.html" %}
 
 {% set publishedDateHtml %}
   <p class="govuk-body-s">
-    Published 1 September 2022
+    Published 10 January 2023
   </p>
 {% endset %}
 
@@ -47,8 +47,7 @@
         {{ pageHeading }}
       </h1>
       <p class="govuk-body-lead">
-        Conditions of funding and how to sign-up for the
-        lead mentor grant.
+        This funding is to help accredited training providers with the cost of introducing the lead mentor role at their organisation in the 2024 to 2025 academic year.
       </p>
     </div>
   </div>
@@ -68,12 +67,12 @@
     </div>
   </div>
 
+
   {% set sectionTitles = [
-    "Minimum training",
-    "Funding available",
-    "Conditions of funding",
-    "Evidence of activity and cost",
-    "How to claim"
+    'Overview',
+    'Amount of funding available to training providers',
+    'Claiming lead mentor funding',
+    'Funding conditions relating to lead mentors'
   ] %}
 
   <div class="govuk-grid-row">
@@ -93,231 +92,38 @@
   </div>
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <p class="govuk-body">
-        This is a funding is available to providers to support
-        the costs associated with introducing the lead mentor role.
-        This funding is designed to help providers with the cost for
-        placement schools or themselves of the staff time needed to
-        cover these new lead mentor duties.
+
+      {% include "../_includes/guidance/lead-mentor.html" %}
+
+      {{ publishedDateHtml | safe }}
+      {{ getEmailsAboutThisPageHtml | safe }}
+      <p class="govuk-body-s">
+        <a href="#contents" class="govuk-link govuk-link--no-visited-state">↑ Contents</a>
       </p>
-      <p class="govuk-body">
-        Read more about the duties and responsibilities of a 
-        lead mentor in the <a href="#" class="govuk-link app-nowrap">
-        ITT Criteria 2024 to 2025</a>.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[0] | slugify }}">
-        {{ sectionTitles[0] }}
+      <a class="app-govuk-notification-button" href="#">
+        Print this page
+      </a>
+      <hr class="app-govuk-blue-divider">
+      <h2 class="govuk-heading-s">
+        Explore this topic
       </h2>
-      <p class="govuk-body">
-        The minimum expectation is that a lead mentor will spend 
-        30 hours in training activities during the 2024 to 2025 
-        academic year. 
-      </p>
-      <p class="govuk-body">
-        As set out in C2.3 of the 
-        <a href="#" class="govuk-link app-nowrap">
-        ITT Criteria 2024 to 2025</a>, you must be able to 
-        demonstrate that each of your lead mentors have been trained
-        in all areas of your 30 hour lead mentor training curriculum.
-      </p>
-      <p class="govuk-body">
-        To prevent unnecessary repetition of training, you may
-        take into account lead mentors’ prior learning. For example,
-        a lead mentor that has recently completed a training course
-        covering skills included in the lead mentor training
-        curriculum or that has had close involvement in designing the
-        mentor (or trainee) training curricula may not be required to
-        undergo the full 30 hours of training.
-      </p>
-      <p class="govuk-body">
-        Mentors with significant previous experience of mentoring or
-        otherwise developing others may also be able to evidence
-        understanding of certain aspects of the provider’s mentor
-        training curriculum, in which case they may be exempted from
-        training on these aspects. This should not be based on a
-        self-audit by the lead mentor. Providers are expected to have
-        examples of how the mentor has frequently made use of the
-        relevant mentoring approach in recent years.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[1] | slugify }}">
-        {{ sectionTitles[1] }}
-      </h2>
-      <p class="govuk-body">
-        For every 25 trainees training at time of the ITT census in
-        October 2024, providers can claim up to £9,514.
-      </p>
-      <h3 class="govuk-heading-m">
-        How to calculate the trainee to lead mentor ratio
-      </h3>
-      <p class="govuk-body">
-        There is not a required ratio for lead mentors to trainees. For the purpose of calculating funding, providers will be able to claim funding for 1 lead mentor to a minimum of 25 trainees.
-      </p>
-      <p class="govuk-body">
-        All trainees on routes that lead to QTS (except Assessment only) included in the October 2024 ITT census count towards this ratio. Including trainees on undergraduate and part time trainees.
-      </p>
-      <p class="govuk-body">
-        Providers that have fewer than 25 trainees can claim up to
-        £9,514.
-      </p>
-      {{ govukTable({
-        caption: "Trainee to lead mentor ratio",
-        captionClasses: "govuk-table__caption--s",
-        firstCellIsHeader: false,
-        head: [
-          {
-            text: "Trainees"
-          },
-          {
-            text: "Lead mentors you can claim for",
-            format: "numeric"
-          },
-          {
-            text: "Max claim",
-            format: "numeric"
-          }
-        ],
-        rows: [
-          [
-            {
-              text: "1 to 49"
-            },
-            {
-              text: "1",
-              format: "numeric"
-            },
-            {
-              text: (1 * 9514) | currency,
-              format: "numeric"
-            }
-          ],
-          [
-            {
-              text: "50 to 74"
-            },
-            {
-              text: "2",
-              format: "numeric"
-            },
-            {
-              text: (2 * 9514) | currency,
-              format: "numeric"
-            }
-          ],
-          [
-            {
-              text: "75 to 99"
-            },
-            {
-              text: "3",
-              format: "numeric"
-            },
-            {
-              text: (3 * 9514) | currency,
-              format: "numeric"
-            }
-          ],
-          [
-            {
-              text: "100 to 124"
-            },
-            {
-              text: "4",
-              format: "numeric"
-            },
-            {
-              text: (4 * 9514) | currency,
-              format: "numeric"
-            }
-          ],
-          [
-            {
-              text: "125 to 149"
-            },
-            {
-              text: "5",
-              format: "numeric"
-            },
-            {
-              text: (5 * 9514) | currency,
-              format: "numeric"
-            }
-          ]
-        ]
-      }) }}
-      <p class="govuk-body">
-        Providers must pass funding onto schools if the lead mentor is
-        employed by a school and taking time away from their school 
-        activities.
-      </p>
-      <p class="govuk-body">
-        Funding is available for all activity from 1 August 2024 to 31 July 2025.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[2] | slugify }}">
-        {{ sectionTitles[2] }}
-      </h2>
-      <p class="govuk-body">
-        The funding is available to providers who:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
+      <ul class="govuk-list">
         <li>
-          have passed stage 2 of the accreditation process
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Initial Teacher Training (ITT)
+          </a>
         </li>
         <li>
-          provide evidence of costs when claiming funding
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Apply for lead mentor funding
+          </a>
         </li>
         <li>
-          sign the grant funding agreement
+          <a href="#" class="govuk-link govuk-link--no-visited-state govuk-!-font-weight-bold">
+            Apply for intensive training and practice funding
+          </a>
         </li>
       </ul>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[3] | slugify }}">
-        {{ sectionTitles[3] }}
-      </h2>
-      <p class="govuk-body">
-        When you claim funding you will need to provide evidence of 
-        the cost of lead mentor training time.
-      </p>
-      <p class="govuk-body">
-        You must keep a record of time spent on mentoring
-        activity and a log of the individuals they have supported.
-      </p>
-      <p class="govuk-body">
-        Further evidence of activity can include:
-      </p>
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          timetable evidence which shows when a mentor attended training,
-          provided training or spent time with general mentors
-        </li>
-        <li>
-          contracts of staff employed to fulfil the lead mentor role
-        </li>
-        <li>
-          transfer of funds to schools, where appropriate
-        </li>
-      </ul>
-      <p class="govuk-body">
-        As part of the grant funding agreement, the DfE will request
-        evidence from a sample of ITT providers in February 2025.
-        You will have 30 days to submit evidence when requested.
-      </p>
-      <h2 class="govuk-heading-l" id="{{ sectionTitles[4] | slugify }}">
-        {{ sectionTitles[4] }}
-      </h2>
-      {{ govukButton({
-        text: "Start now",
-        href: "/lead-mentor-grant/sign-in",
-        isStartButton: true
-      }) }}
-      <p class="govuk-body">
-        Send the signed agreement to 
-        {{ appDefaultEmail({ 
-            subject: "Return ITT provider grant agreement"
-        }) }}
-      </p>
-      <p class="govuk-body">
-        You will then be contacted after 31 July 2025 with details of
-        how to submit your claim.
-      </p>
     </div>
   </div>
 {% endblock %}
