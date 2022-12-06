@@ -104,26 +104,28 @@
     {% endif %}
   {% endfor %}
 
-  <h2 class="govuk-heading-m">
-    Claim amount
-  </h2>
-  {% set claimSection = data.generalMentorTaskList.claimAmount %}
-  {% if claimSection.status == "Completed" %}
-    {% include "_includes/summary-cards/claim-amount.html" %}
-  {% else %}
-    <div class="govuk-inset-text">
-      <p class="govuk-body">
-        Claim amount section — {{ claimSection.status | startLowerCase }}.
-      </p>
-      {% if claimSection.status != "Cannot start yet" %}
+  <!--
+    <h2 class="govuk-heading-m">
+      Claim amount
+    </h2>
+    {% set claimSection = data.generalMentorTaskList.claimAmount %}
+    {% if claimSection.status == "Completed" %}
+      {% include "_includes/summary-cards/claim-amount.html" %}
+    {% else %}
+      <div class="govuk-inset-text">
         <p class="govuk-body">
-          <a href="{{ claimSection.href }}" class="govuk-link">
-            {{ "Continue" if claimSection.status == "In progress" else "Start" }} section
-          </a>
+          Claim amount section — {{ claimSection.status | startLowerCase }}.
         </p>
-      {% endif %}
-    </div>
-  {% endif %}
+        {% if claimSection.status != "Cannot start yet" %}
+          <p class="govuk-body">
+            <a href="{{ claimSection.href }}" class="govuk-link">
+              {{ "Continue" if claimSection.status == "In progress" else "Start" }} section
+            </a>
+          </p>
+        {% endif %}
+      </div>
+    {% endif %}
+  -->
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
