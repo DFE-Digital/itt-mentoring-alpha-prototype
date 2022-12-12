@@ -1,78 +1,124 @@
+  {% set tableBodyRows = [] %}
+  {% set maxTrainees = 0 %}
+  {% for i in range(1, 11) %}
+    {% set traineeCellText %}
+      <span class="app-nowrap">
+        {% if loop.first %}
+          1 to 39
+        {% else %}
+          {{ (25 * loop.index) - 10 }} to {{ ((25 * loop.index) - 10) + 24 }}
+        {% endif %}
+      </span>
+    {% endset %}
+    {% set row = [
+        { text: traineeCellText | safe },
+        { text: (i * 9514) | currency,
+          format: "numeric" },
+        { text: (i * 5714) | currency,
+          format: "numeric" },
+        { text: i,
+          format: "numeric" }
+      ] %}
+      {% set maxTrainees = ((25 * loop.index) - 10) + 24 %}
+    {% set tableBodyRows = tableBodyRows | push(row) %}
+  {% endfor %}
+  
 {% set contentMd %}
 
   ## Overview
 
-  Lead mentors are an important part of ITT by being experts in their subject areas and giving support to ITT trainees and the mentors working with them.
+  Lead mentors are an important part of ITT by being experts in their subject areas and having a deep knowledge of the training curriculum so they can give support to ITT trainees and the mentors working with them.
 
-  In the 2024 to 2025 academic year, a lead mentor (or each person in a lead mentorship team) will need to do up to 30 hours of initial lead mentor training. Accredited training providers will be able to claim funding to help with the cost of lead mentors taking the time they need to train and carry out their new role. 
+  Accredited training providers will be able to claim funding to help with the cost of lead mentors taking the time they need to train and carry out their role. Providers can start claiming this funding in the 2024 to 2025 academic year.
 
   Funding is also available to help:
 
   - schools pay for teachers [training to be ITT mentors](../guidance/apply-for-itt-general-mentor-training-funding)
-  - accredited training providers create and deliver the new [intensive training and practice programme](../guidance/claim-itp-grant) for ITT trainees
+  - accredited training providers create and deliver the new [intensive training and practice element](../guidance/claim-itp-grant) for ITT courses
 
   ## Amount of funding available to training providers
 
-  In the 2024 to 2025 academic year, training providers can claim up to £9,514 for every 1 lead mentor to 25 trainees (a ratio of 1:25). 
+  The amount of funding training providers can claim is different if lead mentors are responsible for postgraduate trainees or undergraduate trainees. This is because over a 3 or 4 year undergraduate course, a lead mentor might spread their workload over those years compared to a lead mentor responsible for postgraduates on a 1 year course.
 
-  £9,514 is 1 unit of funding. 
-  
-  For example, a training provider can claim:
+  ### Postgraduate trainees
 
-  - £9,514 for 1 lead mentor to 25 trainees (1 unit of funding)
-  - £9,514 for 1 lead mentor to 50 trainees (1 unit of funding)
-  - £19,028 for 2 lead mentors to 50 trainees (2 units of funding)
- 
+  In the 2024 to 2025 academic year, training providers can claim up to £9,514 for every 1 lead mentor to 25 postgraduate trainees (a ratio of 1:25). £9,514 is 1 unit of funding.
 
-  If training providers have less than 25 trainees, they can claim £9,514 (1 unit of funding) overall.
+  There is no limit on the number of lead mentors to postgraduate trainees a training provider can claim for within this ratio.
 
-  There is no limit to the number of lead mentors to trainees a training provider can claim for. The Department for Education (DfE) will calculate how much funding providers can get depending on how close their trainee numbers are to multiples of 25. This is so providers are not disadvantaged by having large numbers of trainees or trainee numbers that cannot be neatly divided by multiples of 25.
+  As an example of the 1:25 ratio, training providers can claim:
 
-  The table shows an example of how this can work up to 114 trainees. 
+  - £9,514 for 1 lead mentor to 25 postgraduate trainees (1 unit of funding)
+  - £9,514 for 1 lead mentor to 50 trainees (1 unit of funding – because of the 1:25 ratio, to get 2 units of funding you would need 2 lead mentors to 50 trainees)
+  - £76,112 for 8 lead mentors to 200 trainees (8 units of funding)
 
-  | Number of trainees | Maximum amount of funding available | Units of funding |
-  |:-------------------|------------------------------------:|-----------------:|
-  | 1 to 39 trainees   |                              £9,515 |                1 |
-  | 40 to 64 trainees  |                             £19,028 |                2 |
-  | 65 to 89 trainees  |                             £28,542 |                3 |
-  | 90 to 114 trainees |                             £38,056 |                4 |
+  If training providers have less than 25 postgraduate trainees, they can claim £9,514 (1 unit of funding) overall.
 
+  ### Undergraduate trainees
+
+  For undergraduate trainees starting in the 2024 to 2025 academic year, training providers can claim up to £5,710 for every 1 lead mentor to 25 undergraduate trainees (a ratio of 1:25).
+
+  There is no limit on the number of lead mentors to undergraduate trainees a training provider can claim for within this ratio.
+
+  As an example of the 1:25 ratio, training providers can claim:
+
+  - £5,710 for 1 lead mentor to 25 undergraduate trainees (1 unit of funding)
+  - £5,710 for 1 lead mentor to 50 trainees (1 unit of funding – because of the 1:25 ratio, to get 2 units of funding you would need 2 lead mentors to 50 trainees)
+  - £45,680 for 8 lead mentors to 200 trainees (8 units of funding)
+
+  ### Trainee numbers that do not fit into the 1:25 ratio
+
+  If trainee numbers cannot be neatly divided by multiples of 25, the DfE will still provide this funding depending on how close trainee numbers are to the cut off of each unit of funding.
+
+  The table shows an example of how this works up to {{ maxTrainees }} trainees, but there’s no limit on the number of lead mentors to trainees providers can claim for.
+
+  {{ govukTable({
+    caption: "Amounts providers can claim for lead mentors",
+    captionClasses: "govuk-table__caption--m",
+    head: [
+      {
+        text: "Trainees"
+      },
+      {
+        text: "Maximum amount of funding available for postgraduate trainees"
+      },
+      {
+        text: "Maximum amount of funding available for undergraduate trainees"
+      },
+      {
+        text: "Units of funding"
+      }
+    ],
+    rows: tableBodyRows
+  }) }}
+
+  In 2024, the DfE will review this funding and communicate to training providers about if this funding will continue after the 2024 to 2025 academic year.
 
   ## Claiming lead mentor funding
 
-  Training providers will be able to claim funding for the lead mentor role at the end of the 2024 to 2025 academic year as long as all their ITT trainees are [registered with the Department for Education (DfE)](https://www.register-trainee-teachers.service.gov.uk).
+  Training providers will be able to claim funding for the lead mentor role at the end of the 2024 to 2025 academic year. A provider’s ITT trainees must all be [registered with the Department for Education (DfE)](https://www.register-trainee-teachers.service.gov.uk) by the end of the 2024 to 2025 academic year to claim this funding.
 
-  Training providers will be paid between September 2025 and January 2026.
+  Payments will be made between September 2025 and January 2026.
 
-  When training providers make a claim, their trainee registration data will be checked to make sure the number of trainees that started their training is accurate. The DfE may ask for further evidence if needed.
-
-  In 2024, the DfE will communicate to training providers about whether this funding will continue after the 2024 to 2025 academic year.
+  When training providers make a claim, their trainee registration data will be checked to make sure the number of trainees that started their training is accurate. The DfE will need evidence when the provider claims. Providers will be given more details closer to the time.
 
   ## Funding conditions relating to lead mentors
 
-  Lead mentors can do their 30 hours of initial lead mentor training between 6 April 2024 and 31 July 2025.
-
-  Training providers can decide on the amount of time a lead mentor spends in initial training. They can do less than 30 hours if they have relevant experience. For example, if a lead mentor has done their national professional qualification (NPQ).
-
-  If lead mentors intend to do the full 30 hours of initial training but do not finish, they can complete it in following academic years if they still intend to be lead mentors.
-
   ### Lead mentors who are employed by schools
 
-  Some lead mentors can be employed by a school (school-based) and not employed by a training provider. In these cases, training providers must give any funding they receive for lead mentors to the school.
+  Lead mentors can be employed by a school (school-based) and not employed by a training provider. In these cases, training providers should decide how much funding for lead mentors they give to the school in a way that’s fair.
 
-  Training providers can decide how much funding they give to a school in a way that’s fair to both the school and training provider. If training providers decide not to give funding to a school, they’ll need to give a reason for this when they make a claim.
+  If training providers decide not to give funding to a school, they’ll need to give a reason for this when they make a claim.
 
   ### Lead mentors cannot continue with their role
 
   If a lead mentor starts but then cannot continue with their role as a lead mentor, training providers can still include them in the 1:25 ratio when they claim funding.
 
-  If a lead mentor gets replaced by a new one, training providers will not be able to claim funding for the new lead mentor.
-
   ### Funding conditions relating to ITT trainees
 
-  This funding is not available if a lead mentor is only responsible for high potential initial teacher training (HPITT) trainees. Funding also cannot be claimed for trainees doing ‘Assessment only’ training. 
+  Training providers cannot include any high potential initial teacher training (HPITT) trainees in the 1:25 ratio to claim this funding. Funding also cannot be claimed for trainees doing ‘Assessment only’ programmes.
 
-  Funding can be claimed for trainees:
+  Trainees that can be included in the 1:25 ratio are trainees:
 
   - that started their training at any time between 1 August 2024 and 31 July 2025
   - on undergraduate or postgraduate courses
@@ -81,12 +127,10 @@
 
   ### Trainees that defer or withdraw from ITT
 
-  Depending on when a trainee defers or withdraws from their ITT, they can still count towards the 1:25 ratio for lead mentor funding. Training providers can claim funding if a trainee: 
+  Depending on when a trainee defers or withdraws from their ITT, they can still count towards the 1:25 ratio for lead mentor funding. Trainees will be included in the 1:25 ratio if they:
 
   - deferred in a previous academic year and then returns to their ITT in the 2024 to 2025 academic year for any amount of training
-  - defers or withdraws after a lead mentor has started their initial training – the lead mentor can still continue with their training
-
-  Training providers cannot claim funding if a trainee withdraws or defers before a lead mentor starts their initial training.
+  - start their training in the 2024 to 2025 academic year, but then defer or withdraw later in the year
 
 {% endset %}
 
